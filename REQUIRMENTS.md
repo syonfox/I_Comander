@@ -58,6 +58,7 @@ A mini version available in the field for managing missions:
 
 - MUST track pilot hours
 - Show a cool video game character when &quot;ready to fly&quot;
+- Interface should be fun and engaging for the user. For example use animations. Use a swipe action instead of a check box to promote user encouragement instead of blindly checking all of the boxes without reading.
 
 **Extra but not critical Requirements**
 
