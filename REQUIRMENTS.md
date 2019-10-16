@@ -61,4 +61,5 @@ A mini version available in the field for managing missions:
 
 **Extra but not critical Requirements**
 
-Gear Checklists: checklists which are completed prior to leaving base or the field as opposed to mission specific checklists. Design with this add on in mind.
+- Gear Checklists: checklists which are completed prior to leaving base or the field as opposed to mission specific checklists. Design with this add on in mind.
+- Store regulatory documentation: allow the user to upload PDF documents related to insurance and licensing through the admin interface. Allow the user to name these documents. From the mobile app allow the user to access these documents in case they are required by officials such as police or wildlife officers.  So there would be a section in the app called "Licensing Docs" or something like that and when the user went to that area they would get a list of documents which they could display on screen.
