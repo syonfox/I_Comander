@@ -16,7 +16,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-//    "start": "node server.js",
     "start": "gulp && concurrently --kill-others \"gulp watch\" \"node server.js\""
   },
   "author": "",
