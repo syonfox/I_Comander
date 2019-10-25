@@ -9,9 +9,7 @@
     "fs": "^0.0.1-security"
   },
   "devDependencies": {
-    "concurrently": "^3.5.1",
     "del": "^3.0.0",
-    "gulp": "^4.0.0",
     "workbox-build": "^3.5.0"
   },
   "scripts": {
