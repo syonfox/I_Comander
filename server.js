@@ -90,10 +90,20 @@ app.post('/api/delete', (req, res) => {
   });
 });
 
-const server = app.listen(8081, () => {
+
+const port = (process.env.port || 8080)
+const server = app.listen(port , () => {
 
   const host = server.address().address;
   const port = server.address().port;
 
-  console.log('App listening at http://%s:%s', host, port);
+  console.log('App listening at http://%s:%s  XD', host, port);
 });
+
+// const server = app.listen(8081, () => {
+//
+//   const host = server.address().address;
+//   const port = server.address().port;
+//
+//   console.log('App listening at http://%s:%s', host, port);
+// });
