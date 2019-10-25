@@ -19,7 +19,7 @@ const fs = require('fs');
 const app = express();
 
 // This serves static files from the specified directory
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '/app'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
