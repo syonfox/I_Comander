@@ -55,9 +55,9 @@ const app = express();
 
 app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
-  resave: false,
-  saveUninitialized: false
-}))
+  saveUninitialized: false,
+  resave: false
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -102,7 +102,11 @@ app.get('/login',
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/kier_test.html' }),
   function(req, res) {
-    res.redirect('/kier_secret.html');
+  //https://github.com/jaredhanson/passport/issues/482#issuecomment-230594566
+  //https://github.com/jaredhanson/passport/issues/482#issuecomment-306021047
+    req.session.save(()=> {
+      res.redirect('/kier_secret.html');
+    });
   });
 
 app.get('/logout',
