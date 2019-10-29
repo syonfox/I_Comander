@@ -16,7 +16,30 @@ limitations under the License.
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const session = require('express-session'); //used to save the session so that the user stays loged in
+var passport = require('passport'); //authentication lib
+
+var db = require('./db'); //The folder when users are stored.
+
+const auth = require('./auth')
+auth.initialize(
+  passport,
+  db.users.findByUsername,
+  db.users.findById
+);
+
 const app = express();
+
+app.set('view engine', 'ejs');
+
+app.use(session({
+  secret: "unsecureSecret",//we need to put this in an env var.
+  saveUninitialized: false,
+  resave: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // This serves static files from the specified directory
 app.use(express.static(__dirname + '/app'));
@@ -28,7 +51,71 @@ app.get(['/', '/index.html'], (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+
+app.get('/api/kier_secret', async (req, res) => {
+      console.log();
+      // console.log(user);
+      let isAuth = await req.isAuthenticated();
+      console.log(isAuth);
+      if(isAuth) {
+        let options = {
+          root: __dirname + '/server-data/'
+        };
+
+        const fileName = 'kier_secret.json';
+        res.sendFile(fileName, options, (err) => {
+          if (err) {
+            res.sendStatus(500);
+            return;
+          }
+        });
+      } else {
+        r = [{ 'data': 'UNATHORIZED'}];
+        res.send(JSON.stringify(r));
+      }
+
+});
+
+app.get('/profile', auth.checkAuthenticated, (req, res)=> {
+
+  console.log(req.user);
+  r = {
+    'user': req.user
+  };
+  res.render('profile.ejs', r);
+
+});
+
+
+app.get('/login',
+  function(req, res){
+    res.sendFile(__dirname + '/app/kier_test.html');
+});
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/kier_test.html' }),
+  function(req, res) {
+  console.log(req.isAuthenticated);
+  //https://github.com/jaredhanson/passport/issues/482#issuecomment-230594566
+  //https://github.com/jaredhanson/passport/issues/482#issuecomment-306021047
+    req.session.save(()=> {
+
+      res.redirect('/kier_secret.html');
+    });
+  });
+
+app.get('/logout',
+  function(req, res){
+    req.logout();
+    res.redirect('/kier_test.html');
+});
+
+// // Endpoint to serve the configuration file // for Auth0
+// app.get("/auth_config.json", (req, res) => {
+//   res.sendFile(join(__dirname, "auth_config.json"));
+// });
+
 app.get('/api/getAll', (req, res) => {
+
   let options = {
     root: __dirname + '/server-data/'
   };
@@ -100,10 +187,3 @@ const server = app.listen(port , () => {
   console.log('App listening at http://%s:%s  XD', host, port);
 });
 
-// const server = app.listen(8081, () => {
-//
-//   const host = server.address().address;
-//   const port = server.address().port;
-//
-//   console.log('App listening at http://%s:%s', host, port);
-// });

@@ -15,9 +15,50 @@ limitations under the License.
 */
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox-sw.js');
 
+
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
-  workbox.precaching.precacheAndRoute([]);
+  workbox.precaching.precacheAndRoute([
+    'style/main.css',
+    'index.html',
+    'js/idb-promised.js',
+    'js/main.js',
+    'images/**/*.*',
+    'manifest.json'
+  ]);
+
+
+  workbox.routing.registerRoute(
+       /\/api\/kier_secret$/,
+       new workbox.strategies.NetworkFirst( {
+         cacheName: 'data-cache',
+       })
+  );
+   workbox.routing.registerRoute(
+       /\.html$/,
+       new workbox.strategies.NetworkFirst( {
+         cacheName: 'html-cache',
+       })
+  );
+  workbox.routing.registerRoute(
+       /\.css$/,
+       new workbox.strategies.NetworkFirst( {
+         cacheName: 'css-cache',
+       })
+  );
+ workbox.routing.registerRoute(
+       /\.js$/,
+       new workbox.strategies.NetworkFirst( {
+         cacheName: 'js-cache',
+       })
+  );
+
+  workbox.routing.registerRoute(
+       /profile$/,
+       new workbox.strategies.NetworkFirst( {
+         cacheName: 'page-cache',
+       })
+  );
 
   const showNotification = () => {
     self.registration.showNotification('Background sync success!', {
