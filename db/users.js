@@ -1,7 +1,13 @@
 var records = [
-    { id: 1, username: 'jack', password: 'secret', displayName: 'Jack', emails: [ { value: 'jack@example.com' } ] }
-  , { id: 2, username: 'jill', password: 'birthday', displayName: 'Jill', emails: [ { value: 'jill@example.com' } ] }
-];
+    { id: 1, username: 'jack', password: '$2y$12$HfvwSHAjdbBs5Z/umZFmg.Wb33UB14PYmujMsS1aJc6/X.E0KJsmO', displayName: 'Jack', role:'user', emails: [ { value: 'jack@example.com' } ] }
+  , { id: 2, username: 'kier', password: '$2b$10$aqgv8vx.POJjGEJOBiOP/.YE9l5t9IAAQwTL1hd9TCSBlwXDE.dfe', displayName: 'Kier Lindsay', role:'admin', emails: [ { value: 'jill@example.com' } ]}
+];//jack:secret
+var nextid = 3;
+
+exports.getNextId = function(){
+  return nextid++;
+};
+
 
 exports.findById = function(id, cb) {
   process.nextTick(function() {
@@ -12,7 +18,7 @@ exports.findById = function(id, cb) {
       cb(new Error('User ' + id + ' does not exist'));
     }
   });
-}
+};
 
 exports.findByUsername = function(username, cb) {
   process.nextTick(function() {
@@ -24,4 +30,4 @@ exports.findByUsername = function(username, cb) {
     }
     return cb(null, null);
   });
-}
+};

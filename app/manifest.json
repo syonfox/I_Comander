@@ -1,6 +1,6 @@
 {
-  "name": "PWA dkiller demo",
-  "short_name": "PWA kd",
+  "name": "I Commander",
+  "short_name": "i-cmd",
   "lang": "en-US",
   "start_url": "index.html",
   "display": "standalone",

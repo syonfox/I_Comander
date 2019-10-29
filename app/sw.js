@@ -16,7 +16,6 @@ limitations under the License.
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox-sw.js');
 
 
-
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
   workbox.precaching.precacheAndRoute([
@@ -51,6 +50,13 @@ if (workbox) {
        /\.js$/,
        new workbox.strategies.NetworkFirst( {
          cacheName: 'js-cache',
+       })
+  );
+
+  workbox.routing.registerRoute(
+       /profile$/,
+       new workbox.strategies.NetworkFirst( {
+         cacheName: 'page-cache',
        })
   );
 

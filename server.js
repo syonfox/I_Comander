@@ -16,42 +16,21 @@ limitations under the License.
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-
 const session = require('express-session'); //used to save the session so that the user stays loged in
 var passport = require('passport'); //authentication lib
-var Strategy = require('passport-local').Strategy;
+
 var db = require('./db'); //The folder when users are stored.
 
-passport.use(new Strategy(
-    function(username, password, cb) {
-      db.users.findByUsername(username, function(err, user) {
-        if (err) { return cb(err); }
-        if (!user) { return cb(null, false); }
-        if (user.password != password) { return cb(null, false); }
-        return cb(null, user);
-      });
-    }));
-
-// Configure Passport authenticated session persistence.
-//
-// In order to restore authentication state across HTTP requests, Passport needs
-// to serialize users into and deserialize users out of the session.  The
-// typical implementation of this is as simple as supplying the user ID when
-// serializing, and querying the user record by ID from the database when
-// deserializing.
-passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
-});
-
-passport.deserializeUser(function(id, cb) {
-  db.users.findById(id, function (err, user) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
-});
-
+const auth = require('./auth')
+auth.initialize(
+  passport,
+  db.users.findByUsername,
+  db.users.findById
+);
 
 const app = express();
+
+app.set('view engine', 'ejs');
 
 app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
@@ -73,27 +52,40 @@ app.get(['/', '/index.html'], (req, res) => {
 });
 
 
-app.get('/api/kier_secret', (req, res) => {
-      console.log(req.isAuthenticated());
+app.get('/api/kier_secret', async (req, res) => {
+      console.log();
       // console.log(user);
-      if(req.isAuthenticated()) {
-      let options = {
-        root: __dirname + '/server-data/'
-      };
+      let isAuth = await req.isAuthenticated();
+      console.log(isAuth);
+      if(isAuth) {
+        let options = {
+          root: __dirname + '/server-data/'
+        };
 
-      const fileName = 'kier_secret.json';
-      res.sendFile(fileName, options, (err) => {
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-      });
+        const fileName = 'kier_secret.json';
+        res.sendFile(fileName, options, (err) => {
+          if (err) {
+            res.sendStatus(500);
+            return;
+          }
+        });
       } else {
-        r = [{ 'data': 'UNATHORIZED'}]
+        r = [{ 'data': 'UNATHORIZED'}];
         res.send(JSON.stringify(r));
       }
 
 });
+
+app.get('/profile', auth.checkAuthenticated, (req, res)=> {
+
+  console.log(req.user);
+  r = {
+    'user': req.user
+  };
+  res.render('profile.ejs', r);
+
+});
+
 
 app.get('/login',
   function(req, res){
@@ -102,9 +94,11 @@ app.get('/login',
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/kier_test.html' }),
   function(req, res) {
+  console.log(req.isAuthenticated);
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-230594566
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-306021047
     req.session.save(()=> {
+
       res.redirect('/kier_secret.html');
     });
   });
