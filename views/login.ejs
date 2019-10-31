@@ -11,6 +11,7 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
     <!--<![endif]--></head>
+    <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,196 +23,97 @@
 
 
 <style>
-    .center-login{
-        margin: auto;
-    }
-
-    body {
-        background: #457b9d;
-    }
-    .pure-button{
-        border-radius: 20px;
-        background: #a8dadc;
-        color: #457b9d;
-    }
-    .pure-button:hover {
-        background: #e5ffff;
-    }
-    .pure-button-primary{
-        background: #99121d;
-        color: white;
-        border-radius: 20px;
-    }
-
-    .pure-button-primary:hover {
-        background: #ab3d46;
-    }
-
-    .pure-form {
-        background: #a8dadc;
-        color: black;
-        padding: 20px;
-        border-radius: 20px;
-    }
-    .transition{
-    -webkit-transition: all 1s linear;
-    -moz-transition: all 1s linear;
-    -o-transition: all 1s linear;
-    transition: all 1s linear;
-    }
-    .horizontal-collapse {
-        height: 0px;
-    }
-
-    /*body {*/
-    /*    font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;*/
-    /*}*/
-
-
-    /*<!--                <label class="toggle">-->*/
-    /*<!--                    <input class="toggle-checkbox" type="checkbox" checked>-->*/
-    /*<!--                    <div class="toggle-switch"></div>-->*/
-    /*<!--                    <span class="toggle-label">Wi-fi</span>-->*/
-
-    /*<!--                </label>-->*/
-    .toggle {
-        cursor: pointer;
-        display: inline-block;
-    }
-
-    .toggle-switch {
-        display: inline-block;
-        background: #ccc;
-        border-radius: 16px;
-        width: 58px;
-        height: 32px;
-        position: relative;
-        vertical-align: middle;
-        transition: background 0.25s;
-    }
-    .toggle-switch:before, .toggle-switch:after {
-        content: "";
-    }
-    .toggle-switch:before {
-        display: block;
-        background: linear-gradient(to bottom, #fff 0%, #eee 100%);
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        transition: left 0.25s;
-    }
-    .toggle:hover .toggle-switch:before {
-        background: linear-gradient(to bottom, #fff 0%, #fff 100%);
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
-    }
-    .toggle-checkbox:checked + .toggle-switch {
-        background: #99121d;
-    }
-    .toggle-checkbox:checked + .toggle-switch:before {
-        left: 30px;
-    }
-
-    .toggle-checkbox {
-        position: absolute;
-        visibility: hidden;
-    }
-
-    .toggle-label {
-        margin-left: 5px;
-        position: relative;
-        top: 2px;
-    }
-
-
-    .content {
-        /*padding: 0 18px;*/
-
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-        background-color: #f1f1f1;
-    }
-
-
+  input {
+    cursor: inherit;
+  }
 
 </style>
 
 <body>
-<div class="pure-g">
-    <div class="pure-u-1 pure-u-md-1-3"></div>
-    <div class="pure-u-1 pure-u-md-1-3", style="max-width: 300px; margin: auto">
 
-            <br>
-            <br>
+<!--<button class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px">Start Flying</button>-->
 
-
-        <form id='login_form' class="pure-form pure-form-aligned center-login" action="api/login" method="post">
-            <div class="pure-u-1">
-                <label class="pure-label-1 " style="font-size: x-large; font-family: Arial" > Login</label>
-
-            </div>
-            <fieldset class="pure-group center-login ">
-                <input name="username" type="text" class="pure-input-1" placeholder="Username" style="border-radius: 20px 20px 0px 0px">
-                <%if(typeof(invalidUsername) != 'undefined' && invalidUsername == true){%>
-                    <label class="pure-label-1" style="background: lightcoral; text-align: center; margin: auto; display: block" >Username Already Exists</label>
-                <%}%>
-                <div id="email_input" class="content">
-                <input name="email" disabled type="email" class="pure-input-1" placeholder="Email"  style="border-radius: 0px 0px 0px 0px">
-                </div>
-                <input name="password" type="password" class="pure-input-1" placeholder="Password" style="border-radius: 0px 0px 20px 20px">
-            </fieldset>
-
-
-
-            <button id="submit_btn" type="submit" class="pure-button pure-input-1 pure-button-primary" style="margin: auto">Login</button>
-
-            <button id="change_btn" class="pure-button pure-input-1" style="">Register</button>
-
-        </form>
-
-        </p>
-    </div>
-    <div class="pure-u-1 pure-u-md-1-3"></div>
+<div class="crop">
+    <img src="/images/calvin_fly_slow.gif" alt="Calvin Flying">
 </div>
 
-<script type="application/javascript">
+<div style="background: transparent; width: 100%; height: auto; position: absolute; top: 100px; left: 0px">
 
-    let change_btn = document.getElementById('change_btn')
-    let submit_btn = document.getElementById('submit_btn');
-    // change_btn.
+    <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-3"></div>
+        <div class="pure-u-1 pure-u-md-1-3", style="max-width: 300px; margin: auto">
+
+            <br>
+            <br>
 
 
-    function toggelLogin(e){
-        e && e.preventDefault();
+            <form id='login_form' class="pure-form pure-form-aligned center-login" action="api/login" method="post">
+                <div class="pure-u-1">
+                    <label class="pure-label-1 " style="font-size: x-large; font-family: Arial" > Login</label>
+
+                </div>
+                <fieldset class="pure-group center-login ">
+                    <input name="username" type="text" class="pure-input-1" placeholder="Username" style="border-radius: 20px 20px 0px 0px">
+                    <%if(typeof(invalidUsername) != 'undefined' && invalidUsername == true){%>
+                        <label class="pure-label-1" style="background: lightcoral; text-align: center; margin: auto; display: block" >Username Already Exists</label>
+                    <%}%>
+                    <div id="email_input" class="collapsible_horz">
+                        <input name="email" disabled type="email" class="pure-input-1" placeholder="Email"  style=" border-radius: 0px 0px 0px 0px">
+                    </div>
+                    <input name="password" type="password" class="pure-input-1" placeholder="Password" style="border-radius: 0px 0px 20px 20px">
+                </fieldset>
+
+
+
+                <button id="submit_btn" type="submit" class="pure-button pure-input-1 pure-button-primary" style="margin: auto">Login</button>
+
+                <button id="change_btn" class="pure-button pure-input-1" style="">Register</button>
+
+            </form>
+
+            </p>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-3"></div>
+    </div>
+
+    <script type="application/javascript">
+
         let change_btn = document.getElementById('change_btn')
         let submit_btn = document.getElementById('submit_btn');
-        let f = document.getElementById('login_form');
-        let content = document.getElementById('email_input');
-        if (content.style.maxHeight){
-            content.style.maxHeight = null;
-            content.firstElementChild.disabled = true;
-            submit_btn.innerHTML = 'Login';
-            f.action = "/api/login";
-            submit_btn.parent
-            change_btn.innerHTML = 'Register';
-        } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-            // content.disabled = true;
-            content.firstElementChild.disabled = false;
-            submit_btn.innerHTML = 'Sign Up';
-            f.action = "/api/register";
-            change_btn.innerHTML = 'Login';
-        }
-    }
-        <%if(typeof(register) != 'undefined' && register == true){%>
-            toggelLogin();
-        <%}%>
-    change_btn.addEventListener('click',toggelLogin);
-</script>
+        // change_btn.
 
+
+        function toggelLogin(e){
+            e && e.preventDefault();
+            let change_btn = document.getElementById('change_btn')
+            let submit_btn = document.getElementById('submit_btn');
+            let f = document.getElementById('login_form');
+            let content = document.getElementById('email_input');
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                content.firstElementChild.disabled = true;
+                submit_btn.innerHTML = 'Login';
+                f.action = "/api/login";
+                submit_btn.parent
+                change_btn.innerHTML = 'Register';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                // content.disabled = true;
+                content.firstElementChild.disabled = false;
+                submit_btn.innerHTML = 'Sign Up';
+                f.action = "/api/register";
+                change_btn.innerHTML = 'Login';
+            }
+        }
+        <%if(typeof(register) != 'undefined' && register == true){%>
+        toggelLogin();
+        <%}%>
+        change_btn.addEventListener('click',toggelLogin);
+    </script>
+
+</div>
+<!--<div style="width:100%;height:0;padding-bottom:68%;position:relative;"><iframe src="/images/calvin_fly.gif" width="100%" height="100%" style=" allowFullScreen></iframe></div>-->
 </body>
+
+
 </html>

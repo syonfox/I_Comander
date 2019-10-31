@@ -20,7 +20,7 @@ if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
   workbox.precaching.precacheAndRoute([
     'style/main.css',
-    'index.html',
+    'demo-index.html',
     'js/idb-promised.js',
     'js/main.js',
     'images/**/*.*',

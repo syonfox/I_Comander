@@ -52,6 +52,10 @@ app.get(['/', '/index.html'], (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/demo-index.html', (req, res) => {
+  res.sendFile(__dirname + '/demo-index.html');
+});
+
 
 app.get('/api/kier_secret', async (req, res) => {
       console.log();
@@ -107,7 +111,7 @@ app.post('/api/login',
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-306021047
     req.session.save(()=> {
 
-      res.redirect('/kier_secret.html');
+      res.redirect('/');
     });
   });
 
