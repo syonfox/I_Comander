@@ -149,6 +149,21 @@ app.get('/api/getAll', (req, res) => {
   });
 });
 
+app.get('/api/getDrones', (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'drones.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
+});
+
 app.post('/api/add', (req, res) => {
   let jsonFile = __dirname + '/server-data/events.json';
   let newEvent = req.body;
