@@ -109,7 +109,7 @@ function findById(id, cb){
         }
         let userdb = JSON.parse(data);
         r = userdb.users.find(user => user.id == id);
-        console.log(r);
+        // console.log(r);
         if (r == undefined) r = null;
         cb(null, r);
     });
