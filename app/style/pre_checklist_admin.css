@@ -1,0 +1,41 @@
+.preChecklistAdminHeader {
+    background-color: #A8DADC;
+    margin: 0;
+    padding: 3%;
+}
+.activeSelectChecklist {
+    background-color: #A8DADC !important;
+}
+.card-body li {
+    width: 100%;
+}
+.card {
+    float: none; 
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border: none !important;
+    margin-left: 7%;
+}
+.card-header {
+    margin: 3% 0%;
+    padding: 0% !important;
+    background-color: #fff !important;
+
+}
+.card-body {
+    margin-left: 30px;
+}
+li p {
+    display: inline-block;
+}
+li .dropdown {
+    display: inline-block;
+}
+.selectDrones {
+    float: right;
+    margin-top: 2%;
+    margin-right: 1%;
+}
+.selectDronesSubmit {
+    margin-top: 5%;
+}

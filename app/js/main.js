@@ -98,6 +98,27 @@ function addAndPostEvent(e) {
   });
 }
 
+//checklists
+// function addAndPostEvent(e) {
+//   e.preventDefault();
+//   const data = {
+//     id: Date.now(),
+//     title: document.getElementById('title').value,
+//     date: document.getElementById('date').value,
+//     city: document.getElementById('city').value,
+//     note: document.getElementById('note').value
+//   };
+//   updateUI([data]);
+//   saveEventDataLocally([data]);
+//   const headers = new Headers({'Content-Type': 'application/json'});
+//   const body = JSON.stringify(data);
+//   return fetch('api/add', {
+//     method: 'POST',
+//     headers: headers,
+//     body: body
+//   });
+// }
+
 /* UI functions */
 
 function updateUI(events) {

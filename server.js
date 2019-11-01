@@ -131,6 +131,42 @@ app.get('/logout',
     res.redirect('/login');
 });
 
+app.get('/admin/add_drone/add_check_list',async (req, res) => {
+
+  //uncoment later when imp job is done XD!
+  // let isAuth = await req.isAuthenticated();
+  // if(!isAuth) {
+  //   r = [{ 'data': 'UNATHORIZED'}];
+  //   res.send(JSON.stringify(r));
+  // }
+
+  res.sendFile(__dirname + '/app/add_checklist.html');
+});
+app.post('/pre_checklist_admin', (req, res) => {
+  console.log("hahhahhahhahahahhahahahhhah")
+  let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
+  let newEvent = req.body;
+  console.log('Adding new event:', newEvent);
+  fs.readFile(jsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let events = JSON.parse(data);
+    events.push(newEvent);
+    let eventsJson = JSON.stringify(events, null, 2);
+    fs.writeFile(jsonFile, eventsJson, err => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      // You could also respond with the database json to save a round trip
+      res.sendStatus(200);
+    });
+  });
+});
+
+
 // // Endpoint to serve the configuration file // for Auth0
 // app.get("/auth_config.json", (req, res) => {
 //   res.sendFile(join(__dirname, "auth_config.json"));
@@ -143,6 +179,21 @@ app.get('/api/getAll', (req, res) => {
   };
 
   const fileName = 'events.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
+});
+
+app.get('/api/getDrones', (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'drones.json';
   res.sendFile(fileName, options, (err) => {
     if (err) {
       res.sendStatus(500);
