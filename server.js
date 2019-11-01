@@ -54,10 +54,15 @@ app.get(['/', '/index.html'],
   res.sendFile(__dirname + '/app/index.html');
 });
 
+
+
 app.get('/demo-index.html', (req, res) => {
   res.sendFile(__dirname + '/demo-index.html');
 });
 
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
 
 app.get('/api/kier_secret', async (req, res) => {
       console.log();
@@ -111,9 +116,25 @@ app.post('/api/login',
   console.log(req.isAuthenticated);
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-230594566
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-306021047
-    req.session.save(()=> {
 
-      res.redirect('/');
+    req.session.save(()=> {
+      console.log(req.user.role);
+      switch (req.user.role) {
+        case "guest":
+          res.redirect('/profile');
+          return;
+        case "user":
+          res.redirect('/');
+          return;
+        case 'admin':
+        case 'superadmin':
+          res.redirect('/dashboard');
+          return;
+        default:
+          res.redirect('/');
+          return;
+      }
+
     });
   });
 
