@@ -19,13 +19,13 @@ const fs = require('fs');
 const session = require('express-session'); //used to save the session so that the user stays loged in
 var passport = require('passport'); //authentication lib
 
-var db = require('./db'); //The folder when users are stored.
+// var db = require('./db'); //The folder when users are stored.
 
 const auth = require('./auth')
 auth.initialize(
-  passport,
-  db.users.findByUsername,
-  db.users.findById
+  passport
+  // db.users.findByUsername,
+  // db.users.findById
 );
 
 const app = express();
@@ -35,7 +35,8 @@ app.set('view engine', 'ejs');
 app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
   saveUninitialized: false,
-  resave: false
+  resave: false,
+  cookie: { maxAge: 86400 }
 }));
 
 app.use(passport.initialize());
@@ -49,6 +50,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get(['/', '/index.html'], (req, res) => {
   res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/demo-index.html', (req, res) => {
+  res.sendFile(__dirname + '/demo-index.html');
 });
 
 
@@ -89,24 +94,39 @@ app.get('/profile', auth.checkAuthenticated, (req, res)=> {
 
 app.get('/login',
   function(req, res){
-    res.sendFile(__dirname + '/app/kier_test.html');
+    // res.sendFile(__dirname + '/app/kier_test.html');
+    res.render('login.ejs')
 });
-app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/kier_test.html' }),
+app.get('/register',
+  function(req, res){
+    // res.sendFile(__dirname + '/app/kier_test.html');
+    res.render('login.ejs', {register:true})
+});
+
+app.post('/api/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
   console.log(req.isAuthenticated);
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-230594566
   //https://github.com/jaredhanson/passport/issues/482#issuecomment-306021047
     req.session.save(()=> {
 
-      res.redirect('/kier_secret.html');
+      res.redirect('/');
     });
   });
+
+app.post('/api/register',
+    auth.checkNotAuthenticated,
+    auth.regester,
+    (req, res)=>{
+      res.redirect('/login')
+    }
+    );
 
 app.get('/logout',
   function(req, res){
     req.logout();
-    res.redirect('/kier_test.html');
+    res.redirect('/login');
 });
 
 app.get('/admin/add_drone/add_check_list',async (req, res) => {
@@ -157,6 +177,21 @@ app.get('/api/getAll', (req, res) => {
   };
 
   const fileName = 'events.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
+});
+
+app.get('/api/getDrones', (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'drones.json';
   res.sendFile(fileName, options, (err) => {
     if (err) {
       res.sendStatus(500);

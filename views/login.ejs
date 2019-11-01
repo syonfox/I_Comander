@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="https://unpkg.com/normalize.css/">-->
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <!--<![endif]--></head>
+    <link rel="stylesheet" type="text/css" href="/style/icmd.css">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> Login-icmd</title>
+
+
+</head>
+
+
+<style>
+  input {
+    cursor: inherit;
+  }
+
+</style>
+
+<body>
+
+<!--<button class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px">Start Flying</button>-->
+
+<div class="crop">
+    <img src="/images/calvin_fly_slow.gif" alt="Calvin Flying">
+</div>
+
+<div style="background: transparent; width: 100%; height: auto; position: absolute; top: 100px; left: 0px">
+
+    <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-3"></div>
+        <div class="pure-u-1 pure-u-md-1-3", style="max-width: 300px; margin: auto">
+
+            <br>
+            <br>
+
+
+            <form id='login_form' class="pure-form pure-form-aligned center-login" action="api/login" method="post">
+                <div class="pure-u-1">
+                    <label class="pure-label-1 " style="font-size: x-large; font-family: Arial" > Login</label>
+
+                </div>
+                <fieldset class="pure-group center-login ">
+                    <input name="username" type="text" class="pure-input-1" placeholder="Username" style="border-radius: 20px 20px 0px 0px">
+                    <%if(typeof(invalidUsername) != 'undefined' && invalidUsername == true){%>
+                        <label class="pure-label-1" style="background: lightcoral; text-align: center; margin: auto; display: block" >Username Already Exists</label>
+                    <%}%>
+                    <div id="email_input" class="collapsible_horz">
+                        <input name="email" disabled type="email" class="pure-input-1" placeholder="Email"  style=" border-radius: 0px 0px 0px 0px">
+                    </div>
+                    <input name="password" type="password" class="pure-input-1" placeholder="Password" style="border-radius: 0px 0px 20px 20px">
+                </fieldset>
+
+
+
+                <button id="submit_btn" type="submit" class="pure-button pure-input-1 pure-button-primary" style="margin: auto">Login</button>
+
+                <button id="change_btn" class="pure-button pure-input-1" style="">Register</button>
+
+            </form>
+
+            </p>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-3"></div>
+    </div>
+
+    <script type="application/javascript">
+
+        let change_btn = document.getElementById('change_btn')
+        let submit_btn = document.getElementById('submit_btn');
+        // change_btn.
+
+
+        function toggelLogin(e){
+            e && e.preventDefault();
+            let change_btn = document.getElementById('change_btn')
+            let submit_btn = document.getElementById('submit_btn');
+            let f = document.getElementById('login_form');
+            let content = document.getElementById('email_input');
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                content.firstElementChild.disabled = true;
+                submit_btn.innerHTML = 'Login';
+                f.action = "/api/login";
+                submit_btn.parent
+                change_btn.innerHTML = 'Register';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                // content.disabled = true;
+                content.firstElementChild.disabled = false;
+                submit_btn.innerHTML = 'Sign Up';
+                f.action = "/api/register";
+                change_btn.innerHTML = 'Login';
+            }
+        }
+        <%if(typeof(register) != 'undefined' && register == true){%>
+        toggelLogin();
+        <%}%>
+        change_btn.addEventListener('click',toggelLogin);
+    </script>
+
+</div>
+<!--<div style="width:100%;height:0;padding-bottom:68%;position:relative;"><iframe src="/images/calvin_fly.gif" width="100%" height="100%" style=" allowFullScreen></iframe></div>-->
+</body>
+
+
+</html>
