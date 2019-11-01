@@ -43,13 +43,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // This serves static files from the specified directory
-app.use(express.static(__dirname + '/app'));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get(['/', '/index.html'], (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+app.get(['/', '/index.html'],
+    auth.checkAuthenticated,
+    (req, res) => {
+  res.sendFile(__dirname + '/app/index.html');
 });
 
 app.get('/demo-index.html', (req, res) => {
@@ -197,6 +199,8 @@ app.post('/api/delete', (req, res) => {
   });
 });
 
+
+app.use(express.static(__dirname + '/app'));
 
 const port = (process.env.PORT || 8080)
 const server = app.listen(port , () => {

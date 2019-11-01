@@ -1,4 +1,4 @@
-
+/*THIS IS JUST COLOR STYLING FOR PURECSS*/
 .center-login{
     margin: auto;
 }
@@ -27,6 +27,8 @@
     padding: 20px;
     border-radius: 20px;
 }
+
+/*THIS IS FOR TOGGLE SWITCHES*/
 .transition{
     -webkit-transition: all 1s linear;
     -moz-transition: all 1s linear;
@@ -97,7 +99,7 @@
     /*background-color: #f1f1f1;*/
 }
 
-
+/*/THIS IS FOR THE BACKGROUND GIF*/
 .crop {
     width: 100%;
     /*height: 50%;*/
@@ -155,7 +157,9 @@ This is the parent `<div>` that contains the menu and the content area.
 }
 /*
 The content `<div>` is where all your content goes.
+THIS IS ALL FOR THE RESPONSIVE MENUE
 */
+
 .content {
     margin: 0 auto;
     padding: 0 2em;
