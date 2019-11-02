@@ -21,7 +21,7 @@ body, html {
     border: none !important;
     margin-left: 7%;
     background-color: #fff !important;
-    width: 70%;
+    min-width: 70% !important;
 }
 .card-header {
     margin: 3% 0%;
