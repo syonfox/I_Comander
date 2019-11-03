@@ -262,3 +262,7 @@ const server = app.listen(port , () => {
   console.log('App listening at http://%s:%s  XD', host, port);
 });
 
+app.get('/admin/users',async (req, res) => {
+
+  res.sendFile(__dirname + '/app/admin-usersView.html');
+});
