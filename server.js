@@ -88,6 +88,16 @@ app.get('/api/kier_secret', async (req, res) => {
 
 });
 
+app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
+
+  console.log(req.user);
+  r = {
+    'user': req.user
+  };
+  res.render('checklist.ejs', r);
+
+});
+
 app.get('/profile', auth.checkAuthenticated, (req, res)=> {
 
   console.log(req.user);
