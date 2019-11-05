@@ -29,3 +29,17 @@
     </div>
 </div>
 
+
+<script>
+    // console.log(document.baseURI);
+    m = document.getElementById('menu');
+    items = m.getElementsByClassName('pure-menu-item')
+    // console.log(windo/w.location);
+    for(let i=0; i<items.length; i++){
+        // console.log(items[i].firstElementChild.href);
+        if(items[i].firstElementChild.href == window.location.href) {
+            items[i].classList.add('pure-menu-selected');
+        }
+    }
+</script>
+

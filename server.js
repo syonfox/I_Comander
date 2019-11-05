@@ -53,7 +53,8 @@ app.get(['/', '/index.html'],
     (req, res) => {
   // res.sendFile(__dirname + '/app/index.html');
       r = {
-        'user': req.user
+        'user': req.user,
+        'page': 'index'
       }
 
       res.render('index.ejs', r);
