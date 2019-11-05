@@ -176,8 +176,11 @@ app.get('/admin/add_drone/add_check_list',async (req, res) => {
   //   r = [{ 'data': 'UNATHORIZED'}];
   //   res.send(JSON.stringify(r));
   // }
-
-  res.sendFile(__dirname + '/app/add_checklist.html');
+  r = {
+    'user': req.user
+  };
+  res.render('add_checklist.ejs', r)
+  //res.sendFile(__dirname + '/add_checklist.ejs');
 });
 app.post('/pre_checklist_admin', (req, res) => {
   console.log("hahhahhahhahahahhahahahhhah")
