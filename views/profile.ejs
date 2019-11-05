@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <!--<![endif]--></head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/style/icmd.css">
+
+
     <title>Profile</title>
+
 </head>
 
 <body>
-<H1>Profile</H1>
-<p>Welcome <%=user.displayName%></p>
-<p>Your Emails are:<%=user.email%></p>
+
+
+
+<div id="layout">
+    <%include partials/dashboard_menu.ejs%>
+
+    <div id="main">
+
+    <div class="pure-g">
+        <div class="pure-u-1" style="padding: 5em">
+            <H1>Profile</H1>
+            <p>Welcome <%=user.username%></p>
+            <p>Welcome <%=user.displayName%></p>
+
+        </div></div>
+        <div class="pure-u-1">
+            <button class="pure-button-primary">Request Access</button>\
+            <p>Your Emails are:<%=user.email%></p>
+            <p>Your Are A:<%=user.role%></p>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
 </body>
+<script src="/js/icmd.js"></script>
+
 </html>

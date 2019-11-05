@@ -51,7 +51,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get(['/', '/index.html'],
     auth.checkAuthenticated,
     (req, res) => {
-  res.sendFile(__dirname + '/app/index.html');
+  // res.sendFile(__dirname + '/app/index.html');
+      r = {
+        'user': req.user
+      }
+
+      res.render('index.ejs', r);
 });
 
 
