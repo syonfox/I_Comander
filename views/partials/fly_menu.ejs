@@ -11,7 +11,7 @@
 
         <ul class="pure-menu-list">
 
-            <%if(typeof user != undefined && (user.role == 'admin' || user.role == 'superadmin')) {%>
+            <%if(typeof user != undefined && typeof user.role != undefined && (user.role == 'admin' || user.role == 'superadmin')) {%>
                 <li class="pure-menu-item"><a href="/dashboard" class="pure-menu-link">Dashboard</a></li>
             <%}%>
 
