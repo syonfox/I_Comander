@@ -168,7 +168,9 @@ app.get('/logout',
     res.redirect('/login');
 });
 
-app.get('/admin/add_drone/add_check_list',async (req, res) => {
+app.get('/admin/add_drone/add_check_list',
+    auth.checkAuthenticated,
+    async (req, res) => {
 
   //uncoment later when imp job is done XD!
   // let isAuth = await req.isAuthenticated();
