@@ -59,8 +59,43 @@ if (workbox) {
          cacheName: 'page-cache',
        })
   );
+    workbox.routing.registerRoute(
+        /(\/$|index$)/,
+        new workbox.strategies.NetworkFirst( {
+            cacheName: 'page-cache',
+        })
+    );
 
-  const showNotification = () => {
+    workbox.routing.registerRoute(
+        /dashboard$/,
+        new workbox.strategies.NetworkFirst( {
+            cacheName: 'page-cache',
+        })
+    );
+
+    workbox.routing.registerRoute(
+        /login$/,
+        new workbox.strategies.NetworkFirst( {
+            cacheName: 'page-cache',
+        })
+    );
+    workbox.routing.registerRoute(
+        /add_checklist$/,
+        new workbox.strategies.NetworkFirst( {
+            cacheName: 'page-cache',
+        })
+    );
+
+    workbox.routing.registerRoute(
+        /checklist$/,
+        new workbox.strategies.NetworkFirst( {
+            cacheName: 'page-cache',
+        })
+    );
+
+
+
+    const showNotification = () => {
     self.registration.showNotification('Background sync success!', {
       body: '🎉`🎉`🎉`'
     });

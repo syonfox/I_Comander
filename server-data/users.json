@@ -1,5 +1,5 @@
 {
-  "nextId": 28,
+  "nextId": 29,
   "users": [
     {
       "id": 1,
@@ -40,6 +40,14 @@
       "email": "contact@kierlindsay.ca",
       "role": "guest",
       "password": "$2b$10$jQ8KM2kD9jQCEM3aQdaqCOhhk3N.eGdFBhkqjotEVw.0Cp5m1IjqW"
+    },
+    {
+      "id": 28,
+      "username": "aaa",
+      "displayName": "aaa",
+      "email": "",
+      "role": "guest",
+      "password": "$2b$10$q1jlvWm3Y3hjKn79jO/vQepVinJ5PegktLd1GWh/xdG56ytmdsi1C"
     }
   ]
 }
