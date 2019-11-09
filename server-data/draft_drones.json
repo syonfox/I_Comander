@@ -1,0 +1,37 @@
+{
+  "next_id": 3,
+  "drones": [
+    {
+      "id": 1,
+      "name": "Mavic",
+      "lockedout": true,
+      "preflight_lid": 0,
+      "postflight_lid": 1,
+      "tickets": [
+        {
+          "title": "Teack USer to love cat",
+          "body": "all cats must be loved",
+          "created_by": "kier",
+          "created_at": "21:10:12_10/21/2019",
+          "lockout": true
+        }
+      ],
+      "type": "Quad Wing",
+      "image": "drone1.jpg"
+    },
+
+    {
+      "id": 2,
+      "name": "F16",
+      "lockedout": false,
+      "preflight_lid": 0,
+      "postflight_lid": 1,
+      "tickets": [
+
+      ],
+      "type": "Quad Wing",
+      "image": "image"
+    }
+  ]
+
+}

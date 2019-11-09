@@ -10,14 +10,10 @@
         <a class="pure-menu-heading" href="#">I Commander</a>
 
         <ul class="pure-menu-list">
-
-            <li><%=user%></li>
+            <li class="pure-menu-item pure-menu-selected "><a href="/" class="pure-menu-link">Fly</a></li>
             <%if(typeof user != undefined && typeof user.role != undefined && (user.role == 'admin' || user.role == 'superadmin')) {%>
                 <li class="pure-menu-item"><a href="/dashboard" class="pure-menu-link">Dashboard</a></li>
             <%}%>
-
-            <li class="pure-menu-item pure-menu-selected "><a href="/" class="pure-menu-link">Fly</a></li>
-
             <li class="pure-menu-item "><a href="#" class="pure-menu-link">About</a></li>
             <li class="pure-menu-item"><a href="/checklist" class="pure-menu-link">Checklist</a></li>
 

@@ -1,0 +1,74 @@
+{
+  "lists": [
+    {
+      "lid": 0,
+      "label": "List One",
+      "items": [
+        {
+          "type": "sublist",
+          "sid": 0
+        },
+        {
+          "type": "dropdown",
+          "label": "Favorite Color",
+          "list": [
+            "Red",
+            "Green",
+            "Blue",
+            "Black"
+          ],
+          "action": "TICKET",
+          "trigger": [
+            "Black",
+            "Blue"
+          ],
+          "ticket": {
+            "title": "Bad Fav Color",
+            "body": "We all know green is the best color time to change some minds"
+          }
+        }
+      ]
+    }
+  ],
+  "next_sid": 1,
+  "sublists": [
+    {
+      "sid": 0,
+      "label": "Required Documentation - Universal",
+      "items": [
+        {
+          "type":"check",
+          "label": "Landowner/Flight Area Permission Forms On-Hand",
+          "action": "NONE"
+        },
+        {
+          "type":"check",
+          "label": "Is Oven Off",
+          "action": "TICKET",
+          "trigger": false,
+          "ticket": {
+            "title": "turn off oven",
+            "body": "all ovens must be off"
+          }
+        },
+        {
+          "type":"check",
+          "label": "is Cat Loved",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
+        },
+        {
+          "type":"input",
+          "label": "Enter Your Licence Number"
+        }
+      ]
+    }
+  ]
+}
+
+
