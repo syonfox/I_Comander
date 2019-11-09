@@ -371,6 +371,7 @@ small screens.
 .menu-link span:after {
     position: absolute;
     margin-top: -0.6em;
+    box-sizing:content-box;
     content: " ";
 }
 
