@@ -122,7 +122,6 @@ app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
   // console.log(req.body);
 
   let u = req.user;
-  
   if(req.body.base64photo != '') u.base64data = req.body.base64photo;
   if(req.body.displayName != undefined) u.displayName = req.body.displayName;
   if(req.body.email != undefined) u.email = req.body.email;
