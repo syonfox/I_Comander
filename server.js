@@ -33,6 +33,8 @@ auth.initialize(
 
 const app = express();
 
+
+
 app.set('view engine', 'ejs');
 
 app.use(session({
@@ -48,9 +50,10 @@ app.use(passport.session());
 // This serves static files from the specified directory
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({ limit: "10mb" }))
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 app.get(['/', '/index.html'],
     auth.checkAuthenticated,
     (req, res) => {
