@@ -347,6 +347,8 @@ small screens.
     width: 2em;
     height: auto;
     padding: 2.1em 1.6em;
+    box-sizing:content-box;
+    text-align: left;
 }
 
 .menu-link:hover,
@@ -371,7 +373,7 @@ small screens.
 .menu-link span:after {
     position: absolute;
     margin-top: -0.6em;
-    box-sizing:content-box;
+
     content: " ";
 }
 

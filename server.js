@@ -20,10 +20,13 @@ const session = require('express-session'); //used to save the session so that t
 var passport = require('passport'); //authentication lib
 
 // var db = require('./db'); //The folder when users are stored.
+const users = require('./users');
 
-const auth = require('./auth')
+const auth = require('./auth');
 auth.initialize(
-  passport
+  passport,
+    users.findByUsername,
+  users.findById
   // db.users.findByUsername,
   // db.users.findById
 );
@@ -107,6 +110,39 @@ app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 app.get('/profile', auth.checkAuthenticated, (req, res)=> {
 
   console.log(req.user);
+  r = {
+    'user': req.user
+  };
+  res.render('profile.ejs', r);
+
+});
+
+app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
+  // console.log(req.user);
+  // console.log(req.body);
+
+  let u = req.user;
+  
+  if(req.body.base64photo != '') u.base64data = req.body.base64photo;
+  if(req.body.displayName != undefined) u.displayName = req.body.displayName;
+  if(req.body.email != undefined) u.email = req.body.email;
+
+  if(req.body.oldpassword != '' && req.body.newpassword != '') {
+    // console.log(req.body.oldpassword);
+    // console.log(req.body.newpassword);
+    users.changePassword(req.user.id, req.body.oldpassword, req.body.newpassword);
+  }
+
+    try {
+      users.update(req.user.id, u);
+    } catch (e) {
+      console.error(e);
+      r.error = e;
+    }
+
+
+
+
   r = {
     'user': req.user
   };

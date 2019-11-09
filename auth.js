@@ -32,7 +32,8 @@ function register(req, res, next) {
             return;
         }
 
-        hashedPassword = bcrypt.hash(req.body.password, 10);
+        let hashedPassword = bcrypt.hashSync(req.body.password, 10);
+
         let jsonFile = __dirname + '/server-data/users.json';
         fs.readFile(jsonFile,  async (err, data) => {
             if (err) {
