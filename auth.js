@@ -3,6 +3,7 @@ const Strategy = require('passport-local').Strategy;
 // var db = require('./db'); //The folder when users are stored.
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const users = require('./users');
 const salt = 10;
 
 function checkAuthenticated(req, res, next) {
@@ -22,52 +23,74 @@ function checkNotAuthenticated(req, res, next) {
 
 function register(req, res, next) {
 
-    findByUsername(req.body.username, (err, user)=>{
-        if(err) {
-            res.sendStatus(500)
-            return
-        }
-        if(user) {
+    try {
+        let newUser = users.addUser(req)
+        req.icmd = {user:newUser};
+
+
+    } catch (e) {
+        console.log(e);
+        if(e = "Username Already Exists") {
             res.render('login.ejs', {register:true, invalidUsername:true});
             return;
         }
-
-        let hashedPassword = bcrypt.hashSync(req.body.password, 10);
-
-        let jsonFile = __dirname + '/server-data/users.json';
-        fs.readFile(jsonFile,  async (err, data) => {
-            if (err) {
-              res.sendStatus(500);
-              return;
-            }
-            let userdb = JSON.parse(data);
-
-            hashedPassword.then((hpw)=>{
-                console.log(hpw);
-                let newUser = {
-                    id: userdb.nextId++, //get next and increments
-                    username: req.body.username,
-                    displayName: req.body.username,
-                    email: req.body.email,
-                    role: 'guest',
-                    password: hpw
-                };
-                console.log('Adding new User:', newUser);
-                userdb.users.push(newUser);
-                let usersJson = JSON.stringify(userdb, null, 2);
-                fs.writeFile(jsonFile, usersJson, err => {
-                    if (err) {
-                        res.sendStatus(500);
-                        return;
-                    }
-                });
-                req.icmd = {user:newUser};
-                next();
-            }).catch((e)=>{console.log(e)});
-        });
-    });
-
+        res.sendStatus(500);
+        return;
+    }
+    next();
 }
+
+
+
+
+
+// function register(req, res, next) {
+//
+//     findByUsername(req.body.username, (err, user)=>{
+//         if(err) {
+//             res.sendStatus(500)
+//             return
+//         }
+//         if(user) {
+//
+//         }
+//
+//         let hashedPassword = bcrypt.hash(req.body.password, 10);
+//
+//         let jsonFile = __dirname + '/server-data/users.json';
+//         fs.readFile(jsonFile,  async (err, data) => {
+//             if (err) {
+//               res.sendStatus(500);
+//               return;
+//             }
+//             let userdb = JSON.parse(data);
+//
+//             hashedPassword.then((hpw)=>{
+//                 console.log(hpw);
+//                 let newUser = {
+//                     id: userdb.nextId++, //get next and increments
+//                     username: req.body.username,
+//                     displayName: req.body.username,
+//                     email: req.body.email,
+//                     role: 'guest',
+//                     password: hpw
+//                 };
+//                 console.log('Adding new User:', newUser);
+//                 userdb.users.push(newUser);
+//                 let usersJson = JSON.stringify(userdb, null, 2);
+//                 fs.writeFile(jsonFile, usersJson, err => {
+//                     if (err) {
+//                         res.sendStatus(500);
+//                         return;
+//                     }
+//                 });
+//                 req.icmd = {user:newUser};
+//                 next();
+//             }).catch((e)=>{console.log(e)});
+//         });
+//     });
+//
+// }
 
 // function getUserdb() {
 //     let jsonFile = __dirname + '/server-data/users.json';
@@ -80,41 +103,42 @@ function register(req, res, next) {
 //         return JSON.parse(data);
 //     });
 // }
-function findByUsername(username, cb) {
+// function findByUsername(username, cb) {
+//
+//     let jsonFile = __dirname + '/server-data/users.json';
+//     // console.log(jsonFile);
+//     fs.readFile(jsonFile, (err, data) => {
+//         // console.log(data)
+//         if (err) {
+//             cb(err, null);
+//             return;
+//         }
+//         let userdb = JSON.parse(data);
+//         r = userdb.users.find(user => user.username == username);
+//         console.log(r);
+//         if (r == undefined) r = null;
+//         cb(null, r);
+//     });
+// }
+//
+// function findById(id, cb){
+//
+//     let jsonFile = __dirname + '/server-data/users.json';
+//     // console.log(jsonFile);
+//     fs.readFile(jsonFile, (err, data) => {
+//         // console.log(data)
+//         if (err) {
+//             cb(err, null);
+//             return;
+//         }
+//         let userdb = JSON.parse(data);
+//         r = userdb.users.find(user => user.id == id);
+//         // console.log(r);
+//         if (r == undefined) r = null;
+//         cb(null, r);
+//     });
+// };
 
-    let jsonFile = __dirname + '/server-data/users.json';
-    // console.log(jsonFile);
-    fs.readFile(jsonFile, (err, data) => {
-        // console.log(data)
-        if (err) {
-            cb(err, null);
-            return;
-        }
-        let userdb = JSON.parse(data);
-        r = userdb.users.find(user => user.username == username);
-        console.log(r);
-        if (r == undefined) r = null;
-        cb(null, r);
-    });
-}
-
-function findById(id, cb){
-
-    let jsonFile = __dirname + '/server-data/users.json';
-    // console.log(jsonFile);
-    fs.readFile(jsonFile, (err, data) => {
-        // console.log(data)
-        if (err) {
-            cb(err, null);
-            return;
-        }
-        let userdb = JSON.parse(data);
-        r = userdb.users.find(user => user.id == id);
-        // console.log(r);
-        if (r == undefined) r = null;
-        cb(null, r);
-    });
-};
 
 function initialize(passport, _findByUsername, _findById) {
 

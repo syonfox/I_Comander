@@ -76,6 +76,29 @@ function changePassword(id, oldpw, newpw){
 exports.changePassword = changePassword;
 
 
+function addUser(req) {
+
+    if(userdb.users.some(u=>u.username == req.body.username)) {
+        throw "Username Already Exists";
+    }
+
+    let hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    console.log(hashedPassword);
+    let newUser = {
+        id: userdb.nextId++, //get next and increments
+        username: req.body.username,
+        displayName: req.body.username,
+        email: req.body.email,
+        role: 'guest',
+        password: hashedPassword
+    };
+    console.log('Adding new User:', newUser);
+    userdb.users.push(newUser);
+    save();
+    return newUser
+}
+exports.addUser = addUser;
+
 exports.findByUsername = function(username, cb) {
 
     let u = userdb.users.find(user=>user.username == username);
