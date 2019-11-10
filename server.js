@@ -77,7 +77,7 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.get('/api/kier_secret', async (req, res) => {
-      console.log();
+      // console.log();
       // console.log(user);
       let isAuth = await req.isAuthenticated();
       console.log(isAuth);
@@ -102,7 +102,7 @@ app.get('/api/kier_secret', async (req, res) => {
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
-  console.log(req.user);
+  console.log(req.user.username);
   r = {
     'user': req.user
   };
@@ -112,7 +112,7 @@ app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
 app.get('/profile', auth.checkAuthenticated, (req, res)=> {
 
-  console.log(req.user);
+  console.log(req.user.username);
   r = {
     'user': req.user
   };
@@ -126,29 +126,38 @@ app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
 
   let u = req.user;
   if(req.body.base64photo != '') u.base64data = req.body.base64photo;
-  if(req.body.displayName != undefined) u.displayName = req.body.displayName;
-  if(req.body.email != undefined) u.email = req.body.email;
+  if(typeof req.body.displayName != "undefined") u.displayName = req.body.displayName;
+  if(typeof req.body.email != "undefined") u.email = req.body.email;
 
+  let error = false;
   if(req.body.oldpassword != '' && req.body.newpassword != '') {
     // console.log(req.body.oldpassword);
     // console.log(req.body.newpassword);
-    users.changePassword(req.user.id, req.body.oldpassword, req.body.newpassword);
+    let err = users.changePassword(req.user.id, req.body.oldpassword, req.body.newpassword);
+    if (err != true){
+      error = err;
+      console.log(err)
+    }
   }
 
+  if(error == false) {
     try {
       users.update(req.user.id, u);
     } catch (e) {
       console.error(e);
-      r.error = e;
+      error = e;
     }
+  }
 
 
 
 
   r = {
-    'user': req.user
+    'user': req.user,
+    'error': error
   };
-  res.render('profile.ejs', r);
+
+  res.send(r);
 
 });
 

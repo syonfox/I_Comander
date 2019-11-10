@@ -54,7 +54,7 @@ exports.update = function(id, newuser) {
     if(userdb.users[i].id != newuser.id) throw "You Cant Change User Id";
     if(userdb.users[i].password != newuser.password) throw "User changePasswor(id, oldpw, newpw) to Change password";
     userdb.users[i] = newuser;
-    console.log(userdb.users[i]);
+    console.log("Updated" + userdb.users[i].username);
     save();
 };
 

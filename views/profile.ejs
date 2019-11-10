@@ -72,18 +72,18 @@
     <div class="pure-g " style="padding: 2em">
         <div id="profile1" class="pure-u-1 pure-u-md-1-2" >
             <H1>Profile</H1>
-            <p>Welcome <%=user.displayName%></p>
+            <p>Welcome <span id="s_displayName"><%=user.displayName%></span></p>
         </div>
 
-        <div id="profilepic" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" ">
-            <img name="preview" src="<%=user.base64data%>" height="200"  style="border-radius: 1em;" alt="Image preview">
+        <div id="profilepic" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+            <img id="preview" src="<%=user.base64data%>" height="200"  style="border-radius: 1em;" alt="Image preview">
         </div>
         <div id="profile2" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" >
 
 
 
 
-            <p>Your Emails are:<%=user.email%></p>
+            <p>Your Emails are:<span id="s_email"><%=user.email%></span></p>
             <p>Current Role: <%=user.role%></p>
 
             <%switch (user.role) {
@@ -102,29 +102,17 @@
         </div>
 
         <div id="profileedit" class="pure-u-1 ">
-            <script>
-                function editClicked(e) {
 
-                    btn = document.getElementById('editButton');
-
-                    console.log(btn)
-                    console.log("asd")
-                    console.log(btn.style.width)
-
-                    if(btn.style.width == "50%")
-                        btn.style.width = '100%';
-                    else
-                        btn.style.width = "50%";
-                    // console.log('Clicked button123')
-                }
-            </script>
             <button id="editButton" class="pure-button-primary" data-toggle="collapse" data-target="#changepw"
             style="width: 50%; border-radius: 0px; transition: width 0.5s ease-in-out; border: hidden" onclick="editClicked()">Change password</button>
 
+            <div id="s_error" style="width: 100%; height: 0em; text-align: center; padding: 0em; transition: height 0.25s linear"></div>
+
         </div>
         <div id="changepw" class="pure-u-1 collapse">
+<!--            action="/api/edit_profile" method="post"-->
             <form id='edit_user' class="pure-form pure-form-aligned"
-                  action="/api/edit_profile" method="post" style="border: black; border-style: solid; border-radius: 0 0 1em 1em; height: 100%">
+                   action="#" style="border: black; border-style: solid; border-radius: 0 0 1em 1em; height: 100%">
 
                 <fieldset>
                     <div class="pure-control-group">
@@ -195,5 +183,55 @@
 
 </body>
 <script src="/js/icmd.js"></script>
+<script>
+    function editClicked() {
 
+        btn = document.getElementById('editButton');
+
+        // console.log(btn)
+        // console.log("asd")
+        // console.log(btn.style.width)
+
+        if(btn.style.width == "50%")
+            btn.style.width = '100%';
+        else
+            btn.style.width = "50%";
+        // console.log('Clicked button123')
+    }
+
+    document.getElementById('edit_user').onsubmit = async function(e) {
+
+        e.preventDefault();
+        const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_profile", {method:"POST", body:params})
+        const r = await response.json();
+        // const response = await new Response(params);
+
+        info = document.getElementById('s_error');
+        // info.style.height = "0em";
+        // info.style.padding = '10px';
+        if(r.error == false)
+        {
+
+            info.style.background = '#28a745';
+            // info.style.background = '--green'
+            info.innerText = "Edits Successfully Made"
+
+            document.getElementById('s_displayName').innerHTML = r.user.displayName;
+            document.getElementById('s_email').innerHTML = r.user.email;
+            document.getElementById('preview').src = r.user.base64data;
+        } else {
+            info.style.background ="#dc3545";
+            info.innerText = r.error;
+        }
+        console.log(info.clientHeight);
+        console.log(info.scrollHeight);
+        if(info.clientHeight < info.scrollHeight)
+
+            info.style.height = info.scrollHeight+10+'px';
+
+        console.log(JSON.stringify(r));
+        console.log("Submited fourm")
+    }
+</script>
 </html>
