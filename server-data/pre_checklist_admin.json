@@ -7,5 +7,269 @@
   },
   {
     "note": "samer"
+  },
+  {},
+  {
+    "Required Documentation-Universal": [
+      "Landowner/Flight Area Permission Forms On-Hand"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Landowner/Flight Area Permission Forms On-Hand"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Landowner/Flight Area Permission Forms On-Hand"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Landowner/Flight Area Permission Forms On-Hand"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Landowner/Flight Area Permission Forms On-Hand"
+    ]
+  },
+  {},
+  {},
+  {},
+  {},
+  {
+    "Required Documentation-Universal": [
+      "Apple",
+      "Pilot License On-Hand",
+      "Drone Registraton Certifcate On-Hand - FAA / TC",
+      "Insurance On-Hand",
+      "FLHA and Tailgate Completed",
+      "GPS Coordinates (Lat/Long) Visible for Reference",
+      "Emergency Services Contact Information Visible",
+      "Air Traffic Control and Aerodrome Contact Information Visible"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Apple",
+      "Pilot License On-Hand",
+      "Drone Registraton Certifcate On-Hand - FAA / TC",
+      "Insurance On-Hand",
+      "FLHA and Tailgate Completed",
+      "GPS Coordinates (Lat/Long) Visible for Reference",
+      "Emergency Services Contact Information Visible",
+      "Air Traffic Control and Aerodrome Contact Information Visible"
+    ],
+    "Physical Eniveronment-Mission Area": [
+      "Weather Check",
+      "Place Safety Cones Around Area",
+      "Operation Signage Appropriately Placed",
+      "Safe Landing Area Established",
+      "Clear Landing Area",
+      "Area Clear of Non-Participants",
+      "Fire Extinguisher On-Hand",
+      "Wind and Temperature Within Operating Specs"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Apple",
+      "Pilot License On-Hand",
+      "Drone Registraton Certifcate On-Hand - FAA / TC",
+      "Insurance On-Hand",
+      "FLHA and Tailgate Completed",
+      "GPS Coordinates (Lat/Long) Visible for Reference",
+      "Emergency Services Contact Information Visible",
+      "Air Traffic Control and Aerodrome Contact Information Visible"
+    ],
+    "Physical Eniveronment-Mission Area": [
+      "Weather Check",
+      "Place Safety Cones Around Area",
+      "Operation Signage Appropriately Placed",
+      "Safe Landing Area Established",
+      "Clear Landing Area",
+      "Area Clear of Non-Participants",
+      "Fire Extinguisher On-Hand",
+      "Wind and Temperature Within Operating Specs",
+      "sam"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Apple",
+      "Pilot License On-Hand",
+      "Drone Registraton Certifcate On-Hand - FAA / TC",
+      "Insurance On-Hand",
+      "FLHA and Tailgate Completed",
+      "GPS Coordinates (Lat/Long) Visible for Reference",
+      "Emergency Services Contact Information Visible",
+      "Air Traffic Control and Aerodrome Contact Information Visible"
+    ],
+    "Physical Eniveronment-Mission Area": [
+      "Weather Check",
+      "Place Safety Cones Around Area",
+      "Operation Signage Appropriately Placed",
+      "Safe Landing Area Established",
+      "Clear Landing Area",
+      "Area Clear of Non-Participants",
+      "Fire Extinguisher On-Hand",
+      "Wind and Temperature Within Operating Specs",
+      ""
+    ],
+    "Software/Firmware": [
+      "Latest Version Firmware",
+      "Latest Version Ground Control Software",
+      "Latest Version Sensor Firmware"
+    ],
+    "Flight planning": [
+      "Mission Uploaded to UAV",
+      "Safe \"Home\" and/or \"Start\" Location Established",
+      "Correct Flight Elevation Programmed",
+      "Furthers Waypoints are Within Telemetry Range"
+    ],
+    "Communication": [
+      "iCom Radio On",
+      "Verbal Flight Description and Pattern Discussed",
+      "Furthest Distance of UAV from \"Home\" is Verbalized",
+      "Verbal Clarification of Flyaway Procedure",
+      "Platform Identifier:"
+    ],
+    "Battery": [
+      "Platform Battery Charged to 90% - Checked with Remote",
+      "Remote Control Battery Charged",
+      "Tablet / Computer Ground Station Charged"
+    ],
+    "Platform Checks": [
+      "No Loose Cables or Wiring",
+      "Legs / Arms Locked and Secured",
+      "Leg / Arm Locking Mechanism in Condition",
+      "Propellers in Condition",
+      "Body Free of Cracks and Dents",
+      "Screws / Nuts / Bolts in Place and Tight",
+      "Battery Connectors and Cables Secure",
+      "Gimbal and Payload Assembly Secure",
+      "Camera Responsive to Commands",
+      "Compass Calibration if 10km From Last Flight or 30 Days)",
+      "Optical Flow Sensor(s) Clear of Obstruction Debris"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Apple",
+      "Pilot License On-Hand",
+      "Drone Registraton Certifcate On-Hand - FAA / TC",
+      "Insurance On-Hand",
+      "FLHA and Tailgate Completed",
+      "GPS Coordinates (Lat/Long) Visible for Reference",
+      "Emergency Services Contact Information Visible",
+      "Air Traffic Control and Aerodrome Contact Information Visible"
+    ],
+    "Physical Eniveronment-Mission Area": [
+      "Weather Check",
+      "Place Safety Cones Around Area",
+      "Operation Signage Appropriately Placed",
+      "Safe Landing Area Established",
+      "Clear Landing Area",
+      "Area Clear of Non-Participants",
+      "Fire Extinguisher On-Hand",
+      "Wind and Temperature Within Operating Specs",
+      ""
+    ],
+    "Software/Firmware": [
+      "Latest Version Firmware",
+      "Latest Version Ground Control Software",
+      "Latest Version Sensor Firmware"
+    ],
+    "Flight planning": [
+      "Mission Uploaded to UAV",
+      "Safe \"Home\" and/or \"Start\" Location Established",
+      "Correct Flight Elevation Programmed",
+      "Furthers Waypoints are Within Telemetry Range"
+    ],
+    "Communication": [
+      "iCom Radio On",
+      "Verbal Flight Description and Pattern Discussed",
+      "Furthest Distance of UAV from \"Home\" is Verbalized",
+      "Verbal Clarification of Flyaway Procedure",
+      "Platform Identifier:"
+    ],
+    "Battery": [
+      "Platform Battery Charged to 90% - Checked with Remote",
+      "Remote Control Battery Charged",
+      "Tablet / Computer Ground Station Charged"
+    ],
+    "Platform Checks": [
+      "No Loose Cables or Wiring",
+      "Legs / Arms Locked and Secured",
+      "Leg / Arm Locking Mechanism in Condition",
+      "Propellers in Condition",
+      "Body Free of Cracks and Dents",
+      "Screws / Nuts / Bolts in Place and Tight",
+      "Battery Connectors and Cables Secure",
+      "Gimbal and Payload Assembly Secure",
+      "Camera Responsive to Commands",
+      "Compass Calibration if 10km From Last Flight or 30 Days)",
+      "Optical Flow Sensor(s) Clear of Obstruction Debris"
+    ]
+  },
+  {
+    "Required Documentation-Universal": [
+      "Apple",
+      "Pilot License On-Hand",
+      "Drone Registraton Certifcate On-Hand - FAA / TC",
+      "Insurance On-Hand",
+      "FLHA and Tailgate Completed",
+      "GPS Coordinates (Lat/Long) Visible for Reference",
+      "Emergency Services Contact Information Visible",
+      "Air Traffic Control and Aerodrome Contact Information Visible"
+    ],
+    "Physical Eniveronment-Mission Area": [
+      "Weather Check",
+      "Place Safety Cones Around Area",
+      "Operation Signage Appropriately Placed",
+      "Safe Landing Area Established",
+      "Clear Landing Area",
+      "Area Clear of Non-Participants",
+      "Fire Extinguisher On-Hand",
+      "Wind and Temperature Within Operating Specs",
+      ""
+    ],
+    "Software/Firmware": [
+      "Latest Version Firmware",
+      "Latest Version Ground Control Software",
+      "Latest Version Sensor Firmware"
+    ],
+    "Flight planning": [
+      "Mission Uploaded to UAV",
+      "Safe \"Home\" and/or \"Start\" Location Established",
+      "Correct Flight Elevation Programmed",
+      "Furthers Waypoints are Within Telemetry Range"
+    ],
+    "Communication": [
+      "iCom Radio On",
+      "Verbal Flight Description and Pattern Discussed",
+      "Furthest Distance of UAV from \"Home\" is Verbalized",
+      "Verbal Clarification of Flyaway Procedure",
+      "Platform Identifier:"
+    ],
+    "Battery": [
+      "Platform Battery Charged to 90% - Checked with Remote",
+      "Remote Control Battery Charged",
+      "Tablet / Computer Ground Station Charged"
+    ],
+    "Platform Checks": [
+      "No Loose Cables or Wiring",
+      "Legs / Arms Locked and Secured",
+      "Leg / Arm Locking Mechanism in Condition",
+      "Propellers in Condition",
+      "Body Free of Cracks and Dents",
+      "Screws / Nuts / Bolts in Place and Tight",
+      "Battery Connectors and Cables Secure",
+      "Gimbal and Payload Assembly Secure",
+      "Camera Responsive to Commands",
+      "Compass Calibration if 10km From Last Flight or 30 Days)",
+      "Optical Flow Sensor(s) Clear of Obstruction Debris"
+    ]
   }
 ]
