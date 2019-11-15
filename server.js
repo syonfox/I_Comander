@@ -74,6 +74,13 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
+app.get('/dashboard/drones', (req, res) => {
+  res.render('dashboard/drone_managment.ejs');
+});
+
+
+
+
 
 app.get('/api/kier_secret', async (req, res) => {
       // console.log();
@@ -237,6 +244,7 @@ app.get('/logout',
     res.redirect('/login');
 });
 
+
 app.get('/admin/add_drone/add_check_list',
     auth.checkAuthenticated,
     async (req, res) => {
@@ -254,7 +262,7 @@ app.get('/admin/add_drone/add_check_list',
   //res.sendFile(__dirname + '/add_checklist.ejs');
 });
 app.post('/pre_checklist_admin', (req, res) => {
-  console.log("hahhahhahhahahahhahahahhhah")
+  console.log("hahhahhahhahahahhahahahhhah");
   let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
   let newEvent = req.body;
   console.log('Adding new event:', newEvent);
@@ -336,7 +344,6 @@ app.post('/api/add', (req, res) => {
   });
 });
 
-
 app.post('/api/submit_flight', (req, res) => {
   let jsonFile = __dirname + '/server-data/flights.json';
   // let newEvent = req.body;
@@ -362,7 +369,6 @@ app.post('/api/submit_flight', (req, res) => {
   // });
 });
 
-//
 app.post('/api/delete', (req, res) => {
   let jsonFile = __dirname + '/server-data/events.json';
   let id = req.body.id;
@@ -386,8 +392,6 @@ app.post('/api/delete', (req, res) => {
     });
   });
 });
-
-
 
 app.use(express.static(__dirname + '/app'));
 

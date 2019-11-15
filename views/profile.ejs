@@ -3,17 +3,19 @@
 <head>
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+    <!--[if lte IE 8]>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
@@ -24,34 +26,39 @@
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
 
-    <title>Profile</title>
+<title>Profile</title>
 
 </head>
 
 <style>
 
-    body{
-        background: #457b9d ;
+    body {
+        background: #457b9d;
     }
+
     .pure-g {
         background: #A8DADC;
         border-radius: 1em;
         margin: 0em;
     }
- /* At the top level of your code */
-    @media screen and (min-width: 35.5em){
-    .pure-g {
-     margin: 3em;
-    }
+
+    /* At the top level of your code */
+    @media screen and (min-width: 35.5em) {
+        .pure-g {
+            margin: 3em;
+        }
 
     }
-    @media screen and (max-width: 48em){
+
+    @media screen and (max-width: 48em) {
         #profilepic {
             order: -1;
         }
+
         #profile1 {
             order: -2;
         }
+
         /*#profile2  {*/
         /*    order: 3;*/
         /*}*/
@@ -63,123 +70,127 @@
 <body>
 
 
-
 <div id="layout">
-    <%include partials/dashboard_menu.ejs%>
+
+    <% include partials/dashboard_menu.ejs %>
 
     <div id="main">
 
-    <div class="pure-g " style="padding: 2em">
-        <div id="profile1" class="pure-u-1 pure-u-md-1-2" >
-            <H1>Profile</H1>
-            <p>Welcome <span id="s_displayName"><%=user.displayName%></span></p>
-        </div>
+        <div class="pure-g " style="padding: 2em">
+            <div id="profile1" class="pure-u-1 pure-u-md-1-2">
+                <H1>Profile</H1>
+                <p>Welcome <span id="s_displayName"><%= user.displayName %></span></p>
+            </div>
 
-        <div id="profilepic" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-            <img id="preview" src="<%=user.base64data%>" height="200"  style="border-radius: 1em;" alt="Image preview">
-        </div>
-        <div id="profile2" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" >
+            <div id="profilepic" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+                <img id="preview" src="<%= user.base64data %>" height="200" style="border-radius: 1em;"
+                     alt="Image preview">
+            </div>
+            <div id="profile2" class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
 
 
+                <p>Your Emails are:<span id="s_email"><%= user.email %></span></p>
+                <p>Current Role: <%= user.role %></p>
 
+                <% switch (user.role) {
+                case 'Guest': %>
+                <p>Please ask your Administrator to grant permission to Fly</p>
+                <button class="pure-button-primary">Request Access</button>
 
-            <p>Your Emails are:<span id="s_email"><%=user.email%></span></p>
-            <p>Current Role: <%=user.role%></p>
-
-            <%switch (user.role) {
-                case 'Guest':%>
-            <p>Please ask your Administrator to grant permission to Fly</p>
-            <button class="pure-button-primary">Request Access</button>
-
-            <%break;
-                case 'admin':
+                <% break;
+                    case 'admin':
                 case 'superadmin': %>
-            <p>Admins Have full permissions manage Users Drones And More From the Dashboard</p>
+                <p>Admins Have full permissions manage Users Drones And More From the Dashboard</p>
 
-            <%break;
-            }%>
+                <% break;
+                } %>
 
-        </div>
+            </div>
 
-        <div id="profileedit" class="pure-u-1 ">
+            <div id="profileedit" class="pure-u-1 ">
 
-            <button id="editButton" class="pure-button-primary" data-toggle="collapse" data-target="#changepw"
-            style="width: 50%; border-radius: 0px; transition: width 0.5s ease-in-out; border: hidden" onclick="editClicked()">Change password</button>
+                <button id="editButton" class="pure-button-primary" data-toggle="collapse" data-target="#changepw"
+                        style="width: 50%; border-radius: 0px; transition: width 0.5s ease-in-out; border: hidden"
+                        onclick="editClicked()">Change password
+                </button>
 
 
-        </div>
-        <div id="changepw" class="pure-u-1 collapse">
-            <div id="s_error" style="width: 100%; height: 0em; text-align: center; padding: 0em; transition: height 0.25s linear"></div>
+            </div>
+            <div id="changepw" class="pure-u-1 collapse">
+                <div id="s_error"
+                     style="width: 100%; height: 0em; text-align: center; padding: 0em; transition: height 0.25s linear"></div>
 
-            <!--            action="/api/edit_profile" method="post"-->
-            <form id='edit_user' class="pure-form pure-form-aligned"
-                   action="#" style="border: black; border-style: solid; border-radius: 0 0 1em 1em; height: 100%">
+                <!--            action="/api/edit_profile" method="post"-->
+                <form id='edit_user' class="pure-form pure-form-aligned"
+                      action="#" style="border: black; border-style: solid; border-radius: 0 0 1em 1em; height: 100%">
 
-                <fieldset>
-                    <div class="pure-control-group">
-                        <input id="base64photo" hidden name="base64photo" value="">
-                        <label for="photo">Profile Photo</label>
+                    <fieldset>
+                        <div class="pure-control-group">
+                            <input id="base64photo" hidden name="base64photo" value="">
+                            <label for="photo">Profile Photo</label>
 
-                        <input id="inputPhoto" name="photo" type="file" accept="image/*" onchange="previewFile()">
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="preview">Photo Preview</label>
-                        <img id="photoPreview" name="preview" src="" height="200" alt="Image preview">
-                    </div>
-                    <script>
-                        function previewFile() {
-                              var preview = document.getElementById('photoPreview');
-                              var file    = document.getElementById('inputPhoto').files[0];
-                              console.log(file.size);
-                              if(file.size > 500000){
-                                  alert("File is too big!");
-                                  return;
-                              };
-                              var reader  = new FileReader();
-                              var input = document.getElementById("base64photo");
-                              reader.addEventListener("load", function () {
-                                preview.src = reader.result;
-                                input.value = reader.result;
-                                console.log(reader.result);
-                              }, false);
+                            <input id="inputPhoto" name="photo" type="file" accept="image/*" onchange="previewFile()">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="preview">Photo Preview</label>
+                            <img id="photoPreview" name="preview" src="" height="200" alt="Image preview">
+                        </div>
+                        <script>
+                            function previewFile() {
+                                var preview = document.getElementById('photoPreview');
+                                var file = document.getElementById('inputPhoto').files[0];
+                                console.log(file.size);
+                                if (file.size > 500000) {
+                                    alert("File is too big!");
+                                    return;
+                                }
+                                ;
+                                var reader = new FileReader();
+                                var input = document.getElementById("base64photo");
+                                reader.addEventListener("load", function () {
+                                    preview.src = reader.result;
+                                    input.value = reader.result;
+                                    console.log(reader.result);
+                                }, false);
 
-                              if (file) {
-                                reader.readAsDataURL(file);
-                              }
+                                if (file) {
+                                    reader.readAsDataURL(file);
+                                }
                             }
-                    </script>
+                        </script>
 
 
-                    <div class="pure-control-group">
-                        <label for="displayName">Display Name</label>
-                        <input name="displayName" type="text" placeholder="<%=user.displayName%>" value="<%=user.displayName%>">
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="email">Email Address</label>
-                        <input name="email" type="email" placeholder="Email" value="<%=user.email%>" >
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="oldpassword">Current Password</label>
-                        <input name="oldpassword" type="password" placeholder="Current Password">
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="newpassword">New Password</label>
-                        <input name="newpassword" type="password" placeholder="New Password">
-                    </div>
+                        <div class="pure-control-group">
+                            <label for="displayName">Display Name</label>
+                            <input name="displayName" type="text" placeholder="<%= user.displayName %>"
+                                   value="<%= user.displayName %>">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="email">Email Address</label>
+                            <input name="email" type="email" placeholder="Email" value="<%= user.email %>">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="oldpassword">Current Password</label>
+                            <input name="oldpassword" type="password" placeholder="Current Password">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="newpassword">New Password</label>
+                            <input name="newpassword" type="password" placeholder="New Password">
+                        </div>
 
 
+                        <div class="pure-controls">
+                            <button type="submit" class="pure-button pure-button-primary" style="float: left">Submit
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
 
-                    <div class="pure-controls" >
-                        <button type="submit" class="pure-button pure-button-primary" style="float: left">Submit</button>
-                    </div>
-                </fieldset>
-            </form>
+            </div>
 
         </div>
 
     </div>
-
-</div>
 </div>
 
 </body>
@@ -193,26 +204,25 @@
         // console.log("asd")
         // console.log(btn.style.width)
 
-        if(btn.style.width == "50%")
+        if (btn.style.width == "50%")
             btn.style.width = '100%';
         else
             btn.style.width = "50%";
         // console.log('Clicked button123')
     }
 
-    document.getElementById('edit_user').onsubmit = async function(e) {
+    document.getElementById('edit_user').onsubmit = async function (e) {
 
         e.preventDefault();
         const params = new URLSearchParams([...new FormData(e.target).entries()]);
-        const response = await fetch("/api/edit_profile", {method:"POST", body:params})
+        const response = await fetch("/api/edit_profile", {method: "POST", body: params})
         const r = await response.json();
         // const response = await new Response(params);
 
         info = document.getElementById('s_error');
         // info.style.height = "0em";
         // info.style.padding = '10px';
-        if(r.error == false)
-        {
+        if (r.error == false) {
 
             info.style.background = '#28a745';
             // info.style.background = '--green'
@@ -222,14 +232,14 @@
             document.getElementById('s_email').innerHTML = r.user.email;
             document.getElementById('preview').src = r.user.base64data;
         } else {
-            info.style.background ="#dc3545";
+            info.style.background = "#dc3545";
             info.innerText = r.error;
         }
         console.log(info.clientHeight);
         console.log(info.scrollHeight);
-        if(info.clientHeight < info.scrollHeight)
+        if (info.clientHeight < info.scrollHeight)
 
-            info.style.height = info.scrollHeight+10+'px';
+            info.style.height = info.scrollHeight + 10 + 'px';
 
         console.log(JSON.stringify(r));
         console.log("Submited fourm")

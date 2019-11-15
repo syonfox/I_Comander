@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <!--<![endif]--></head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/style/icmd.css">
+
+
+<title>Profile</title>
+
+</head>
+
+<style>
+
+    body{
+        background: #457b9d ;
+    }
+    .pure-g {
+        background: #A8DADC;
+        border-radius: 1em;
+        margin: 0em;
+    }
+
+    /* At the top level of your code */
+    @media screen and (min-width: 35.5em){
+        .pure-g {
+            margin: 3em;
+        }
+    }
+    @media screen and (max-width: 48em){
+        #profilepic {
+            order: -1;
+        }
+        #profile1 {
+            order: -2;
+        }
+    }
+
+
+</style>
+
+<body>
+
+
+
+<div id="layout">
+    <%include ../partials/dashboard_menu.ejs%>
+
+    <div id="main">
+
+        <div class="pure-g" style="padding: 2em">
+
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/icmd.js"></script>
+
+
+<script>
+
+
+    function editClicked() {
+
+        btn = document.getElementById('editButton');
+
+        // console.log(btn)
+        // console.log("asd")
+        // console.log(btn.style.width)
+
+        if(btn.style.width == "50%")
+            btn.style.width = '100%';
+        else
+            btn.style.width = "50%";
+        // console.log('Clicked button123')
+    }
+
+    document.getElementById('edit_user').onsubmit = async function(e) {
+
+        e.preventDefault();
+        const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_profile", {method:"POST", body:params})
+        const r = await response.json();
+        // const response = await new Response(params);
+
+        info = document.getElementById('s_error');
+        // info.style.height = "0em";
+        // info.style.padding = '10px';
+        if(r.error == false)
+        {
+
+            info.style.background = '#28a745';
+            // info.style.background = '--green'
+            info.innerText = "Edits Successfully Made"
+
+            document.getElementById('s_displayName').innerHTML = r.user.displayName;
+            document.getElementById('s_email').innerHTML = r.user.email;
+            document.getElementById('preview').src = r.user.base64data;
+        } else {
+            info.style.background ="#dc3545";
+            info.innerText = r.error;
+        }
+        console.log(info.clientHeight);
+        console.log(info.scrollHeight);
+        if(info.clientHeight < info.scrollHeight)
+
+            info.style.height = info.scrollHeight+10+'px';
+
+        console.log(JSON.stringify(r));
+        console.log("Submited fourm")
+    }
+</script>
+</html>
