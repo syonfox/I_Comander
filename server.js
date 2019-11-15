@@ -76,6 +76,7 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
+
 app.get('/api/kier_secret', async (req, res) => {
       // console.log();
       // console.log(user);
@@ -99,6 +100,18 @@ app.get('/api/kier_secret', async (req, res) => {
       }
 
 });
+
+
+app.get('/drones', auth.checkAuthenticated, (req, res)=> {
+
+  console.log(req.user.username);
+  r = {
+    'user': req.user
+  };
+  res.render('drones.ejs', r);
+
+});
+
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
