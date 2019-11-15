@@ -101,7 +101,7 @@
 
         e.preventDefault();
         const params = new URLSearchParams([...new FormData(e.target).entries()]);
-        const response = await fetch("/api/edit_profile", {method:"POST", body:params})
+        const response = await fetch("/api/edit_profile", {method:"POST", body:params credentials: "same-origin"})
         const r = await response.json();
         // const response = await new Response(params);
 

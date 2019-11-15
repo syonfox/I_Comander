@@ -152,6 +152,8 @@ app.get('/profile', auth.checkAuthenticated, (req, res)=> {
 app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
   // console.log(req.user);
   // console.log(req.body);
+  console.log("EditUser");
+  console.log(req.user.username);
 
   let u = req.user;
   if(req.body.base64photo != '') u.base64data = req.body.base64photo;
@@ -186,6 +188,7 @@ app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
     'error': error
   };
 
+  // console.log(r);
   res.send(r);
 
 });
