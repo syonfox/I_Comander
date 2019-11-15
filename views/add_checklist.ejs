@@ -17,12 +17,12 @@
 </head>
 <body>
 
-
+<form action="/pre_checklist_admin" method="post" >
 <div id="layout">
-  <%include partials/fly_menu.ejs%>
+  <%include partials/dashboard_menu.ejs%>
 
         <div id="main">
-          <button class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Preflight Checklist</button>
+          <button type="button" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Preflight Checklist</button>
 
         </div>
       </div>
@@ -32,7 +32,7 @@
         <div class="card mx-auto">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <li class="list-group-item activeSelectChecklist ">Required Documentation-Universal</li>
                 </button>
               </h5>
@@ -40,14 +40,14 @@
         
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-                  <li class="list-group-item">Landowner/Flight Area Permission Forms On-Hand</li>
-                  <li class="list-group-item">Pilot License On-Hand</li>
-                  <li class="list-group-item">Drone Registraton Certifcate On-Hand - FAA / TC</li>
-                  <li class="list-group-item">Insurance On-Hand</li>
-                  <li class="list-group-item">FLHA and Tailgate Completed</li>
-                  <li class="list-group-item">GPS Coordinates (Lat/Long) Visible for Reference</li>
-                  <li class="list-group-item">Emergency Services Contact Information Visible</li>
-                  <li class="list-group-item">Air Traffic Control and Aerodrome Contact Information Visible</li>
+                  <li class="list-group-item">Landowner/Flight Area Permission Forms On-Hand<input type='hidden' name='Required Documentation-Universal[]' value='Apple'/></li>
+                  <li class="list-group-item">Pilot License On-Hand<input type='hidden' name='Required Documentation-Universal[]' value='Pilot License On-Hand'/></li>
+                  <li class="list-group-item">Drone Registraton Certifcate On-Hand - FAA / TC<input type='hidden' name='Required Documentation-Universal[]' value='Drone Registraton Certifcate On-Hand - FAA / TC'/></li>
+                  <li class="list-group-item">Insurance On-Hand<input type='hidden' name='Required Documentation-Universal[]' value='Insurance On-Hand'/></li>
+                  <li class="list-group-item">FLHA and Tailgate Completed<input type='hidden' name='Required Documentation-Universal[]' value='FLHA and Tailgate Completed'/></li>
+                  <li class="list-group-item">GPS Coordinates (Lat/Long) Visible for Reference<input type='hidden' name='Required Documentation-Universal[]' value='GPS Coordinates (Lat/Long) Visible for Reference'/></li>
+                  <li class="list-group-item">Emergency Services Contact Information Visible<input type='hidden' name='Required Documentation-Universal[]' value='Emergency Services Contact Information Visible'/></li>
+                  <li class="list-group-item">Air Traffic Control and Aerodrome Contact Information Visible<input type='hidden' name='Required Documentation-Universal[]' value='Air Traffic Control and Aerodrome Contact Information Visible'/></li>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <div class="card mx-auto">
             <div class="card-header" id="headingTwo">
               <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                   <li class="list-group-item activeSelectChecklist ">In-field and pre-flight checklist-INS 01</li>
                 </button>
               </h5>
@@ -113,7 +113,7 @@
         <div class="card mx-auto">
             <div class="card-header" id="headingThree">
               <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                   <li class="list-group-item activeSelectChecklist ">Physical Eniveronment-Mission Area</li>
                 </button>
               </h5>
@@ -121,14 +121,14 @@
         
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
               <div class="card-body">
-                        <li class="list-group-item">Weather Check</li>
-                        <li class="list-group-item">Place Safety Cones Around Area</li>
-                        <li class="list-group-item">Operation Signage Appropriately Placed</li>
-                        <li class="list-group-item">Safe Landing Area Established</li>
-                        <li class="list-group-item">Clear Landing Area</li>
-                        <li class="list-group-item">Area Clear of Non-Participants</li>
-                        <li class="list-group-item">Fire Extinguisher On-Hand</li>
-                        <li class="list-group-item">Wind and Temperature Within Operating Specs <input type="text" class="float-right"></li>
+                        <li class="list-group-item">Weather Check<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Weather Check'/></li>
+                        <li class="list-group-item">Place Safety Cones Around Area<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Place Safety Cones Around Area'/></li>
+                        <li class="list-group-item">Operation Signage Appropriately Placed<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Operation Signage Appropriately Placed'/></li>
+                        <li class="list-group-item">Safe Landing Area Established<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Safe Landing Area Established'/></li>
+                        <li class="list-group-item">Clear Landing Area<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Clear Landing Area'/></li>
+                        <li class="list-group-item">Area Clear of Non-Participants<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Area Clear of Non-Participants'/></li>
+                        <li class="list-group-item">Fire Extinguisher On-Hand<input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Fire Extinguisher On-Hand'/></li>
+                        <li class="list-group-item"><input type='hidden' name='Physical Eniveronment-Mission Area[]' value='Wind and Temperature Within Operating Specs'>Wind and Temperature Within Operating Specs <input name='Physical Eniveronment-Mission Area[]{}' type="text" class="float-right"></input></li>
                     </div>
                 </div>
               </div>
@@ -137,7 +137,7 @@
             <div class="card mx-auto">
                 <div class="card-header" id="headingFour">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                       <li class="list-group-item activeSelectChecklist ">Software/Firmware</li>
                     </button>
                   </h5>
@@ -145,9 +145,9 @@
             
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                   <div class="card-body">
-                        <li class="list-group-item">Latest Version Firmware</li>
-                        <li class="list-group-item">Latest Version Ground Control Software</li>
-                        <li class="list-group-item">Latest Version Sensor Firmware</li>
+                        <li class="list-group-item">Latest Version Firmware<input type='hidden' name='Software/Firmware[]' value='Latest Version Firmware'/></li>
+                        <li class="list-group-item">Latest Version Ground Control Software<input type='hidden' name='Software/Firmware[]' value='Latest Version Ground Control Software'/></li>
+                        <li class="list-group-item">Latest Version Sensor Firmware<input type='hidden' name='Software/Firmware[]' value='Latest Version Sensor Firmware'/></li>
                     </div>
                 </div>
               </div>
@@ -156,7 +156,7 @@
         <div class="card mx-auto">
             <div class="card-header" id="headingFive">
               <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
                   <li class="list-group-item activeSelectChecklist ">Flight planning</li>
                 </button>
               </h5>
@@ -164,10 +164,10 @@
         
             <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
               <div class="card-body">
-                        <li class="list-group-item">Mission Uploaded to UAV</li>
-                        <li class="list-group-item">Safe "Home" and/or "Start" Location Established</li>
-                        <li class="list-group-item">Correct Flight Elevation Programmed </li>
-                        <li class="list-group-item">Furthers Waypoints are Within Telemetry Range</li>
+                        <li class="list-group-item">Mission Uploaded to UAV<input type='hidden' name='Flight planning[]' value='Mission Uploaded to UAV'/></li>
+                        <li class="list-group-item">Safe "Home" and/or "Start" Location Established<input type='hidden' name='Flight planning[]' value='Safe "Home" and/or "Start" Location Established'/></li>
+                        <li class="list-group-item">Correct Flight Elevation Programmed<input type='hidden' name='Flight planning[]' value='Correct Flight Elevation Programmed'/></li>
+                        <li class="list-group-item">Furthers Waypoints are Within Telemetry Range<input type='hidden' name='Flight planning[]' value='Furthers Waypoints are Within Telemetry Range'/></li>
                     </div>
                 </div>
               </div>
@@ -176,7 +176,7 @@
             <div class="card mx-auto">
                 <div class="card-header" id="headingSix">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
                       <li class="list-group-item activeSelectChecklist ">Communication</li>
                     </button>
                   </h5>
@@ -184,11 +184,11 @@
             
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
                   <div class="card-body">
-                        <li class="list-group-item">iCom Radio On</li>
-                        <li class="list-group-item">Verbal Flight Description and Pattern Discussed</li>
-                        <li class="list-group-item">Furthest Distance of UAV from "Home" is Verbalized</li>
-                        <li class="list-group-item">Verbal Clarification of Flyaway Procedure</li>
-                        <li class="list-group-item">Platform Identifier:</li>
+                        <li class="list-group-item">iCom Radio On<input type='hidden' name='Communication[]' value='iCom Radio On'/></li>
+                        <li class="list-group-item">Verbal Flight Description and Pattern Discussed<input type='hidden' name='Communication[]' value='Verbal Flight Description and Pattern Discussed'/></li>
+                        <li class="list-group-item">Furthest Distance of UAV from "Home" is Verbalized<input type='hidden' name='Communication[]' value='Furthest Distance of UAV from "Home" is Verbalized'/></li>
+                        <li class="list-group-item">Verbal Clarification of Flyaway Procedure<input type='hidden' name='Communication[]' value='Verbal Clarification of Flyaway Procedure'/></li>
+                        <li class="list-group-item">Platform Identifier:<input type='hidden' name='Communication[]' value='Platform Identifier:'/></li>
                     </div>
                 </div>
               </div>
@@ -197,7 +197,7 @@
         <div class="card mx-auto">
             <div class="card-header" id="headingSeven">
               <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
                   <li class="list-group-item activeSelectChecklist ">Battery</li>
                 </button>
               </h5>
@@ -220,9 +220,9 @@
                                     </div>
                             </div>
                             </li>
-                        <li class="list-group-item">Platform Battery Charged to 90% - Checked with Remote  </li>
-                        <li class="list-group-item">Remote Control Battery Charged</li>
-                        <li class="list-group-item">Tablet / Computer Ground Station Charged</li>
+                        <li class="list-group-item">Platform Battery Charged to 90% - Checked with Remote<input type='hidden' name='Battery[]' value='Platform Battery Charged to 90% - Checked with Remote'/></li>
+                        <li class="list-group-item">Remote Control Battery Charged<input type='hidden' name='Battery[]' value='Remote Control Battery Charged'/></li>
+                        <li class="list-group-item">Tablet / Computer Ground Station Charged<input type='hidden' name='Battery[]' value='Tablet / Computer Ground Station Charged'/></li>
                     </div>
                 </div>
               </div>
@@ -231,7 +231,7 @@
             <div class="card mx-auto">
                 <div class="card-header" id="headingEight">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
                       <li class="list-group-item activeSelectChecklist ">Platform Checks</li>
                     </button>
                   </h5>
@@ -239,9 +239,9 @@
             
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
                   <div class="card-body">
-                        <li class="list-group-item">No Loose Cables or Wiring</li>
-                        <li class="list-group-item">Legs / Arms Locked and Secured</li>
-                        <li class="list-group-item">Leg / Arm Locking Mechanism in Condition</li>
+                        <li class="list-group-item">No Loose Cables or Wiring<input type='hidden' name='Platform Checks[]' value='No Loose Cables or Wiring'/></li>
+                        <li class="list-group-item">Legs / Arms Locked and Secured<input type='hidden' name='Platform Checks[]' value='Legs / Arms Locked and Secured'/></li>
+                        <li class="list-group-item">Leg / Arm Locking Mechanism in Condition<input type='hidden' name='Platform Checks[]' value='Leg / Arm Locking Mechanism in Condition'/></li>
                         <li class="list-group-item">
                             <p>Identify Propellers: </p>
                             <div class="dropdown float-right">
@@ -255,16 +255,14 @@
                                     </div>
                             </div>
                         </li>
-                        <li class="list-group-item">Propellers in Condition </li>
-                        <li class="list-group-item">Body Free of Cracks and Dents</li>
-                        <li class="list-group-item">Screws / Nuts / Bolts in Place and Tight</li>
-                        <li class="list-group-item">Battery Connectors and Cables Secure </li>
-                        <li class="list-group-item">Gimbal and Payload Assembly Secure</li>
-                        <li class="list-group-item">Gimbal and Payload Assembly Secure</li>
-                        <li class="list-group-item">Camera Responsive to Commands</li>
-                        <li class="list-group-item">Compass Calibration if 10km From Last Flight or 30 Days)</li>
-                        <li class="list-group-item">Optical Flow Sensor(s) Clear of Obstruction  Debris</li>
-
+                        <li class="list-group-item">Propellers in Condition<input type='hidden' name='Platform Checks[]' value='Propellers in Condition'/></li>
+                        <li class="list-group-item">Body Free of Cracks and Dents<input type='hidden' name='Platform Checks[]' value='Body Free of Cracks and Dents'/></li>
+                        <li class="list-group-item">Screws / Nuts / Bolts in Place and Tight<input type='hidden' name='Platform Checks[]' value='Screws / Nuts / Bolts in Place and Tight'/></li>
+                        <li class="list-group-item">Battery Connectors and Cables Secure<input type='hidden' name='Platform Checks[]' value='Battery Connectors and Cables Secure'/></li>
+                        <li class="list-group-item">Gimbal and Payload Assembly Secure<input type='hidden' name='Platform Checks[]' value='Gimbal and Payload Assembly Secure'/></li>
+                        <li class="list-group-item">Camera Responsive to Commands<input type='hidden' name='Platform Checks[]' value='Camera Responsive to Commands'/></li>
+                        <li class="list-group-item">Compass Calibration if 10km From Last Flight or 30 Days)<input type='hidden' name='Platform Checks[]' value='Compass Calibration if 10km From Last Flight or 30 Days)'/></li>
+                        <li class="list-group-item">Optical Flow Sensor(s) Clear of Obstruction Debris<input type='hidden' name='Platform Checks[]' value='Optical Flow Sensor(s) Clear of Obstruction Debris'/></li>
                     </div>
                 </div>
               </div>
@@ -299,7 +297,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Continue</button>
+                            <button type="submit" class="btn btn-primary">Continue</button>
                         </div>
                         </div>
                     </div>
@@ -307,9 +305,12 @@
                 </div>
             </div>
   </ul>
+
 <script>
     $('select').selectpicker();
 </script>
 <script src="/js/icmd.js"></script>
+
+</form>
 </body>
 </html>
