@@ -24,7 +24,7 @@ function checkNotAuthenticated(req, res, next) {
 function register(req, res, next) {
 
     try {
-        let newUser = users.addUser(req)
+        let newUser = users.addUser(req);
         req.icmd = {user:newUser};
 
 
@@ -200,7 +200,7 @@ module.exports.initialize = initialize;
 
 /* Midlewhere*/
 //registers a user and then sets req.local.user = New User
-module.exports.regester = register;
+module.exports.register = register;
 
 //cheacks if a user is authenticated if not it redirects to login page (also sets req.user)
 module.exports.checkAuthenticated = checkAuthenticated;

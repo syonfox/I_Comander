@@ -41,7 +41,7 @@ app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
   saveUninitialized: false,
   resave: false,
-  cookie: { maxAge: 86400 }
+  cookie: { maxAge: 864000 }
 }));
 
 app.use(passport.initialize());
@@ -52,7 +52,7 @@ app.use(passport.session());
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json({ limit: "10mb" }))
+app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 app.get(['/', '/index.html'],
     auth.checkAuthenticated,
@@ -60,16 +60,14 @@ app.get(['/', '/index.html'],
   // res.sendFile(__dirname + '/app/index.html');
       r = {
         'user': req.user,
-        'page': 'index'
-      }
-
+      };
       res.render('index.ejs', r);
 });
 
 
 
 app.get('/demo-index.html', (req, res) => {
-  res.sendFile(__dirname + '/demo-index.html');
+  res.sendFile(__dirname + '/app/demo-index.html');
 });
 
 app.get('/dashboard', (req, res) => {
@@ -108,9 +106,20 @@ app.get('/drones', auth.checkAuthenticated, (req, res)=> {
   r = {
     'user': req.user
   };
-  res.render('drones.ejs', r);
+    res.render('partials/drones.ejs', r);
 
 });
+
+app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
+
+  console.log(req.user.username);
+  r = {
+    'user': req.user
+  };
+    res.render('partials/index.ejs', r);
+
+});
+
 
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
@@ -216,7 +225,7 @@ app.post('/api/login',
 
 app.post('/api/register',
     auth.checkNotAuthenticated,
-    auth.regester,
+    auth.register,
     (req, res)=>{
       res.redirect('/login')
     }
@@ -327,6 +336,32 @@ app.post('/api/add', (req, res) => {
   });
 });
 
+
+app.post('/api/submit_flight', (req, res) => {
+  let jsonFile = __dirname + '/server-data/flights.json';
+  // let newEvent = req.body;
+  // TODO: get list and save it to flights.json
+
+  // console.log('Adding new event:', newEvent);
+  // fs.readFile(jsonFile, (err, data) => {
+  //   if (err) {
+  //     res.sendStatus(500);
+  //     return;
+  //   }
+  //   let events = JSON.parse(data);
+  //   events.push(newEvent);
+  //   let eventsJson = JSON.stringify(events, null, 2);
+  //   fs.writeFile(jsonFile, eventsJson, err => {
+  //     if (err) {
+  //       res.sendStatus(500);
+  //       return;
+  //     }
+  //     // You could also respond with the database json to save a round trip
+  //     res.sendStatus(200);
+  //   });
+  // });
+});
+
 //
 app.post('/api/delete', (req, res) => {
   let jsonFile = __dirname + '/server-data/events.json';
@@ -351,6 +386,7 @@ app.post('/api/delete', (req, res) => {
     });
   });
 });
+
 
 
 app.use(express.static(__dirname + '/app'));
