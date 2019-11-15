@@ -1,0 +1,22 @@
+<button class="pure-button-primary pure-button" style="width: 10%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; float: left;" onclick="loadIndex();">Back</button>
+<button class="pure-button-primary pure-button" style="width: 90%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Select a Drone</button>
+
+	  
+<ul id="container" class="container">
+        <!-- items dynamically populated -->
+</ul>
+
+<script>
+function loadIndex() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          $('#main').hide().html(this.responseText).fadeIn();           
+          //updateVars();
+          //loadContentNetworkFirst();
+    }
+  };
+  xhttp.open("GET", "index_partial", true);
+  xhttp.send();
+}
+</script>

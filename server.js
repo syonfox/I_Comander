@@ -41,7 +41,7 @@ app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
   saveUninitialized: false,
   resave: false,
-  cookie: { maxAge: 86400 }
+  cookie: { maxAge: 864000 }
 }));
 
 app.use(passport.initialize());
@@ -106,9 +106,20 @@ app.get('/drones', auth.checkAuthenticated, (req, res)=> {
   r = {
     'user': req.user
   };
-  res.render('drones.ejs', r);
+    res.render('partials/drones.ejs', r);
 
 });
+
+app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
+
+  console.log(req.user.username);
+  r = {
+    'user': req.user
+  };
+    res.render('partials/index.ejs', r);
+
+});
+
 
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
