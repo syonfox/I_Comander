@@ -18,7 +18,7 @@
   }
 }
 
-.card-title {
+.card_title {
   align-items: center;
   background-color: #04a9f4;
   color: #fff;
@@ -29,7 +29,7 @@
   width: 100%;
 }
 
-.card-text {
+.card_text {
   color: #616161;
   flex-grow: 1;
   font-size: 1rem;

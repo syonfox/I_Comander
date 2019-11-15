@@ -37,6 +37,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
+<link rel="stylesheet" type="text/css" href="/style/cards.css">
+<link rel="stylesheet" type="text/css" href="/style/drones.css" />
+
 
 </head>
 
@@ -87,7 +90,7 @@
     <%include partials/fly_menu.ejs%>
 
     <div id="main">
-        <button id="startFlyingBtn" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px" >Start Flying</button>
+        <button id="startFlyingBtn" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px" onclick="loadDrones()">Start Flying</button>
         <div class="crop">
             <img src="/images/calvin_fly.gif" alt="Calvin Flying">
         </div>
@@ -98,7 +101,7 @@
 <!--</div>-->
 
 <script src="/js/icmd.js"></script>
-<script>
+<!--script>
     $(document).ready(function(){
         $("#startFlyingBtn").click(function(){
             var div = $("#startFlyingBtn");
@@ -110,7 +113,26 @@
             }, 400);
         });
     });
+</script-->
+
+
+<script>
+function loadDrones() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          $('#main').hide().html(this.responseText).fadeIn();           
+          updateVars();
+          loadContentNetworkFirst();
+    }
+  };
+  xhttp.open("GET", "drones", true);
+  xhttp.send();
+}
 </script>
+
+<script src="js/idb-promised.js"></script>
+<script src="js/drones.js"></script>
 <!--<div style="width:100%;height:0;padding-bottom:68%;position:relative;"><iframe src="/images/calvin_fly.gif" width="100%" height="100%" style=" allowFullScreen></iframe></div>-->
 </body>
 </html>

@@ -14,7 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const container = document.getElementById('container');
+var container = document.getElementById('container');
+
+function updateVars() {
+    container = document.getElementById('container');
+}
 
 loadContentNetworkFirst()
 
@@ -33,14 +37,13 @@ function updateUI(drones) {
   Array.prototype.forEach.call(drones, drone => {
     const item =
       `<a class="card" href="#${drone.id}">
-         <div class="card-text">
-		   <img src="images/drone${drone.id}.jpg" class="card-image"></img>
-           <h2 class="card-name">${drone.name}</h2>
-           <h4 class="card-type">${drone.type}</h4>
+         <div class="card_text">
+		   <img src="images/drone${drone.id}.jpg" class="card_image"></img>
+           <h2 class="card_name">${drone.name}</h2>
+           <h4 class="card_type">${drone.type}</h4>
          </div>
        </a>`;
     container.insertAdjacentHTML('beforeend', item);
-	console.log("here");
   });
 
 }
