@@ -7,13 +7,15 @@
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+    <!--[if lte IE 8]>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
@@ -30,9 +32,10 @@
 
 <style>
 
-    body{
-        background: #457b9d ;
+    body {
+        background: #457b9d;
     }
+
     .pure-g {
         background: #A8DADC;
         border-radius: 1em;
@@ -40,15 +43,17 @@
     }
 
     /* At the top level of your code */
-    @media screen and (min-width: 35.5em){
+    @media screen and (min-width: 35.5em) {
         .pure-g {
             margin: 3em;
         }
     }
-    @media screen and (max-width: 48em){
+
+    @media screen and (max-width: 48em) {
         #profilepic {
             order: -1;
         }
+
         #profile1 {
             order: -2;
         }
@@ -60,76 +65,102 @@
 <body>
 
 
-
 <div id="layout">
-    <%include ../partials/dashboard_menu.ejs%>
+    <% include ../partials/dashboard_menu.ejs %>
 
     <div id="main">
 
         <div class="pure-g" style="padding: 2em">
+            <div class="pure-u-1 ">
+                <h1>Drone Managment</h1>
+            </div>
 
-
-
+            <div id="list_header" class="pure-u-1 ">
+                <span style="">Drone List</span>
+                <button id="add_drone_btn" class="pure-button-primary" data-toggle="collapse" data-target="#add_drone"
+                        style="width: 50%; border-radius: 0px; transition: width 0.5s ease-in-out; border: hidden; float: right">
+                    Change password
+                </button>
+            </div>
+            <div id="add_drone" class="pure-u-1 collapse" style="background: #99121d">
+                TODO: Fill IN
+            </div>
+            <div id="drone_list" class="pure-u-1">
+                TODO: FIll in
+            <!--TODO: Fill in div with js-->
+            </div>
         </div>
-
     </div>
 </div>
-
 </body>
 <script src="/js/icmd.js"></script>
 
 
 <script>
 
+    async function init_drone_list() {
+        dl = document.getElementById('drone_list');
+        const response = await fetch("/api/getDrones", {method: "GET", credentials: "same-origin"});
+        let dronedb = await response.json();
+        console.log(dronedb);
 
-    function editClicked() {
-
-        btn = document.getElementById('editButton');
-
-        // console.log(btn)
-        // console.log("asd")
-        // console.log(btn.style.width)
-
-        if(btn.style.width == "50%")
-            btn.style.width = '100%';
-        else
-            btn.style.width = "50%";
-        // console.log('Clicked button123')
+        dronedb.drones.forEach((d)=>{
+            let item = document.createElement('p')
+            item.innerText = d.name;
+            console.log(d)
+            dl.appendChild(item);
+        });
     }
 
-    document.getElementById('edit_user').onsubmit = async function(e) {
-
-        e.preventDefault();
-        const params = new URLSearchParams([...new FormData(e.target).entries()]);
-        const response = await fetch("/api/edit_profile", {method:"POST", body:params credentials: "same-origin"})
-        const r = await response.json();
-        // const response = await new Response(params);
-
-        info = document.getElementById('s_error');
-        // info.style.height = "0em";
-        // info.style.padding = '10px';
-        if(r.error == false)
-        {
-
-            info.style.background = '#28a745';
-            // info.style.background = '--green'
-            info.innerText = "Edits Successfully Made"
-
-            document.getElementById('s_displayName').innerHTML = r.user.displayName;
-            document.getElementById('s_email').innerHTML = r.user.email;
-            document.getElementById('preview').src = r.user.base64data;
-        } else {
-            info.style.background ="#dc3545";
-            info.innerText = r.error;
-        }
-        console.log(info.clientHeight);
-        console.log(info.scrollHeight);
-        if(info.clientHeight < info.scrollHeight)
-
-            info.style.height = info.scrollHeight+10+'px';
-
-        console.log(JSON.stringify(r));
-        console.log("Submited fourm")
-    }
+    init_drone_list();
+    //
+    // function editClicked() {
+    //
+    //     btn = document.getElementById('editButton');
+    //
+    //     // console.log(btn)
+    //     // console.log("asd")
+    //     // console.log(btn.style.width)
+    //
+    //     if (btn.style.width == "50%")
+    //         btn.style.width = '100%';
+    //     else
+    //         btn.style.width = "50%";
+    //     // console.log('Clicked button123')
+    // }
+    //
+    // document.getElementById('edit_user').onsubmit = async function (e) {
+    //
+    //     e.preventDefault();
+    //     const params = new URLSearchParams([...new FormData(e.target).entries()]);
+    //     const response = await fetch("/api/edit_profile", {method: "POST", body: params, credentials: "same-origin"})
+    //     const r = await response.json();
+    //     // const response = await new Response(params);
+    //
+    //     info = document.getElementById('s_error');
+    //     // info.style.height = "0em";
+    //     // info.style.padding = '10px';
+    //     if (r.error == false) {
+    //
+    //         info.style.background = '#28a745';
+    //         // info.style.background = '--green'
+    //         info.innerText = "Edits Successfully Made"
+    //
+    //         document.getElementById('s_displayName').innerHTML = r.user.displayName;
+    //         document.getElementById('s_email').innerHTML = r.user.email;
+    //         document.getElementById('preview').src = r.user.base64data;
+    //     } else {
+    //         info.style.background = "#dc3545";
+    //         info.innerText = r.error;
+    //     }
+    //     console.log(info.clientHeight);
+    //     console.log(info.scrollHeight);
+    //     if (info.clientHeight < info.scrollHeight)
+    //
+    //         info.style.height = info.scrollHeight + 10 + 'px';
+    //
+    //     console.log(JSON.stringify(r));
+    //     console.log("Submited fourm")
+    // }
 </script>
 </html>

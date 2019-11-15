@@ -1,26 +1,27 @@
-[
-  {
-    "id": 1,
-    "name": "Mavic",
-    "type": "Quad Wing",
-    "image": "drone1.jpg"
-  },
-  {
-    "id": 2,
-    "name": "F16",
-    "type": "Quad Wing",
-    "image": "image"
-  },
-  {
-    "id": 3,
-    "name": "Butterfly",
-    "type": "Quad Wing",
-    "image": "image"
-  },
-  {
-    "id": 4,
-    "name": "Quadcopter",
-    "type": "Helicopter",
-    "image": "image"
-  }
-]
+{
+  "next_did": 3,
+  "drones": [
+    {
+      "did": 1,
+      "name": "Mavic",
+      "lockedout": true,
+      "disabled": false,
+      "preflight_lid": 0,
+      "postflight_lid": 1,
+      "type": "Quad Wing",
+      "image": "drone1.jpg"
+    },
+
+    {
+      "did": 2,
+      "name": "F16",
+      "lockedout": false,
+      "disabled": false,
+      "preflight_lid": 0,
+      "postflight_lid": 1,
+      "type": "Quad Wing",
+      "image": "image"
+    }
+  ]
+
+}
