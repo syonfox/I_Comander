@@ -1,4 +1,5 @@
 {
+  "next_lid": 1,
   "lists": [
     {
       "lid": 0,
@@ -64,7 +65,8 @@
         },
         {
           "type":"input",
-          "label": "Enter Your Licence Number"
+          "label": "Enter Your Licence Number",
+          "action": "NONE"
         }
       ]
     }
