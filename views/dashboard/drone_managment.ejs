@@ -78,8 +78,8 @@
             <div id="list_header" class="pure-u-1 ">
                 <span style="">Drone List</span>
                 <button id="add_drone_btn" class="pure-button-primary" data-toggle="collapse" data-target="#add_drone"
-                        style="width: 50%; border-radius: 0px; transition: width 0.5s ease-in-out; border: hidden; float: right">
-                    Change password
+                        style="width: 50%; border-radius: 0px; border: hidden; float: right">
+                    Add Drone
                 </button>
             </div>
             <div id="add_drone" class="pure-u-1 collapse" style="background: #99121d">
@@ -99,9 +99,26 @@
 <style>
     .drone_item {
         border-style: solid;
-        border-width: 3px;
-        border-radius: 5px;
+        border-width: 2px;
+        border-radius: 0.5em;
+        margin: .5em;
         /*background: #04a9f4;*/
+        background: mintcream;
+        /*transition: height 1s ease-in-out;*/
+    }
+    .drone_image {
+        width: 3em;
+        height: 3em;
+        border-radius: 0.5em;
+        padding: 3px;
+    }
+    .drone_item button {
+        border: none;
+        float: right;
+        /*padding: 0.5em;*/
+        background: #457b9d;
+        height: 2em;
+        margin: 0.5em;
     }
 
 </style>
@@ -118,7 +135,20 @@
             let item = document.createElement('div')
             item.classList.add('drone_item')
             item.classList.add('pure-u-1')
-            item.innerText = d.name;
+
+            item.innerHTML = `
+                <img src="/images/drone${d.did}.jpg" class="drone_image">
+                <span> ${d.name}:${d.type} | louckout: ${d.lockedout} | disabled: ${d.disabled} </span>
+                <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
+                <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_drone_${d.did}">Edit</button>
+
+                <div id="edit_drone_${d.did}" class="pure-u-1 collapse" style="background: #457b9d">
+                    TODO: Fill IN
+                </div>
+
+                `
+
+            // item.innerText = d.name;
             console.log(d)
             dl.appendChild(item);
         });
