@@ -125,16 +125,28 @@
 
 <script>
 
+
     async function init_drone_list() {
         dl = document.getElementById('drone_list');
+        // todo: properly make this async
         const response = await fetch("/api/getDrones", {method: "GET", credentials: "same-origin"});
+        const c_response = await fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"});
+
+        // await response;
+        console.log(response)
         let dronedb = await response.json();
+        let listdb = await c_response.json();
         console.log(dronedb);
 
         dronedb.drones.forEach((d)=>{
             let item = document.createElement('div')
             item.classList.add('drone_item')
             item.classList.add('pure-u-1')
+            let list_options = ``;
+            listdb.lists.forEach(l=>{
+                list_options+=`<option>${l.label}</option>`;
+            })
+
 
             item.innerHTML = `
                 <img src="/images/drone${d.did}.jpg" class="drone_image">
@@ -142,8 +154,44 @@
                 <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
                 <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_drone_${d.did}">Edit</button>
 
-                <div id="edit_drone_${d.did}" class="pure-u-1 collapse" style="background: #457b9d">
-                    TODO: Fill IN
+                <div id="edit_drone_${d.did}" class="pure-u-1 collapse">
+                <form id='edit_form_${d.did}' class="pure-form pure-form-aligned"
+                      action="#" style="height: 100%; background: mintcream">
+
+                    <fieldset>
+
+
+                        <div class="pure-control-group">
+                            <label for="name">Drone Name</label>
+                            <input name="name" type="text" placeholder="Name"
+                                   value="${d.name}">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="type">Drone Name</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.type}">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="pre">Preflight List</label>
+                            <select name="pre_list">
+                             ${list_options}
+                            </select>
+                        </div>
+
+                         <div class="pure-control-group">
+                            <label for="post_list">Postflight List</label>
+                            <select name="post_list">
+                             ${list_options}
+                            </select>
+                        </div>
+                        <div class="pure-controls">
+                            <button type="submit" class="pure-button pure-button-primary" style="float: left">Submit
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+
                 </div>
 
                 `

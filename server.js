@@ -309,6 +309,7 @@ app.get('/api/getAll', (req, res) => {
   });
 });
 
+//todo: cheack authenitcation
 app.get('/api/getDrones', (req, res) => {
 
   let options = {
@@ -323,6 +324,22 @@ app.get('/api/getDrones', (req, res) => {
     }
   });
 });
+
+app.get('/api/getChecklist', auth.checkAuthenticated, (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'checklist.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
+});
+
 
 app.post('/api/add', (req, res) => {
   let jsonFile = __dirname + '/server-data/events.json';

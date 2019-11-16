@@ -1,5 +1,5 @@
 {
-  "next_lid": 1,
+  "next_lid": 2,
   "lists": [
     {
       "lid": 0,
@@ -27,6 +27,16 @@
             "title": "Bad Fav Color",
             "body": "We all know green is the best color time to change some minds"
           }
+        }
+      ]
+    },
+    {
+      "lid": 1,
+      "label": "List Two :)",
+      "items": [
+        {
+          "type": "sublist",
+          "sid": 0
         }
       ]
     }
