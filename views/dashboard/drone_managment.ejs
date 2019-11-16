@@ -96,6 +96,16 @@
 <script src="/js/icmd.js"></script>
 
 
+<style>
+    .drone_item {
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 5px;
+        /*background: #04a9f4;*/
+    }
+
+</style>
+
 <script>
 
     async function init_drone_list() {
@@ -105,7 +115,9 @@
         console.log(dronedb);
 
         dronedb.drones.forEach((d)=>{
-            let item = document.createElement('p')
+            let item = document.createElement('div')
+            item.classList.add('drone_item')
+            item.classList.add('pure-u-1')
             item.innerText = d.name;
             console.log(d)
             dl.appendChild(item);

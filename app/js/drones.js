@@ -34,11 +34,11 @@ function getServerData() {
 
 function updateUI(drones) {
 
-  Array.prototype.forEach.call(drones, drone => {
+  Array.prototype.forEach.call(drones.drones, drone => {
     const item =
-      `<a class="card" href="#${drone.id}">
+      `<a class="card" href="#${drone.did}">
          <div class="card_text">
-		   <img src="images/drone${drone.id}.jpg" class="card_image"></img>
+		   <img src="images/drone${drone.did}.jpg" class="card_image"></img>
            <h2 class="card_name">${drone.name}</h2>
            <h4 class="card_type">${drone.type}</h4>
          </div>
