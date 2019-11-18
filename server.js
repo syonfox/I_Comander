@@ -22,6 +22,8 @@ var passport = require('passport'); //authentication lib
 // var db = require('./db'); //The folder when users are stored.
 const users = require('./users');
 
+const reque = require('request');
+
 const auth = require('./auth');
 auth.initialize(
   passport,
@@ -148,6 +150,54 @@ app.get('/profile', auth.checkAuthenticated, (req, res)=> {
   res.render('profile.ejs', r);
 
 });
+
+app.get('/api/get_weather', auth.checkAuthenticated, (req, res) => {
+    const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
+    const url = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&units=metric"
+
+    reque.get({
+        url: url + "&APPID=" + api_key,
+        json: true,
+        headers: {'User-Agent': 'Mozilla 5.0'}
+    }, (err, respon, data) => {
+        if (err) {
+            console.log("Error fetching weather:", err);
+        }
+        else if (respon.statusCode !== 200) {
+            console.log("Error! HTTP Status:", respon.statusCode);
+        }
+        else {
+            res.send(data);
+        }
+    })
+});
+
+app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
+    const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
+    const url = "http://api.openweathermap.org/data/2.5/weather?units=metric"
+
+    var w_lat = "&lat=" + req.query.lat;
+    var w_lon = "&lon=" + req.query.lon;
+
+
+
+    reque.get({
+        url: url + w_lat + w_lon + "&APPID=" + api_key,
+        json: true,
+        headers: {'User-Agent': 'Mozilla 5.0'}
+    }, (err, respon, data) => {
+        if (err) {
+            console.log("Error fetching weather:", err);
+        }
+        else if (respon.statusCode !== 200) {
+            console.log("Error! HTTP Status:", respon.statusCode);
+        }
+        else {
+            res.send(data);
+        }
+    })
+});
+
 
 app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
   // console.log(req.user);
