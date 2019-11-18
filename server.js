@@ -127,6 +127,38 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
 
 });
 
+app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
+  let droneId = req.params.droneid;
+  let jsonFile = __dirname + '/server-data/drones.json';
+  let drone;
+  fs.readFile(jsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let drones = JSON.parse(data);
+
+    let drone_filter = drones.drones.filter(function (item,index){
+        return item.did==droneId;
+    });
+    drone = drone_filter[0];
+
+
+    let checklist_id = drone.preflight_lid;
+
+    console.log(req.user.username);
+    r = {
+      'user': req.user,
+      'checklistid': checklist_id,
+      'droneid': droneId
+    };
+    res.render('partials/checklist.ejs', r);
+
+  });
+
+
+});
+
 
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
@@ -364,29 +396,54 @@ app.post('/api/add', (req, res) => {
   });
 });
 
+app.get('/api/getChecklist/:checklistid', (req, res)=>{
+  // let jsonFile = __dirname + '/server-data/flights.json';
+  let checklist_id = req.params.checklistid;
+  console.log(checklist_id);
+  let checklist;
+  let clJsonFile = __dirname + '/server-data/draft_cheacklist.json';
+  fs.readFile(clJsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let checklists = JSON.parse(data);
+    let checklist_filter = checklists.lists.filter(function (item,index){
+        return item.lid==checklist_id;
+    });
+    checklist = checklist_filter[0];
+
+    res.send(checklist);
+  });
+});
+
 app.post('/api/submit_flight', (req, res) => {
-  let jsonFile = __dirname + '/server-data/flights.json';
+  let jsonFile = __dirname + '/server-data/draft_flights.json';
+  let formData = req.body;
+
   // let newEvent = req.body;
   // TODO: get list and save it to flights.json
 
   // console.log('Adding new event:', newEvent);
-  // fs.readFile(jsonFile, (err, data) => {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //     return;
-  //   }
-  //   let events = JSON.parse(data);
-  //   events.push(newEvent);
-  //   let eventsJson = JSON.stringify(events, null, 2);
-  //   fs.writeFile(jsonFile, eventsJson, err => {
-  //     if (err) {
-  //       res.sendStatus(500);
-  //       return;
-  //     }
-  //     // You could also respond with the database json to save a round trip
-  //     res.sendStatus(200);
-  //   });
-  // });
+  fs.readFile(jsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let flights = JSON.parse(data);
+    let newFlight = {id: flights.next_id, start_time: new Date(), drone_id:formData.drone_id, user: formData.user, preflight_list: formData};
+    flights.next_id += 1;
+    flights.flights.push(newFlight);
+    let flightsJson = JSON.stringify(flights, null, 2);
+    fs.writeFile(jsonFile, flightsJson, err => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      // You could also respond with the database json to save a round trip
+      res.sendStatus(200);
+    });
+  });
 });
 
 app.post('/api/delete', (req, res) => {
