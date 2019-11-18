@@ -8,7 +8,7 @@
       "disabled": false,
       "preflight_lid": 0,
       "postflight_lid": 1,
-      "type": "Quad Wing",
+      "type": "Quad Wings2",
       "image": "drone1.jpg"
     },
     {
@@ -21,5 +21,15 @@
       "type": "Quad Wing",
       "image": "image"
     }
-  ]
+  ],
+  "updated_drone": {
+    "did": 1,
+    "name": "Mavic_test",
+    "lockedout": true,
+    "disabled": false,
+    "preflight_lid": 0,
+    "postflight_lid": 1,
+    "type": "Quad Wings2",
+    "image": "drone1.jpg"
+  }
 }

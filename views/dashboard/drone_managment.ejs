@@ -6,27 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
-
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+    <link rel="stylesheet" href="/css/pure-min.css">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
-    <!--<![endif]--></head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="/css/grids-responsive-min.css">
+    <![endif]-->
+
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
 
-<title>Profile</title>
+<title>Drones-icmd</title>
 
 </head>
 
@@ -97,7 +92,8 @@
 
 
 <style>
-    .drone_item {
+    .drone_item {}
+    .drone_item .pure-g{
         border-style: solid;
         border-width: 2px;
         border-radius: 0.5em;
@@ -129,23 +125,11 @@
 
     function getServerData(path) {
         //  ie /api/getDrones
-        return fetch(path).then(response => {
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            return response.json();
-        });
+        return fetch(path, {method: 'GET', credentials: "same-origin"}).then(r => {
+            if (!r.ok) throw Error(r.statusText);
+            return r.json();
+        })
     }
-
-
-    // function serverApiFetch(path) {
-    //
-    //     return fetch(path, {method: method, credentials: "same-origin"}).then(r=>{
-    //         if(!r.ok) throw Error(r.statusText);
-    //         return r.json();
-    //     })
-    // }
-    //
 
     async function editSubmit(e) {
         e.preventDefault();
@@ -154,69 +138,62 @@
 
         // const params = new URLSearchParams([...new FormData(e.target).entries()]);
         const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
+        r = await response.json();
+        console.log(r);
+        let drones = r;
+        let d = r.updated_drone
+
+        document.getElementById(`e_name${d.did}`).innerHTML = `${d.name}:${d.type}`
+        document.getElementById(`e_lockedout${d.did}`).innerHTML = `lockedout: ${d.lockedout}`
+        document.getElementById(`e_disabled${d.did}`).innerHTML = `disabled: ${d.disabled}`
+
+        console.log("Succssesfully edited drone")
         console.log(response);
 
-        // const r = await response.json();
-
-        // serverApiFetch('/api/editDrone', 'POST').then(r=>{
-        //     console.log(r);
-        // })
     }
 
-    async function init_drone_list() {
-        dl = document.getElementById('drone_list');
-        // todo: properly make this async
-        // const response = fetch("/api/getDrones", {method: "GET", credentials: "same-origin"});
-        // const c_response = fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"});
+    function gen_drone_form(d, list_options) {
 
-        // let responses = []
-        // responses.push(fetch("/api/getDrones", {method: "GET", credentials: "same-origin"}).then(r=>{
-        //     if(!r.ok) throw Error(r.statusText);
-        //     return r.json();
-        // }));
-        // responses.push(fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"}).then(r=>{
-        //     if(!r.ok) throw Error(r.statusText);
-        //     return r.json();
-        // }));
+        if(d == null) {
+            d = {
+                did:-1,
+                name:'',
+                type:'',
 
-        let responses = []
-        responses.push(getServerData('/api/get_drones'));
-        responses.push(getServerData('/api/get_checklist'));
+            }
+        }
 
-        Promise.all(responses).then(value => {
-            // let dronedb = await value[0].json();
-            // let listdb = await value[1].json();
-            // console.log(value)
-            // if (!value[0].ok) {
-            //     throw Error(value[0].statusText);
-            // }
-            // if (!value[1].ok) {
-            //     throw Error(value[1].statusText);
-            // }
+        let disabled = ''
+        if(d.disabled) disabled = 'checked'
 
-            let dronedb = value[0];
-            let listdb = value[1];
+        return `
 
-            dronedb.drones.forEach((d) => {
-                let item = document.createElement('div')
-                item.classList.add('drone_item')
-                item.classList.add('pure-u-1')
+                <div  id="e_info${d.did}" class="pure-g">
 
-                let list_options = ``;
-                listdb.lists.forEach(l => {
-                    list_options += `<option value='${l.lid}'>${l.label}</option>`;
-                })
+                        <div class="pure-u-1 pure-u-sm-1-4 pure-u-md-1-8" id="e_image${d.did}" style="background: orangered">
 
-                let disabled = ''
-                if(d.disabled) disabled = 'checked'
+                            <img src="/images/drone${d.did}.jpg" class="drone_image">
+                        </div>
 
-                item.innerHTML = `
-                <img src="/images/drone${d.did}.jpg" class="drone_image">
-                <span> ${d.name}:${d.type} | louckout: ${d.lockedout} | disabled: ${d.disabled} </span>
-                <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
-                <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_drone_${d.did}">Edit</button>
+                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_name${d.did}" style="background: orangered">
+                            ${d.name}:${d.type}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_lockedout${d.did}">
+                            lockedout: ${d.lockedout}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_disabled${d.did}">
+                            disabled: ${d.disabled}
+                        </div>
 
-                <div id="edit_drone_${d.did}" class="pure-u-1 collapse">
+                    <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.did}" style="float: right;">
+                         <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
+                         <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_drone_${d.did}">Edit</button>
+                    </div>
+
+
+
+
+                <div id="edit_drone_${d.did}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
                 <form id='edit_form_${d.did}' class="pure-form pure-form-aligned"
                       action="#" onsubmit="editSubmit" style="height: 100%; background: mintcream">
 
@@ -253,7 +230,6 @@
                         <label class="toggle" style='text-align: left;'>
                             <input name='disabled' class="toggle-checkbox" type="checkbox" ${disabled}>
                                 <div class="toggle-switch"></div>
-<!--                            <div class="toggle-label">Disable Drone</div>-->
                         </label>
                         </div>
 
@@ -263,10 +239,46 @@
                         </div>
                     </fieldset>
                 </form>
-
+                </div>
                 </div>
                 `
 
+    }
+
+
+    async function init_drone_list() {
+        dl = document.getElementById('drone_list');
+        // todo: properly make this async
+
+        let responses = []
+        responses.push(getServerData('/api/get_drones'));
+        responses.push(getServerData('/api/get_checklist'));
+
+        Promise.all(responses).then(value => {
+            // let dronedb = await value[0].json();
+            // let listdb = await value[1].json();
+            // console.log(value)
+            // if (!value[0].ok) {
+            //     throw Error(value[0].statusText);
+            // }
+            // if (!value[1].ok) {
+            //     throw Error(value[1].statusText);
+            // }
+
+            let dronedb = value[0];
+            let listdb = value[1];
+
+            dronedb.drones.forEach((d) => {
+                let item = document.createElement('div')
+                item.classList.add('drone_item')
+                item.classList.add('pure-u-1')
+
+                let list_options = ``;
+                listdb.lists.forEach(l => {
+                    list_options += `<option value='${l.lid}'>${l.label}</option>`;
+                })
+
+                item.innerHTML = gen_drone_form(d, list_options)
                 // item.innerText = d.name;
                 console.log(d)
 

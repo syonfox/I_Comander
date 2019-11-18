@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-require(bootstrap)
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -35,10 +34,17 @@ auth.initialize(
 );
 
 const app = express();
-
-
-
 app.set('view engine', 'ejs');
+
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap-select/dist/js')); // redirect bootstrap JS
+
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap-select/dist/css')); // redirect CSS bootstrap
+
+app.use('/css', express.static(__dirname + '/node_modules/purecss/build')); // redirect CSS bootstrap
+
 
 app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
@@ -80,10 +86,6 @@ app.get('/dashboard', (req, res) => {
 app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
   res.render('dashboard/drone_managment.ejs');
 });
-
-
-
-
 
 app.get('/api/kier_secret', async (req, res) => {
       // console.log();
@@ -129,8 +131,6 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
     res.render('partials/index.ejs', r);
 
 });
-
-
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
@@ -195,7 +195,6 @@ app.post('/api/edit_profile', auth.apiAuthenticated, (req, res)=> {
   res.send(r);
 
 });
-
 
 app.get('/login', function(req, res){
     // res.sendFile(__dirname + '/app/kier_test.html');
@@ -341,12 +340,18 @@ app.post('/api/edit_drone', auth.apiAuthenticated, (req,res)=>{
   //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
   if(typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
   if(typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
-  if(typeof req.body.disabled != "undefined") d.disabled = req.body.disabled;
-
+  console.log(req.body.disabled);
+  // if(typeof req.body.disabled != "undefined") {
+  //if the disabled flag is not sent to the server the drone will be not disabled
+    if(req.body.disabled == 'on')
+      d.disabled = true;
+    else
+      d.disabled = false;
+  // }
   drones.update(newd);
   r = drones.get_dronedb();
-  r.updated_did = newd.did;
-  req.send
+  r.updated_drone = newd;
+  res.send(JSON.stringify(r));
 
 });
 
