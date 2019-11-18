@@ -35,12 +35,12 @@ function getServerData() {
 function updateUI(drones) {
 
   Array.prototype.forEach.call(drones.drones, drone => {
-    const item =
-      `<a class="card" href="#${drone.did}">
+    const item =`<a class="card" value="${drone.did}" onclick="loadChecklist(${drone.did});">
          <div class="card_text">
 		   <img src="images/drone${drone.did}.jpg" class="card_image"></img>
            <h2 class="card_name">${drone.name}</h2>
            <h4 class="card_type">${drone.type}</h4>
+
          </div>
        </a>`;
     container.insertAdjacentHTML('beforeend', item);

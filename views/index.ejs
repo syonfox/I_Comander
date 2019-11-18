@@ -36,6 +36,13 @@
     <!--<![endif]--></head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 <link rel="stylesheet" type="text/css" href="/style/cards.css">
 <link rel="stylesheet" type="text/css" href="/style/drones.css" />
@@ -87,7 +94,7 @@
 <!--<div style="background: rebeccapurple;opacity: 0.5; width: 100%; height: auto; position: absolute; top: 100px; left: 0px">-->
 
 <div id="layout">
-    <%include partials/fly_menu.ejs%>
+    <% include partials/dashboard_menu.ejs %>
 
     <div id="main">
         <button id="startFlyingBtn" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px" onclick="loadDrones()">Start Flying</button>
@@ -121,7 +128,7 @@ function loadDrones() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          $('#main').hide().html(this.responseText).fadeIn();           
+          $('#main').hide().html(this.responseText).fadeIn();
           updateVars();
           loadContentNetworkFirst();
     }
