@@ -1,0 +1,14 @@
+#w_widget {
+    position: fixed;
+    bottom: 0px;
+    margin: auto;
+    width: 150px;
+
+    color: #999999;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#w_temp {
+    padding: 0px !important;
+}

@@ -24,6 +24,8 @@ var passport = require('passport'); //authentication lib
 const users = require('./users');
 const drones = require('./drones');
 
+const reque = require('request');
+
 const auth = require('./auth');
 auth.initialize(
   passport,
@@ -34,6 +36,9 @@ auth.initialize(
 );
 
 const app = express();
+
+
+
 app.set('view engine', 'ejs');
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
@@ -83,7 +88,7 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
-app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
+app.get('/dashboard/drones', (req, res) => {
   res.render('dashboard/drone_managment.ejs');
 });
 
@@ -150,6 +155,53 @@ app.get('/profile', auth.checkAuthenticated, (req, res)=> {
   };
   res.render('profile.ejs', r);
 
+});
+
+app.get('/api/get_weather', auth.checkAuthenticated, (req, res) => {
+    const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
+    const url = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&units=metric"
+
+    reque.get({
+        url: url + "&APPID=" + api_key,
+        json: true,
+        headers: {'User-Agent': 'Mozilla 5.0'}
+    }, (err, respon, data) => {
+        if (err) {
+            console.log("Error fetching weather:", err);
+        }
+        else if (respon.statusCode !== 200) {
+            console.log("Error! HTTP Status:", respon.statusCode);
+        }
+        else {
+            res.send(data);
+        }
+    })
+});
+
+app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
+    const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
+    const url = "http://api.openweathermap.org/data/2.5/weather?units=metric"
+
+    var w_lat = "&lat=" + req.query.lat;
+    var w_lon = "&lon=" + req.query.lon;
+
+
+
+    reque.get({
+        url: url + w_lat + w_lon + "&APPID=" + api_key,
+        json: true,
+        headers: {'User-Agent': 'Mozilla 5.0'}
+    }, (err, respon, data) => {
+        if (err) {
+            console.log("Error fetching weather:", err);
+        }
+        else if (respon.statusCode !== 200) {
+            console.log("Error! HTTP Status:", respon.statusCode);
+        }
+        else {
+            res.send(data);
+        }
+    })
 });
 
 app.post('/api/edit_profile', auth.apiAuthenticated, (req, res)=> {
@@ -369,6 +421,7 @@ app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
     }
   });
 });
+
 
 app.post('/api/add', (req, res) => {
   let jsonFile = __dirname + '/server-data/events.json';
