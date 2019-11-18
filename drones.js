@@ -63,6 +63,12 @@ exports.add = function(){
 
 
 }
+exports.del = function(did){
+   dronedb.drones = dronedb.drones.filter(d=> d.did != did);
+   save();
+   console.log("Drone Removed: "+did);
+
+}
 exports.update = function(newdrone) {
     let i = dronedb.drones.findIndex(drone=>drone.did == newdrone.did);
 

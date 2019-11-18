@@ -20,6 +20,9 @@ const fs = require('fs');
 const session = require('express-session'); //used to save the session so that the user stays loged in
 var passport = require('passport'); //authentication lib
 
+const multer = require("multer");
+var upload = multer({ dest: __dirname + '/app/images/upload' });
+
 // var db = require('./db'); //The folder when users are stored.
 const users = require('./users');
 const drones = require('./drones');
@@ -378,9 +381,24 @@ app.get('/api/get_drones', (req, res) => {
   });
 });
 
+app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
+    drones.del(req.body.did);
+    r = drones.get_dronedb();
+    r.deleted_did = req.body.did;
+    res.send(JSON.stringify(r));
+});
+
 //takes in body paramated for the drone as input and will update them in the drone specified by body.did
 //if did==-1 it will be added insted
-app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
+// https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
+app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req, res) => {
+
+    // console.log(req.file.path);
+    // console.log(req.file.encoding);
+    // console.log(req.file.mimetype);
+
+
+
     let d;
     if(req.body.did == -1) {
         d = drones.add();
@@ -388,9 +406,15 @@ app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
         d = drones.get_drone_by_did(req.body.did);
     }
 
+    if(req.file) {
+        d.image = 'upload/' + req.file.filename;
+        console.log('image set to: ' + d.image);
+    } else {
+        console.log("No Image");
+    }
 
-    console.log(d);
-    console.log(req.body);
+    // console.log(d);
+    // console.log(req.body);
 
     if (typeof req.body.name != "undefined") d.name = req.body.name;
     if (typeof req.body.type != "undefined") d.type = req.body.type;
@@ -413,6 +437,7 @@ app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
     r = drones.get_dronedb();
     r.updated_drone = d;
     res.send(JSON.stringify(r));
+
 
 });
 

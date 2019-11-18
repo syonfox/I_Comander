@@ -8,8 +8,8 @@
       "disabled": false,
       "preflight_lid": 0,
       "postflight_lid": 1,
-      "type": "Quad Wings",
-      "image": "drone1.jpg"
+      "type": "Quad Wings1",
+      "image": "upload/885cfed3ef3969f06c74e398919c94ac"
     },
     {
       "did": 2,
@@ -37,7 +37,7 @@
     "disabled": false,
     "preflight_lid": 0,
     "postflight_lid": 1,
-    "type": "Quad Wings",
-    "image": "drone1.jpg"
+    "type": "Quad Wings1",
+    "image": "upload/885cfed3ef3969f06c74e398919c94ac"
   }
 }
