@@ -36,7 +36,7 @@ async function save(){
         }
     });
 };
-
+exports.save = save;
 // exports.editDrone = (req,res,next)=>{
 //
 // };
@@ -45,7 +45,24 @@ exports.get_dronedb = function() {
   return dronedb;
 };
 
+exports.add = function(){
+    let d = {
+        "did": dronedb.next_did++,
+        "name": "",
+        "lockedout": false,
+        "disabled": false,
+        "preflight_lid": undefined,
+        "postflight_lid": undefined,
+        "type": "",
+        "image": "deafultDrone.jpeg"
+    };
 
+    dronedb.drones.push(d);
+    save();
+    return d;
+
+
+}
 exports.update = function(newdrone) {
     let i = dronedb.drones.findIndex(drone=>drone.did == newdrone.did);
 
@@ -70,4 +87,3 @@ exports.get_drone_by_did = function(did){
 
     
 
-exports.save = save;

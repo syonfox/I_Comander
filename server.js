@@ -379,31 +379,40 @@ app.get('/api/get_drones', (req, res) => {
 });
 
 //takes in body paramated for the drone as input and will update them in the drone specified by body.did
-app.post('/api/edit_drone', auth.apiAuthenticated, (req,res)=>{
+//if did==-1 it will be added insted
+app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
+    let d;
+    if(req.body.did == -1) {
+        d = drones.add();
+    } else {
+        d = drones.get_drone_by_did(req.body.did);
+    }
 
-  let d = drones.get_drone_by_did(req.body.did);
 
-  newd = d;
-  console.log(d);
-  console.log(req.body);
+    console.log(d);
+    console.log(req.body);
 
-  if(typeof req.body.name != "undefined") d.name = req.body.name;
-  if(typeof req.body.type != "undefined") d.type = req.body.type;
-  //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
-  if(typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
-  if(typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
-  console.log(req.body.disabled);
-  // if(typeof req.body.disabled != "undefined") {
-  //if the disabled flag is not sent to the server the drone will be not disabled
-    if(req.body.disabled == 'on')
-      d.disabled = true;
+    if (typeof req.body.name != "undefined") d.name = req.body.name;
+    if (typeof req.body.type != "undefined") d.type = req.body.type;
+    //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
+    if (typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
+    if (typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
+    console.log(req.body.disabled);
+    // if(typeof req.body.disabled != "undefined") {
+    //if the disabled flag is not sent to the server the drone will be not disabled
+    if (req.body.disabled == 'on')
+        d.disabled = true;
     else
-      d.disabled = false;
-  // }
-  drones.update(newd);
-  r = drones.get_dronedb();
-  r.updated_drone = newd;
-  res.send(JSON.stringify(r));
+        d.disabled = false;
+    // }
+
+    if(d.did == -1) {
+        newd = drones.add(d)
+    }
+    drones.update(d);
+    r = drones.get_dronedb();
+    r.updated_drone = d;
+    res.send(JSON.stringify(r));
 
 });
 
