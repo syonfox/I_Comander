@@ -23,7 +23,7 @@ function updateVars() {
 loadContentNetworkFirst()
 
 function getServerData() {
-  return fetch('api/getDrones').then(response => {
+  return fetch('api/get_drones').then(response => {
     if (!response.ok) {
       throw Error(response.statusText);
     }

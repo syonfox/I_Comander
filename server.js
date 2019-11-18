@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -21,6 +22,9 @@ var passport = require('passport'); //authentication lib
 
 // var db = require('./db'); //The folder when users are stored.
 const users = require('./users');
+const drones = require('./drones');
+
+const reque = require('request');
 
 const auth = require('./auth');
 auth.initialize(
@@ -36,6 +40,16 @@ const app = express();
 
 
 app.set('view engine', 'ejs');
+
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap-select/dist/js')); // redirect bootstrap JS
+
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap-select/dist/css')); // redirect CSS bootstrap
+
+app.use('/css', express.static(__dirname + '/node_modules/purecss/build')); // redirect CSS bootstrap
+
 
 app.use(session({
   secret: "unsecureSecret",//we need to put this in an env var.
@@ -77,10 +91,6 @@ app.get('/dashboard', (req, res) => {
 app.get('/dashboard/drones', (req, res) => {
   res.render('dashboard/drone_managment.ejs');
 });
-
-
-
-
 
 app.get('/api/kier_secret', async (req, res) => {
       // console.log();
@@ -127,6 +137,7 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
 
 });
 
+<<<<<<< HEAD
 app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
   let droneId = req.params.droneid;
   let jsonFile = __dirname + '/server-data/drones.json';
@@ -161,6 +172,8 @@ app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
 
 
 
+=======
+>>>>>>> bc4b1d019c8b37fef2961b814b6e868e9e1a0150
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
   console.log(req.user.username);
@@ -181,7 +194,54 @@ app.get('/profile', auth.checkAuthenticated, (req, res)=> {
 
 });
 
-app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
+app.get('/api/get_weather', auth.checkAuthenticated, (req, res) => {
+    const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
+    const url = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&units=metric"
+
+    reque.get({
+        url: url + "&APPID=" + api_key,
+        json: true,
+        headers: {'User-Agent': 'Mozilla 5.0'}
+    }, (err, respon, data) => {
+        if (err) {
+            console.log("Error fetching weather:", err);
+        }
+        else if (respon.statusCode !== 200) {
+            console.log("Error! HTTP Status:", respon.statusCode);
+        }
+        else {
+            res.send(data);
+        }
+    })
+});
+
+app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
+    const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
+    const url = "http://api.openweathermap.org/data/2.5/weather?units=metric"
+
+    var w_lat = "&lat=" + req.query.lat;
+    var w_lon = "&lon=" + req.query.lon;
+
+
+
+    reque.get({
+        url: url + w_lat + w_lon + "&APPID=" + api_key,
+        json: true,
+        headers: {'User-Agent': 'Mozilla 5.0'}
+    }, (err, respon, data) => {
+        if (err) {
+            console.log("Error fetching weather:", err);
+        }
+        else if (respon.statusCode !== 200) {
+            console.log("Error! HTTP Status:", respon.statusCode);
+        }
+        else {
+            res.send(data);
+        }
+    })
+});
+
+app.post('/api/edit_profile', auth.apiAuthenticated, (req, res)=> {
   // console.log(req.user);
   // console.log(req.body);
   console.log("EditUser");
@@ -225,14 +285,12 @@ app.post('/api/edit_profile', auth.checkAuthenticated, (req, res)=> {
 
 });
 
-
-app.get('/login',
-  function(req, res){
+app.get('/login', function(req, res){
     // res.sendFile(__dirname + '/app/kier_test.html');
     res.render('login.ejs')
 });
-app.get('/register',
-  function(req, res){
+
+app.get('/register', function(req, res){
     // res.sendFile(__dirname + '/app/kier_test.html');
     res.render('login.ejs', {register:true})
 });
@@ -296,6 +354,7 @@ app.get('/admin/add_drone/add_check_list',
   res.render('add_checklist.ejs', r)
   //res.sendFile(__dirname + '/add_checklist.ejs');
 });
+
 app.post('/pre_checklist_admin', (req, res) => {
   console.log("hahhahhahhahahahhahahahhhah");
   let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
@@ -320,12 +379,11 @@ app.post('/pre_checklist_admin', (req, res) => {
   });
 });
 
-
 // // Endpoint to serve the configuration file // for Auth0
 // app.get("/auth_config.json", (req, res) => {
 //   res.sendFile(join(__dirname, "auth_config.json"));
 // });
-
+//demo get not for icmd
 app.get('/api/getAll', (req, res) => {
 
   let options = {
@@ -342,7 +400,7 @@ app.get('/api/getAll', (req, res) => {
 });
 
 //todo: cheack authenitcation
-app.get('/api/getDrones', (req, res) => {
+app.get('/api/get_drones', (req, res) => {
 
   let options = {
     root: __dirname + '/server-data/'
@@ -357,7 +415,45 @@ app.get('/api/getDrones', (req, res) => {
   });
 });
 
-app.get('/api/getChecklist', auth.checkAuthenticated, (req, res) => {
+//takes in body paramated for the drone as input and will update them in the drone specified by body.did
+//if did==-1 it will be added insted
+app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
+    let d;
+    if(req.body.did == -1) {
+        d = drones.add();
+    } else {
+        d = drones.get_drone_by_did(req.body.did);
+    }
+
+
+    console.log(d);
+    console.log(req.body);
+
+    if (typeof req.body.name != "undefined") d.name = req.body.name;
+    if (typeof req.body.type != "undefined") d.type = req.body.type;
+    //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
+    if (typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
+    if (typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
+    console.log(req.body.disabled);
+    // if(typeof req.body.disabled != "undefined") {
+    //if the disabled flag is not sent to the server the drone will be not disabled
+    if (req.body.disabled == 'on')
+        d.disabled = true;
+    else
+        d.disabled = false;
+    // }
+
+    if(d.did == -1) {
+        newd = drones.add(d)
+    }
+    drones.update(d);
+    r = drones.get_dronedb();
+    r.updated_drone = d;
+    res.send(JSON.stringify(r));
+
+});
+
+app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
 
   let options = {
     root: __dirname + '/server-data/'

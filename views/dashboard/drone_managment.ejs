@@ -6,27 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
-
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+    <link rel="stylesheet" href="/css/pure-min.css">
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-old-ie-min.css">
+    <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
-    <!--<![endif]--></head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="/css/grids-responsive-min.css">
+    <![endif]-->
+
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
 
-<title>Profile</title>
+<title>Drones-icmd</title>
+
+    <script>
+
+        function getServerData(path) {
+            //  ie /api/getDrones
+            return fetch(path, {method: 'GET', credentials: "same-origin"}).then(r => {
+                if (!r.ok) throw Error(r.statusText);
+                return r.json();
+            })
+        }
+
+        let dronedb_p = (getServerData('/api/get_drones'));
+        let listdb_p = (getServerData('/api/get_checklist'));
+    </script>
+
 
 </head>
 
@@ -72,7 +82,7 @@
 
         <div class="pure-g" style="padding: 2em">
             <div class="pure-u-1 ">
-                <h1>Drone Managment</h1>
+                <h1>Drone Management</h1>
             </div>
 
             <div id="list_header" class="pure-u-1 ">
@@ -87,7 +97,7 @@
             </div>
             <div id="drone_list" class="pure-u-1">
                 TODO: FIll in
-            <!--TODO: Fill in div with js-->
+                <!--TODO: Fill in div with js-->
             </div>
         </div>
     </div>
@@ -97,7 +107,8 @@
 
 
 <style>
-    .drone_item {
+    .drone_item {}
+    .drone_item .pure-g{
         border-style: solid;
         border-width: 2px;
         border-radius: 0.5em;
@@ -106,12 +117,14 @@
         background: mintcream;
         /*transition: height 1s ease-in-out;*/
     }
+
     .drone_image {
         width: 3em;
         height: 3em;
         border-radius: 0.5em;
         padding: 3px;
     }
+
     .drone_item button {
         border: none;
         float: right;
@@ -125,132 +138,196 @@
 
 <script>
 
+    async function editSubmit(e) {
+        e.preventDefault();
+        console.log(e.target);
+        const params = new URLSearchParams([...new FormData(e.target).entries()]);
 
-    async function init_drone_list() {
-        dl = document.getElementById('drone_list');
-        // todo: properly make this async
-        const response = await fetch("/api/getDrones", {method: "GET", credentials: "same-origin"});
-        const c_response = await fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"});
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
+        r = await response.json();
+        console.log(r);
+        let drones = r;
+        let d = r.updated_drone
 
-        // await response;
-        console.log(response)
-        let dronedb = await response.json();
-        let listdb = await c_response.json();
-        console.log(dronedb);
+        document.getElementById(`e_name${d.did}`).innerHTML = `${d.name}:${d.type}`
+        document.getElementById(`e_lockedout${d.did}`).innerHTML = `lockedout: ${d.lockedout}`
+        document.getElementById(`e_disabled${d.did}`).innerHTML = `disabled: ${d.disabled}`
 
-        dronedb.drones.forEach((d)=>{
-            let item = document.createElement('div')
-            item.classList.add('drone_item')
-            item.classList.add('pure-u-1')
-            let list_options = ``;
-            listdb.lists.forEach(l=>{
-                list_options+=`<option>${l.label}</option>`;
-            })
+        console.log("Succssesfully edited drone")
+        console.log(response);
 
+    }
 
-            item.innerHTML = `
-                <img src="/images/drone${d.did}.jpg" class="drone_image">
-                <span> ${d.name}:${d.type} | louckout: ${d.lockedout} | disabled: ${d.disabled} </span>
-                <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
-                <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_drone_${d.did}">Edit</button>
+    async function addSubmit(e) {
+        e.preventDefault();
+        let dl = document.getElementById('drone_list');
 
-                <div id="edit_drone_${d.did}" class="pure-u-1 collapse">
-                <form id='edit_form_${d.did}' class="pure-form pure-form-aligned"
+        console.log(e.target);
+        const params = new URLSearchParams([...new FormData(e.target).entries()]);
+
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
+        r = await response.json();
+        // console.log(r);
+        let drones = r;
+        let d = r.updated_drone
+
+        let item = gen_drone_item(d, list_options);
+        dl.appendChild(item);
+
+        console.log("Successfully added drone")
+        console.log(response);
+
+    }
+
+    function gen_drone_form(d, list_options) {
+        if(d == null) {
+            d = {
+                did:-1,
+                name:'',
+                type:'',
+            }
+        }
+
+        let disabled = '';
+        if(d.disabled) disabled = 'checked';
+
+        return `<form id='edit_form_${d.did}' class="pure-form pure-form-aligned"
                       action="#" style="height: 100%; background: mintcream">
-
+                    <input hidden name='did' type="number" value='${d.did}'>
                     <fieldset>
-
-
                         <div class="pure-control-group">
                             <label for="name">Drone Name</label>
                             <input name="name" type="text" placeholder="Name"
                                    value="${d.name}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">Drone Name</label>
+                            <label for="type">Drone Type</label>
                             <input name="type" type="text" placeholder="Type"
                                    value="${d.type}">
                         </div>
 
                         <div class="pure-control-group">
                             <label for="pre">Preflight List</label>
-                            <select name="pre_list">
+                            <select name="preflight_lid">
                              ${list_options}
                             </select>
                         </div>
 
                          <div class="pure-control-group">
                             <label for="post_list">Postflight List</label>
-                            <select name="post_list">
+                            <select name="postflight_lid">
                              ${list_options}
                             </select>
                         </div>
+
+                        <div class="pure-control-group">
+                           <div class="pure-control-group">
+                            <label for="disabled">Disable Drone</label>
+                        <label class="toggle" style='text-align: left;'>
+                            <input name='disabled' class="toggle-checkbox" type="checkbox" ${disabled}>
+                                <div class="toggle-switch"></div>
+                        </label>
+                        </div>
+
                         <div class="pure-controls">
                             <button type="submit" class="pure-button pure-button-primary" style="float: left">Submit
                             </button>
                         </div>
                     </fieldset>
-                </form>
+                </form>`
+    }
 
+    function gen_drone_item(d, list_options) {
+
+        let item = document.createElement('div')
+        item.classList.add('drone_item')
+        item.classList.add('pure-u-1')
+
+
+
+
+        let disabled = '';
+        if(d.disabled) disabled = 'checked';
+
+        let _form = gen_drone_form(d,list_options);
+
+        item.innerHTML = `
+
+                <div  id="e_info${d.did}" class="pure-g">
+
+                        <div class="pure-u-1 pure-u-sm-1-4 pure-u-md-1-8" id="e_image${d.did}" style="">
+
+                            <img src="/images/${d.image}" class="drone_image">
+                        </div>
+
+                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_name${d.did}" style="">
+                            ${d.name}:${d.type}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_lockedout${d.did}">
+                            lockedout: ${d.lockedout}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_disabled${d.did}">
+                            disabled: ${d.disabled}
+                        </div>
+
+                    <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.did}" style="float: right;">
+                         <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
+                         <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_drone_${d.did}">Edit</button>
+                    </div>
+
+
+
+
+                <div id="edit_drone_${d.did}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
+                    ${_form}
                 </div>
-
+                </div>
                 `
 
-            // item.innerText = d.name;
-            console.log(d)
-            dl.appendChild(item);
+        console.log(d)
+        return item;
+
+    }
+
+    async function init_drone_list() {
+        dl = document.getElementById('drone_list');
+        // todo: properly make this async
+
+        let responses = []
+        responses.push(dronedb_p);
+        responses.push(listdb_p);
+        // console.log(responses)
+        Promise.all(responses).then(value => {
+
+            console.log(value)
+            dronedb = value[0];
+            listdb = value[1];
+
+            list_options = ``;
+            listdb.lists.forEach(l => {
+                list_options += `<option value='${l.lid}'>${l.label}</option>`;
+            })
+
+            let adddiv = document.getElementById('add_drone');
+            adddiv.innerHTML = gen_drone_form(null, list_options)
+            document.getElementById(`edit_form_-1`).onsubmit = addSubmit
+            // console.log(dronedb);
+            dronedb.drones.forEach((d) => {
+                let item = gen_drone_item(d, list_options);
+                dl.appendChild(item);
+                document.getElementById(`edit_form_${d.did}`).onsubmit = editSubmit
+
+            });
+
         });
     }
 
+    let dronedb = {};
+    let listdb = {};
+    let list_options = ``;
     init_drone_list();
-    //
-    // function editClicked() {
-    //
-    //     btn = document.getElementById('editButton');
-    //
-    //     // console.log(btn)
-    //     // console.log("asd")
-    //     // console.log(btn.style.width)
-    //
-    //     if (btn.style.width == "50%")
-    //         btn.style.width = '100%';
-    //     else
-    //         btn.style.width = "50%";
-    //     // console.log('Clicked button123')
-    // }
-    //
-    // document.getElementById('edit_user').onsubmit = async function (e) {
-    //
-    //     e.preventDefault();
-    //     const params = new URLSearchParams([...new FormData(e.target).entries()]);
-    //     const response = await fetch("/api/edit_profile", {method: "POST", body: params, credentials: "same-origin"})
-    //     const r = await response.json();
-    //     // const response = await new Response(params);
-    //
-    //     info = document.getElementById('s_error');
-    //     // info.style.height = "0em";
-    //     // info.style.padding = '10px';
-    //     if (r.error == false) {
-    //
-    //         info.style.background = '#28a745';
-    //         // info.style.background = '--green'
-    //         info.innerText = "Edits Successfully Made"
-    //
-    //         document.getElementById('s_displayName').innerHTML = r.user.displayName;
-    //         document.getElementById('s_email').innerHTML = r.user.email;
-    //         document.getElementById('preview').src = r.user.base64data;
-    //     } else {
-    //         info.style.background = "#dc3545";
-    //         info.innerText = r.error;
-    //     }
-    //     console.log(info.clientHeight);
-    //     console.log(info.scrollHeight);
-    //     if (info.clientHeight < info.scrollHeight)
-    //
-    //         info.style.height = info.scrollHeight + 10 + 'px';
-    //
-    //     console.log(JSON.stringify(r));
-    //     console.log("Submited fourm")
-    // }
+
 </script>
 </html>
