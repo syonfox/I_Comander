@@ -12,6 +12,13 @@ function checkAuthenticated(req, res, next) {
   }
   res.redirect('/login')
 }
+//authenticated
+function apiAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.sendStatus(401)
+}
 
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -204,6 +211,8 @@ module.exports.register = register;
 
 //cheacks if a user is authenticated if not it redirects to login page (also sets req.user)
 module.exports.checkAuthenticated = checkAuthenticated;
+//cheacks if a user is authenticated if not it redirects to login page (also sets req.user)
+module.exports.apiAuthenticated = apiAuthenticated;
 
 //cheacks if usere is not authenticated if it is redirets to home page
 module.exports.checkNotAuthenticated = checkNotAuthenticated;

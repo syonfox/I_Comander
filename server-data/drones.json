@@ -3,7 +3,7 @@
   "drones": [
     {
       "did": 1,
-      "name": "Mavic",
+      "name": "Mavic_test",
       "lockedout": true,
       "disabled": false,
       "preflight_lid": 0,
@@ -11,7 +11,6 @@
       "type": "Quad Wing",
       "image": "drone1.jpg"
     },
-
     {
       "did": 2,
       "name": "F16",
@@ -23,5 +22,4 @@
       "image": "image"
     }
   ]
-
 }

@@ -72,7 +72,7 @@
 
         <div class="pure-g" style="padding: 2em">
             <div class="pure-u-1 ">
-                <h1>Drone Managment</h1>
+                <h1>Drone Management</h1>
             </div>
 
             <div id="list_header" class="pure-u-1 ">
@@ -87,7 +87,7 @@
             </div>
             <div id="drone_list" class="pure-u-1">
                 TODO: FIll in
-            <!--TODO: Fill in div with js-->
+                <!--TODO: Fill in div with js-->
             </div>
         </div>
     </div>
@@ -106,12 +106,14 @@
         background: mintcream;
         /*transition: height 1s ease-in-out;*/
     }
+
     .drone_image {
         width: 3em;
         height: 3em;
         border-radius: 0.5em;
         padding: 3px;
     }
+
     .drone_item button {
         border: none;
         float: right;
@@ -125,30 +127,90 @@
 
 <script>
 
+    function getServerData(path) {
+        //  ie /api/getDrones
+        return fetch(path).then(response => {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return response.json();
+        });
+    }
+
+
+    // function serverApiFetch(path) {
+    //
+    //     return fetch(path, {method: method, credentials: "same-origin"}).then(r=>{
+    //         if(!r.ok) throw Error(r.statusText);
+    //         return r.json();
+    //     })
+    // }
+    //
+
+    async function editSubmit(e) {
+        e.preventDefault();
+        console.log(e.target);
+        const params = new URLSearchParams([...new FormData(e.target).entries()]);
+
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
+        console.log(response);
+
+        // const r = await response.json();
+
+        // serverApiFetch('/api/editDrone', 'POST').then(r=>{
+        //     console.log(r);
+        // })
+    }
 
     async function init_drone_list() {
         dl = document.getElementById('drone_list');
         // todo: properly make this async
-        const response = await fetch("/api/getDrones", {method: "GET", credentials: "same-origin"});
-        const c_response = await fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"});
+        // const response = fetch("/api/getDrones", {method: "GET", credentials: "same-origin"});
+        // const c_response = fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"});
 
-        // await response;
-        console.log(response)
-        let dronedb = await response.json();
-        let listdb = await c_response.json();
-        console.log(dronedb);
+        // let responses = []
+        // responses.push(fetch("/api/getDrones", {method: "GET", credentials: "same-origin"}).then(r=>{
+        //     if(!r.ok) throw Error(r.statusText);
+        //     return r.json();
+        // }));
+        // responses.push(fetch("/api/getChecklist", {method: "GET", credentials: "same-origin"}).then(r=>{
+        //     if(!r.ok) throw Error(r.statusText);
+        //     return r.json();
+        // }));
 
-        dronedb.drones.forEach((d)=>{
-            let item = document.createElement('div')
-            item.classList.add('drone_item')
-            item.classList.add('pure-u-1')
-            let list_options = ``;
-            listdb.lists.forEach(l=>{
-                list_options+=`<option>${l.label}</option>`;
-            })
+        let responses = []
+        responses.push(getServerData('/api/get_drones'));
+        responses.push(getServerData('/api/get_checklist'));
 
+        Promise.all(responses).then(value => {
+            // let dronedb = await value[0].json();
+            // let listdb = await value[1].json();
+            // console.log(value)
+            // if (!value[0].ok) {
+            //     throw Error(value[0].statusText);
+            // }
+            // if (!value[1].ok) {
+            //     throw Error(value[1].statusText);
+            // }
 
-            item.innerHTML = `
+            let dronedb = value[0];
+            let listdb = value[1];
+
+            dronedb.drones.forEach((d) => {
+                let item = document.createElement('div')
+                item.classList.add('drone_item')
+                item.classList.add('pure-u-1')
+
+                let list_options = ``;
+                listdb.lists.forEach(l => {
+                    list_options += `<option value='${l.lid}'>${l.label}</option>`;
+                })
+
+                let disabled = ''
+                if(d.disabled) disabled = 'checked'
+
+                item.innerHTML = `
                 <img src="/images/drone${d.did}.jpg" class="drone_image">
                 <span> ${d.name}:${d.type} | louckout: ${d.lockedout} | disabled: ${d.disabled} </span>
                 <button class="pure-button-primary" style="background: mintcream; color: #99121d">X</button>
@@ -156,35 +218,45 @@
 
                 <div id="edit_drone_${d.did}" class="pure-u-1 collapse">
                 <form id='edit_form_${d.did}' class="pure-form pure-form-aligned"
-                      action="#" style="height: 100%; background: mintcream">
+                      action="#" onsubmit="editSubmit" style="height: 100%; background: mintcream">
 
+                    <input hidden name='did' type="number" value='${d.did}'>
                     <fieldset>
-
-
                         <div class="pure-control-group">
                             <label for="name">Drone Name</label>
                             <input name="name" type="text" placeholder="Name"
                                    value="${d.name}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">Drone Name</label>
+                            <label for="type">Drone Type</label>
                             <input name="type" type="text" placeholder="Type"
                                    value="${d.type}">
                         </div>
 
                         <div class="pure-control-group">
                             <label for="pre">Preflight List</label>
-                            <select name="pre_list">
+                            <select name="preflight_lid">
                              ${list_options}
                             </select>
                         </div>
 
                          <div class="pure-control-group">
                             <label for="post_list">Postflight List</label>
-                            <select name="post_list">
+                            <select name="postflight_lid">
                              ${list_options}
                             </select>
                         </div>
+
+                        <div class="pure-control-group">
+                           <div class="pure-control-group">
+                            <label for="disabled">Disable Drone</label>
+                        <label class="toggle" style='text-align: left;'>
+                            <input name='disabled' class="toggle-checkbox" type="checkbox" ${disabled}>
+                                <div class="toggle-switch"></div>
+<!--                            <div class="toggle-label">Disable Drone</div>-->
+                        </label>
+                        </div>
+
                         <div class="pure-controls">
                             <button type="submit" class="pure-button pure-button-primary" style="float: left">Submit
                             </button>
@@ -193,13 +265,22 @@
                 </form>
 
                 </div>
-
                 `
 
-            // item.innerText = d.name;
-            console.log(d)
-            dl.appendChild(item);
+                // item.innerText = d.name;
+                console.log(d)
+
+                dl.appendChild(item);
+                document.getElementById(`edit_form_${d.did}`).onsubmit = editSubmit
+
+
+            });
+
         });
+        // await response;
+        // console.log(response)
+
+
     }
 
     init_drone_list();
