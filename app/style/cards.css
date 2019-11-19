@@ -1,6 +1,6 @@
 
 
-.card {
+a.card {
   background-color: #191818;
   box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2);
   display: flex;
@@ -11,9 +11,42 @@
   text-decoration: none;
   height: auto;
 }
+#checklistForm .container .row {width: 100%;}
+#checklistForm .container .row button {width: 70%;}
+#checklistForm .container .row .card {
+
+    float: none;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border: none !important;
+    margin-left: 7%;
+    background-color: #fff !important;
+    min-width: 70% !important;
+}
+#checklistForm input[type=checkbox] {
+  vertical-align: middle;
+  width:auto;
+  margin-right:10px;
+  display: inline-block;
+  float: right;
+}
+#checklistForm label {
+  margin:0;
+}
+#checklistForm .submitContainer{
+  width: 100%;
+}
+#checklistForm .submitContainer button[type=submit]{
+  width: 200px;
+  float:right;
+  right:15%;
+  position: relative;
+  margin: 20px 0;
+  padding: 10px;
+}
 
 @media (min-width: 500px) {
-  .card {
+  a.card {
     width: 400px;
   }
 }

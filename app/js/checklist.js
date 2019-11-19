@@ -17,12 +17,16 @@ limitations under the License.
 
 
 
-const container = document.getElementById('container');
-initDB()
-loadContentNetworkFirst();
+var container = document.getElementById('container');
+function updateVars() {
+    container = document.getElementById('container');
+}
+// initDB()
+// loadFormContentNetworkFirst();
 bindOnSubmit();
-function getServerData() {
-  return fetch('api/getChecklist').then(response => {
+function getChecklistServerData() {
+    let checklist_id = parseInt(document.getElementById('checklistForm').dataset["checklist"]);
+  return fetch('/api/getChecklist/'+checklist_id).then(response => {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -31,7 +35,7 @@ function getServerData() {
 }
 
 
-function updateUI(checklist) {
+function UpdateFormUI(checklist) {
   let items = '';
   Array.prototype.forEach.call(checklist, checklistItem => {
     const item =
@@ -45,9 +49,11 @@ function updateUI(checklist) {
 
 }
 
-function loadContentNetworkFirst() {
+function loadFormContentNetworkFirst() {
   getIndexedDB().then(dataFromNetwork => {
-	updateUI(dataFromNetwork);
+  // getChecklistServerData().then(dataFromNetwork => {
+    console.log(dataFromNetwork);
+	UpdateFormUI(dataFromNetwork);
   });
 }
 
@@ -59,9 +65,13 @@ function bindOnSubmit(){
     formData.forEach(function(value, key){
         object[key] = value;
     });
+    object['lid']= parseInt(document.getElementById('checklistForm').dataset["checklist"]);
+    object['drone_id']= parseInt(document.getElementById('checklistForm').dataset["drone"]);
+    object['user']= document.getElementById('checklistForm').dataset["user"];
     console.log(JSON.stringify(object));
     if(Object.keys(object).length>0){
       saveToDB(object);
+      saveToServer(object);
     }
     else{
       alert('you have to completed the checklist');
@@ -217,5 +227,26 @@ async function getMaxID(){
         }
       }
     };
+  });
+}
+
+function saveToServer(formData){
+  console.log(formData);
+  saveDataToServer(formData).then(dataFromNetwork => {
+    console.log(dataFromNetwork);
+	 //go to next page
+  });
+}
+function saveDataToServer(formData){
+  return fetch('/api/submit_flight', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    }).then(response => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    loadIndex();
+    // return response.json();
   });
 }

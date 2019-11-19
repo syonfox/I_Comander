@@ -1,5 +1,5 @@
 {
-  "next_did": 4,
+  "next_did": 10,
   "drones": [
     {
       "did": 1,
@@ -8,8 +8,8 @@
       "disabled": false,
       "preflight_lid": 0,
       "postflight_lid": 1,
-      "type": "Quad Wings",
-      "image": "drone1.jpg"
+      "type": "Quad Wings1",
+      "image": "upload/885cfed3ef3969f06c74e398919c94ac"
     },
     {
       "did": 2,
@@ -22,22 +22,29 @@
       "image": "drone2.jpg"
     },
     {
-      "did": 3,
-      "name": "rest",
+      "did": 8,
+      "name": "test",
+      "lockedout": false,
+      "disabled": true,
+      "type": "asd",
+      "image": "deafultDrone.jpeg"
+    },
+    {
+      "did": 9,
+      "name": "Mavic_test",
       "lockedout": false,
       "disabled": false,
       "type": "Quad Wing",
-      "image": "deafultDrone.jpeg"
+      "image": "upload/18cd2cc6338a2175c56c85b47ded262e"
     }
   ],
   "updated_drone": {
-    "did": 1,
-    "name": "Mavic_test",
-    "lockedout": true,
-    "disabled": false,
-    "preflight_lid": 0,
-    "postflight_lid": 1,
-    "type": "Quad Wings",
-    "image": "drone1.jpg"
-  }
+    "did": 8,
+    "name": "test",
+    "lockedout": false,
+    "disabled": true,
+    "type": "asd",
+    "image": "deafultDrone.jpeg"
+  },
+  "deleted_did": 4
 }

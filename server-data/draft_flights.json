@@ -1,12 +1,12 @@
 {
-  "next_id": 1,
+  "next_id": 18,
   "flights": [
     {
       "id": 0,
       "user": "kier",
       "drone_id": 0,
-      "start_time":"Fri Nov 08 2019 21:07:57 GMT-0800 (PST)",
-      "end_time":"Fri Nov 08 2019 21:07:57 GMT-0800 (PST)",
+      "start_time": "Fri Nov 08 2019 21:07:57 GMT-0800 (PST)",
+      "end_time": "Fri Nov 08 2019 21:07:57 GMT-0800 (PST)",
       "preflight_list": [
         {
           "label": "Required Documentation - Universal",
@@ -34,6 +34,269 @@
           "result": "Green"
         }
       ]
+    },
+    {
+      "4": "na",
+      "lid": 0,
+      "drone_id": 1,
+      "user": null,
+      "id": 1
+    },
+    {
+      "preflight_list": {
+        "4": "yes",
+        "5": "na",
+        "lid": 0,
+        "drone_id": 1,
+        "user": null
+      },
+      "id": 2,
+      "start_time": "2019-11-17T07:51:50.106Z",
+      "drone_id": 1,
+      "user": null
+    },
+    {
+      "id": 3,
+      "start_time": "2019-11-18T06:29:46.492Z",
+      "drone_id": 1,
+      "user": null,
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "Weather Check": "on",
+        "Physical Eniveronment-Mission Area[]{}": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": null
+      }
+    },
+    {
+      "id": 4,
+      "start_time": "2019-11-18T06:35:14.125Z",
+      "drone_id": 1,
+      "user": null,
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "lid": 0,
+        "drone_id": 1,
+        "user": null
+      }
+    },
+    {
+      "id": 5,
+      "start_time": "2019-11-18T06:38:05.566Z",
+      "drone_id": 1,
+      "user": null,
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "lid": 0,
+        "drone_id": 1,
+        "user": null
+      }
+    },
+    {
+      "id": 6,
+      "start_time": "2019-11-18T06:38:37.849Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 7,
+      "start_time": "2019-11-18T07:06:51.149Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 8,
+      "start_time": "2019-11-18T07:07:59.248Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Drone Registraton Certifcate On-Hand - FAA / TC": "true",
+        "Insurance On-Hand": "true",
+        "FLHA and Tailgate Completed": "true",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 9,
+      "start_time": "2019-11-18T18:15:21.920Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 10,
+      "start_time": "2019-11-18T18:25:30.597Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Pilot_in_Command": "david",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 11,
+      "start_time": "2019-11-18T18:35:26.493Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 12,
+      "start_time": "2019-11-18T18:55:43.830Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 13,
+      "start_time": "2019-11-18T18:55:52.308Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Weather Check": "true",
+        "Place Safety Cones Around Area": "true",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 14,
+      "start_time": "2019-11-18T19:17:26.185Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Drone Registraton Certifcate On-Hand - FAA / TC": "true",
+        "Insurance On-Hand": "true",
+        "FLHA and Tailgate Completed": "true",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 15,
+      "start_time": "2019-11-18T19:17:46.994Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "Drone Registraton Certifcate On-Hand - FAA / TC": "true",
+        "Insurance On-Hand": "true",
+        "FLHA and Tailgate Completed": "true",
+        "GPS Coordinates (Lat/Long) Visible for Reference": "true",
+        "Emergency Services Contact Information Visible": "true",
+        "Air Traffic Control and Aerodrome Contact Information Visible": "true",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 16,
+      "start_time": "2019-11-19T00:00:34.823Z",
+      "drone_id": 3,
+      "user": "root",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "Drone Registraton Certifcate On-Hand - FAA / TC": "true",
+        "Insurance On-Hand": "true",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "Medium",
+        "lid": null,
+        "drone_id": 3,
+        "user": "root"
+      }
+    },
+    {
+      "id": 17,
+      "start_time": "2019-11-19T00:07:10.108Z",
+      "drone_id": 1,
+      "user": "root",
+      "preflight_list": {
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Weather Check": "true",
+        "Place Safety Cones Around Area": "true",
+        "Operation Signage Appropriately Placed": "true",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "root"
+      }
     }
   ]
 }

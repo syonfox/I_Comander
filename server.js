@@ -20,6 +20,9 @@ const fs = require('fs');
 const session = require('express-session'); //used to save the session so that the user stays loged in
 var passport = require('passport'); //authentication lib
 
+const multer = require("multer");
+var upload = multer({ dest: __dirname + '/app/images/upload' });
+
 // var db = require('./db'); //The folder when users are stored.
 const users = require('./users');
 const drones = require('./drones');
@@ -136,6 +139,40 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
     res.render('partials/index.ejs', r);
 
 });
+
+app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
+  let droneId = req.params.droneid;
+  let jsonFile = __dirname + '/server-data/drones.json';
+  let drone;
+  fs.readFile(jsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let drones = JSON.parse(data);
+
+    let drone_filter = drones.drones.filter(function (item,index){
+        return item.did==droneId;
+    });
+    drone = drone_filter[0];
+
+
+    let checklist_id = drone.preflight_lid;
+
+    console.log(req.user.username);
+    r = {
+      'user': req.user,
+      'checklistid': checklist_id,
+      'droneid': droneId
+    };
+    res.render('partials/checklist.ejs', r);
+
+  });
+
+
+});
+
+
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
@@ -395,9 +432,28 @@ app.get('/api/get_drones', (req, res) => {
   });
 });
 
+// todo: clean up uploaded imaged that are no longer used by drones.
+app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
+    console.log('delete_drone');
+    console.log(req.body);
+
+    drones.del(req.body.did);
+    r = drones.get_dronedb();
+    r.deleted_did = req.body.did;
+    res.send(JSON.stringify(r));
+});
+
 //takes in body paramated for the drone as input and will update them in the drone specified by body.did
 //if did==-1 it will be added insted
-app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
+// https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
+app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req, res) => {
+
+    // console.log(req.file.path);
+    // console.log(req.file.encoding);
+    // console.log(req.file.mimetype);
+
+
+
     let d;
     if(req.body.did == -1) {
         d = drones.add();
@@ -405,9 +461,15 @@ app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
         d = drones.get_drone_by_did(req.body.did);
     }
 
+    if(req.file) {
+        d.image = 'upload/' + req.file.filename;
+        console.log('image set to: ' + d.image);
+    } else {
+        console.log("No Image");
+    }
 
-    console.log(d);
-    console.log(req.body);
+    // console.log(d);
+    // console.log(req.body);
 
     if (typeof req.body.name != "undefined") d.name = req.body.name;
     if (typeof req.body.type != "undefined") d.type = req.body.type;
@@ -430,6 +492,7 @@ app.post('/api/edit_drone', auth.apiAuthenticated, (req, res) => {
     r = drones.get_dronedb();
     r.updated_drone = d;
     res.send(JSON.stringify(r));
+
 
 });
 
@@ -472,29 +535,54 @@ app.post('/api/add', (req, res) => {
   });
 });
 
+app.get('/api/getChecklist/:checklistid', (req, res)=>{
+  // let jsonFile = __dirname + '/server-data/flights.json';
+  let checklist_id = req.params.checklistid;
+  console.log(checklist_id);
+  let checklist;
+  let clJsonFile = __dirname + '/server-data/draft_cheacklist.json';
+  fs.readFile(clJsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let checklists = JSON.parse(data);
+    let checklist_filter = checklists.lists.filter(function (item,index){
+        return item.lid==checklist_id;
+    });
+    checklist = checklist_filter[0];
+
+    res.send(checklist);
+  });
+});
+
 app.post('/api/submit_flight', (req, res) => {
-  let jsonFile = __dirname + '/server-data/flights.json';
+  let jsonFile = __dirname + '/server-data/draft_flights.json';
+  let formData = req.body;
+
   // let newEvent = req.body;
   // TODO: get list and save it to flights.json
 
   // console.log('Adding new event:', newEvent);
-  // fs.readFile(jsonFile, (err, data) => {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //     return;
-  //   }
-  //   let events = JSON.parse(data);
-  //   events.push(newEvent);
-  //   let eventsJson = JSON.stringify(events, null, 2);
-  //   fs.writeFile(jsonFile, eventsJson, err => {
-  //     if (err) {
-  //       res.sendStatus(500);
-  //       return;
-  //     }
-  //     // You could also respond with the database json to save a round trip
-  //     res.sendStatus(200);
-  //   });
-  // });
+  fs.readFile(jsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let flights = JSON.parse(data);
+    let newFlight = {id: flights.next_id, start_time: new Date(), drone_id:formData.drone_id, user: formData.user, preflight_list: formData};
+    flights.next_id += 1;
+    flights.flights.push(newFlight);
+    let flightsJson = JSON.stringify(flights, null, 2);
+    fs.writeFile(jsonFile, flightsJson, err => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      // You could also respond with the database json to save a round trip
+      res.sendStatus(200);
+    });
+  });
 });
 
 app.post('/api/delete', (req, res) => {
