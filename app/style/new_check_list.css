@@ -1,0 +1,43 @@
+body, html {
+    background: none !important;
+    margin: 0%;
+    height: 100%;
+}
+body {
+    align-items: center;
+    background-color: white;
+
+  }
+  
+  .container {
+    padding-top: 1% !important;
+    padding-left: 13% !important;
+  }
+  .tab-content {
+      padding: 2%;
+  }
+  .btn-outline-dark {
+      margin-bottom: 1%;
+  }
+.btnsPerList {
+    display: inline-block;
+}
+#accordion button {
+    margin-right: 1%;
+    margin-bottom: 0;
+}
+#sortable li {
+    background: none;
+    padding: 1%;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-bottom: 0.1px solid black;
+}
+#sortable .ui-state-default button {
+    font-size: 10px !important;
+}
+
+.createNewChecklist{
+    display: none !important;
+}

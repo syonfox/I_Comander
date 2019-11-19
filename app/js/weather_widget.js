@@ -14,7 +14,8 @@ function getWeatherData() {
 
 function updateWeather(weather) {
     const item =
-          `<img id="w_icon" src="http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png">
+          `<hr>
+          <img id="w_icon" src="http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png">
            <a id="w_temp">${weather.main.temp}°C</a>`
     w_wid.insertAdjacentHTML('beforeend', item);
 

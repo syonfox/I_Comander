@@ -342,6 +342,23 @@ app.post('/pre_checklist_admin', (req, res) => {
   });
 });
 
+app.get('/new_check_list',
+    auth.checkAuthenticated,
+    async (req, res) => {
+
+  //uncoment later when imp job is done XD!
+  // let isAuth = await req.isAuthenticated();
+  // if(!isAuth) {
+  //   r = [{ 'data': 'UNATHORIZED'}];
+  //   res.send(JSON.stringify(r));
+  // }
+  r = {
+    'user': req.user
+  };
+  res.render('new_checklist.ejs', r)
+  //res.sendFile(__dirname + '/add_checklist.ejs');
+});
+
 // // Endpoint to serve the configuration file // for Auth0
 // app.get("/auth_config.json", (req, res) => {
 //   res.sendFile(join(__dirname, "auth_config.json"));
