@@ -415,7 +415,11 @@ app.get('/api/get_drones', (req, res) => {
   });
 });
 
+// todo: clean up uploaded imaged that are no longer used by drones.
 app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
+    console.log('delete_drone');
+    console.log(req.body);
+
     drones.del(req.body.did);
     r = drones.get_dronedb();
     r.deleted_did = req.body.did;

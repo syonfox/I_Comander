@@ -1,5 +1,5 @@
 {
-  "next_id": 16,
+  "next_id": 18,
   "flights": [
     {
       "id": 0,
@@ -257,6 +257,45 @@
         "lid": 0,
         "drone_id": 1,
         "user": "test"
+      }
+    },
+    {
+      "id": 16,
+      "start_time": "2019-11-19T00:00:34.823Z",
+      "drone_id": 3,
+      "user": "root",
+      "preflight_list": {
+        "Landowner/Flight Area Permission Forms On-Hand": "true",
+        "Pilot License On-Hand": "true",
+        "Drone Registraton Certifcate On-Hand - FAA / TC": "true",
+        "Insurance On-Hand": "true",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "Medium",
+        "lid": null,
+        "drone_id": 3,
+        "user": "root"
+      }
+    },
+    {
+      "id": 17,
+      "start_time": "2019-11-19T00:07:10.108Z",
+      "drone_id": 1,
+      "user": "root",
+      "preflight_list": {
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Weather Check": "true",
+        "Place Safety Cones Around Area": "true",
+        "Operation Signage Appropriately Placed": "true",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "root"
       }
     }
   ]

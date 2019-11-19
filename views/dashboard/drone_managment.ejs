@@ -138,6 +138,39 @@
 </style>
 
 <script>
+    async function deleteSubmit( did) {
+        // console.log(e);
+        // e.preventDefault();
+        // console.log(e.target);
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        console.log('delete: '+ did);
+        // let data = new FormData(;
+        // data.set('did', did);
+
+
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/delete_drone", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({did: did}),
+
+            credentials: "same-origin"
+        });
+
+        r = await response.json();
+        console.log(r);
+        // let drones = r;
+
+        var element = document.getElementById(`drone_item_${did}`);
+        element.parentNode.removeChild(element);
+
+        console.log("Successfully deleted drone")
+
+
+    }
 
     async function editSubmit(e) {
         e.preventDefault();
@@ -165,10 +198,14 @@
         let dl = document.getElementById('drone_list');
 
         console.log(e.target);
-        const params = new URLSearchParams([...new FormData(e.target).entries()]);
 
+         let data = new FormData(e.target)
         // const params = new URLSearchParams([...new FormData(e.target).entries()]);
-        const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
+        const response = await fetch("/api/edit_drone", {method: "POST", body: data, credentials: "same-origin"})
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        //
+        // // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        // const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
         r = await response.json();
         // console.log(r);
         let drones = r;
@@ -192,7 +229,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Continue</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteSubmit(${d.did})">Continue</button>
                         </div>
                     </div>
                 </div>
@@ -272,6 +309,8 @@
         let item = document.createElement('div')
         item.classList.add('drone_item')
         item.classList.add('pure-u-1')
+
+        item.id = `drone_item_${d.did}`;
 
 
 
