@@ -140,7 +140,6 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res)=> {
 
 });
 
-<<<<<<< HEAD
 app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
   let droneId = req.params.droneid;
   let jsonFile = __dirname + '/server-data/drones.json';
@@ -175,8 +174,6 @@ app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
 
 
 
-=======
->>>>>>> bc4b1d019c8b37fef2961b814b6e868e9e1a0150
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
   console.log(req.user.username);
