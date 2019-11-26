@@ -4,9 +4,231 @@
     {
       "lid": 0,
       "label": "Preflight Checklist",
+<<<<<<< HEAD
       "items": [],
       "sublists":[0, 1, 2, 3, 4, 5, 6, 7]
     },
+=======
+      "items": [
+        {
+          "name":"Required Documentation-Universal",
+          "items": [
+            {
+              "name":"Apple",
+              "type":"checkbox"
+            },
+            {
+              "name":"Pilot License On-Hand",
+              "type":"checkbox"
+            },
+            {
+              "name":"Drone Registraton Certifcate On-Hand - FAA / TC",
+              "type":"checkbox"
+            },
+            {
+              "name":"Insurance On-Hand",
+              "type":"checkbox"
+            },
+            {
+              "name":"FLHA and Tailgate Completed",
+              "type":"checkbox"
+            },
+            {
+              "name":"GPS Coordinates (Lat/Long) Visible for Reference",
+              "type":"checkbox"
+            },
+            {
+              "name":"Emergency Services Contact Information Visible",
+              "type":"checkbox"
+            },
+            {
+              "name":"Air Traffic Control and Aerodrome Contact Information Visible",
+              "type":"checkbox"
+            }
+          ]
+        },
+        {
+          "name":"In-field and pre-flight checklist-INS 01",
+          "items": [
+            {
+              "name": "Date",
+              "type": "textbox"
+            },
+            {
+              "name": "Pilot in Command",
+              "type":"dropdown",
+              "options": ["david","joker"]
+            }
+          ]
+        },
+        {
+          "name": "Physical Eniveronment-Mission Area",
+          "items": [
+          {
+            "name":"Weather Check",
+            "type":"checkbox"
+          },
+          {
+            "name":"Place Safety Cones Around Area",
+            "type":"checkbox"
+          },
+          {
+            "name":"Operation Signage Appropriately Placed",
+            "type":"checkbox"
+          },
+          {
+            "name":"Safe Landing Area Established",
+            "type":"checkbox"
+          },
+          {
+            "name":"Clear Landing Area",
+            "type":"checkbox"
+          },
+          {
+            "name":"Area Clear of Non-Participants",
+            "type":"checkbox"
+          },
+          {
+            "name":"Fire Extinguisher On-Hand",
+            "type":"checkbox"
+          },
+          {
+            "name":"Wind and Temperature Within Operating Specs",
+            "type":"checkbox"
+          }
+        ]
+        },
+        {
+          "name": "Software/Firmware",
+          "items": [
+            {
+              "name":"Latest Version Firmware",
+              "type":"checkbox"
+            },
+            {
+              "name":"Latest Version Ground Control Software",
+              "type":"checkbox"
+            },
+            {
+              "name":"Latest Version Sensor Firmware",
+              "type":"checkbox"
+            }
+          ]
+        },
+        {
+          "name": "Flight planning",
+          "items": [
+          {
+            "name":"Mission Uploaded to UAV",
+            "type":"checkbox"
+          },
+          {
+            "name":"Safe \"Home\" and/or \"Start\" Location Established",
+            "type":"checkbox"
+          },
+          {
+            "name":"Correct Flight Elevation Programmed",
+            "type":"checkbox"
+          },
+          { "name":"Furthers Waypoints are Within Telemetry Range",
+            "type":""
+          }
+        ]
+        },
+        {
+          "name": "Communication",
+          "items": [
+          {
+            "name":"iCom Radio On",
+            "type":"checkbox"
+          },
+          {
+            "name":"Verbal Flight Description and Pattern Discussed",
+            "type":"checkbox"
+          },
+          {
+            "name":"Furthest Distance of UAV from \"Home\" is Verbalized",
+            "type":"checkbox"
+          },
+          {
+            "name":"Verbal Clarification of Flyaway Procedure",
+            "type":"checkbox"
+          },
+          {
+            "name":"Platform Identifier",
+            "type":"checkbox"
+          }
+        ]
+        },
+        {
+          "name": "Battery",
+          "items": [
+          {
+            "name":"Platform Battery Charged to 90% - Checked with Remote",
+            "type":"checkbox"
+          },
+          {
+            "name":"Remote Control Battery Charged",
+            "type":"checkbox"
+          },
+          {
+            "name":"Tablet / Computer Ground Station Charged",
+            "type":"checkbox"
+          }
+        ]
+        },
+        {
+          "name": "Platform Checks",
+          "items": [
+          {
+            "name":"No Loose Cables or Wiring",
+            "type":"checkbox"
+          },
+          {
+            "name":"Legs / Arms Locked and Secured",
+            "type":"checkbox"
+          },
+          {
+            "name":"Leg / Arm Locking Mechanism in Condition",
+            "type":"checkbox"
+          },
+          {
+            "name":"Propellers in Condition",
+            "type":"checkbox"
+          },
+          {
+            "name":"Body Free of Cracks and Dents",
+            "type":"checkbox"
+          },
+          {
+            "name":"Screws / Nuts / Bolts in Place and Tight",
+            "type":"checkbox"
+          },
+          {
+            "name":"Battery Connectors and Cables Secure",
+            "type":"checkbox"
+          },
+          {
+            "name":"Gimbal and Payload Assembly Secure",
+            "type":"checkbox"
+          },
+          {
+            "name":"Camera Responsive to Commands",
+            "type":"checkbox"
+          },
+          {
+            "name":"Compass Calibration if 10km From Last Flight or 30 Days)",
+            "type":"checkbox"
+          },
+          {
+            "name":"Optical Flow Sensor(s) Clear of Obstruction Debris",
+            "type":"checkbox"
+          }
+      ]
+    }
+    ]
+  },
+>>>>>>> 52824e00ceabc6b04964a8d6c7c7285bbd928c6c
     {
       "lid": 1,
       "label": "List Two :)",

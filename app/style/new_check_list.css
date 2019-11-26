@@ -29,6 +29,8 @@ body {
 #sortable li {
     background: none;
     padding: 1%;
+    padding-bottom: 2%;
+    padding-top: 2%;
     border-right: none;
     border-left: none;
     border-top: none;
@@ -41,3 +43,29 @@ body {
 .createNewChecklist{
     display: none !important;
 }
+
+.input-group {
+    display: inline-table;
+    vertical-align: middle;
+}
+.input-group-addon,
+.input-group-btn,
+.form-control {
+    width: auto !important;
+}
+
+.dropdown-toggle {
+    height: 100%;
+} 
+
+.createElements input, .createElements div {
+    margin-right: 1%;
+}
+.ui-accordion-content-active {
+    height: 170%;
+}
+
+/* .createElementsSublist input, .createElements input{
+transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+} */
+
