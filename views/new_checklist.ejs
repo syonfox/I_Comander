@@ -37,19 +37,55 @@
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <button type="button" class="createChecklistBtn btn btn-outline-dark btn-sm">Create Checklist</button>
             <div id="accordion">
+                    <h3 class="row createNewChecklist1" style="overflow: hidden;">
+                        <input type="text" placeholder="Checklist name" class="form-control col-md-5" style="display: inline-block;">
+                            <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
+                    </h3>
+                    <div class="createNewChecklist2">
+                        <ul id="sortable" class="sortable0">
+                        </ul>
+                        <div class="row createElements">
+                            <input type="text" class="form-control col-md-2" id="createSid" placeholder="sid">
+                            <input type="text" class="form-control col-md-2" id="createLabel" placeholder="Label">
+                            <input type="text" class="form-control col-md-2" id="createList" placeholder="List">
+                            <div class="dropdown dropdown1" id="createAction">
+                                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#" id="createElementsActionNone">None</a>
+                                        <a class="dropdown-item" href="#" id="createElementsActionLockout">Lock Out</a>
+                                        <a class="dropdown-item" href="#" id="createElementsActionTicket">Ticket</a>
+                                    </div>
+                            </div>
+                            <input type="text" class="form-control col-md-2" id="createTrigger" placeholder="Trigger">
+                            <input type="text" class="form-control col-md-2" id="createAlert" placeholder="Alert">
+                            <input type="text" class="form-control col-md-2" id="createTicket" placeholder="ticket">
+                        </div>
+                        <br style="color: black;"/>
+                        <div class="row">
+                            <div class="dropdown dropdown2 float-left col-md-5">
+                                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#" id="createElementsSublist">Sublist</a>
+                                        <a class="dropdown-item" href="#" id="createElementsDropDown">DropDown</a>
+                                        <a class="dropdown-item" href="#" id="createElementsCheckBox">CheckBox</a>
+                                        <a class="dropdown-item" href="#" id="createElementsInput">Input</a>
+                                    </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-dark btn-sm saveItemBtn col-md-5" data-toggle="" aria-haspopup="true" aria-expanded="false" style="margin-left: 1%;">Save</button>
+                        </div>
+                    </div>
                     <h3 class="row" style="overflow: hidden;">
                         Marvic drone
                             <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
                             <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
                     </h3>
                     <div>
-                        <ul id="sortable" >
+                        <ul id="sortable" class="sortable0">
                                 <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                 <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                 <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                 <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                         </ul>
-                        <button type="button" class="btn btn-outline-dark btn-sm" style="font-size: 0.70rem;">Add New Item</button>
                     </div>
                     <h3 class="row" style="overflow: hidden;">
                             Marvic drone 2
@@ -57,13 +93,12 @@
                                 <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
                         </h3>
                         <div>
-                            <ul id="sortable" >
+                            <ul id="sortable" class="sortable0">
                                     <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                     <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                     <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                     <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                             </ul>
-                            <button type="button" class="btn btn-outline-dark btn-sm" style="font-size: 0.70rem;">Add New Item</button>
                         </div>
                         <h3 class="row" style="overflow: hidden;">
                                 Big Marvic drone
@@ -71,58 +106,212 @@
                                     <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
                             </h3>
                             <div>
-                                <ul id="sortable" >
+                                <ul id="sortable" class="sortable0">
                                         <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                         <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                         <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                         <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
                                 </ul>
-                                <button type="button" class="btn btn-outline-dark btn-sm" style="font-size: 0.70rem;">Add New Item</button>
                             </div>
-                            <h3 class="row createNewChecklist1" style="overflow: hidden;">
-                                    drone name
-                                        <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-                                        <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
-                                </h3>
-                                <div class="createNewChecklist2">
-                                    <ul id="sortable" >
-                                    </ul>
-                                    <button type="button" class="btn btn-outline-dark btn-sm" style="font-size: 0.70rem;">Add New Item</button>
-                                </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">bmbm.</div>
+
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <button type="button" class="createChecklistBtnSublist btn btn-outline-dark btn-sm">Create sub-list</button>
+                <div id="accordion2">
+                        <h3 class="row createNewChecklist1Sublist" style="overflow: hidden;">
+                            <input type="text" placeholder="Sub-list name" class="form-control col-md-5" style="display: inline-block;">
+                                <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
+                        </h3>
+                        <div class="createNewChecklist2Sublist">
+                            <ul id="sortable" class="sortable0">
+                            </ul>
+                            <div class="row createElementsSublist">
+                                <input type="text" class="form-control col-md-2" id="createSidSublist" placeholder="sid">
+                                <input type="text" class="form-control col-md-2" id="createLabelSublist" placeholder="Label">
+                                <input type="text" class="form-control col-md-2" id="createListSublist" placeholder="List">
+                                <div class="dropdown dropdown1" id="createActionSublist">
+                                        <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#" id="createElementsActionNoneSublist">None</a>
+                                            <a class="dropdown-item" href="#" id="createElementsActionLockoutSublist">Lock Out</a>
+                                            <a class="dropdown-item" href="#" id="createElementsActionTicketSublist">Ticket</a>
+                                        </div>
+                                </div>
+                                <input type="text" class="form-control col-md-2" id="createTriggerSublist" placeholder="Trigger">
+                                <input type="text" class="form-control col-md-2" id="createAlertSublist" placeholder="Alert">
+                                <input type="text" class="form-control col-md-2" id="createTicketSublist" placeholder="ticket">
+                            </div>
+                            <br style="color: black;"/>
+                            <div class="row">
+                                <div class="dropdown dropdown2 float-left row col-md-5">
+                                        <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#" id="createElementsSublistSublist">Sublist</a>
+                                            <a class="dropdown-item" href="#" id="createElementsDropDownSublist">DropDown</a>
+                                            <a class="dropdown-item" href="#" id="createElementsCheckBoxSublist">CheckBox</a>
+                                            <a class="dropdown-item" href="#" id="createElementsInputSublist">Input</a>
+                                        </div>
+                                </div>
+                                <button type="button" class="btn btn-outline-dark btn-sm saveItemBtnSublist col-md-5" data-toggle="" aria-haspopup="true" aria-expanded="false" style="margin-left: 1%;">Save</button>
+                            </div>
+                        </div>
+                        <h3 class="row" style="overflow: hidden;">
+                                hardware sublist
+                                <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
+                        </h3>
+                        <div>
+                            <ul id="sortable" class="sortable0">
+                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                            </ul>
+                        </div>
+                        <h3 class="row" style="overflow: hidden;">
+                                universal sublist
+                                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
+                            </h3>
+                            <div>
+                                <ul id="sortable" class="sortable0">
+                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                                </ul>
+                            </div>
+                </div>
+        </div>
     </div>
 </div>
 
 <script>
+    $(document).ready(function(){
+        $('.createNewChecklist1').hide()
+        $('.createNewChecklist2').hide()
+    });
         $( function() {
-          $( "#accordion" ).accordion();
+          $( "#accordion, #accordion2" ).accordion();
         } );
 
         $( function() {
-            $( "#sortable" ).sortable();
-            $( "#sortable" ).disableSelection();
+            $( ".sortable0" ).sortable();
+            $( ".sortable0" ).disableSelection();
         } );
 
-        $("#accordion").accordion({
+        $("#accordion, #accordion2").accordion({
     animate: {
         duration: 250
     }
 });
 
-$('.createChecklistBtn').click(function(){
-    var newChecklist =`<h3 class="row createNewChecklist" style="overflow: hidden;">drone name<button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button><button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></h3><div class="createNewChecklist"><ul id="sortable" ></ul><button type="button" class="btn btn-outline-dark btn-sm" style="font-size: 0.70rem;">Add New Item</button></div>`
-    // $('#accordion').append(`
-    // <h3 class="row createNewChecklist" style="overflow: hidden;">
-    //                                 drone name
-    //                                     <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-    //                                     <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
-    //                             </h3>
-    //                             `)
-    $("#accordion").append($(".createNewChecklist1").html());
-    $("#accordion").append($(".createNewChecklist2").html());
-})
+    $('.createChecklistBtn').click(function(){
+        $('.createNewChecklist1').toggle()
+        $('.createNewChecklist2').toggle()
+
+    })
+
+    $(function(){
+        $(".dropdown1 a").click(function(){
+        $(".dropdown-toggle1:first-child").text($(this).text());
+        $(".dropdown-toggle1:first-child").val($(this).text());
+        });
+        $(".dropdown2 a").click(function(){
+        $(".dropdown-toggle2:first-child").text($(this).text());
+        $(".dropdown-toggle2:first-child").val($(this).text());
+        });
+    });
+
+//creating elements in the checklist tab
+    $('.createElements input, #createAction').hide()
+    $('.saveItemBtn').hide() 
+
+    $('#createElementsSublist').click(function(){
+        $('.saveItemBtn').show()
+        $('.createElements input, #createAction').hide()
+        $('#createSid').show()
+    })
+
+    $('#createElementsInput, #createElementsCheckBox').click(function(){
+        $('.saveItemBtn').show()
+        $('.createElements input, #createAction').hide()
+        $('#createLabel, #createAction').show()
+    })
+
+    $('#createElementsDropDown').click(function(){
+        $('.saveItemBtn').show()
+        $('.createElements input, #createAction').hide()
+        $('#createLabel, #createAction, #createList').show()
+    })
+
+    $('#createElementsActionNone').click(function(){
+        //$('.createElements input, #createAction').hide()
+        $('#createTrigger, #createAlert, #createTicket').hide()
+    })
+
+    $('#createElementsActionLockout').click(function(){
+        //$('.createElements input, #createAction').hide()
+        $('#createTrigger, #createAlert, #createTicket').show()
+    })
+    $('#createElementsActionTicket').click(function(){
+        //$('.createElements input, #createAction').hide()
+        $('#createAlert').hide()
+        $('#createTrigger, #createTicket').show()
+    })
+
+
+    //___________________sub-list tab ______________________________________________________________
+    $(document).ready(function(){
+        $('.createNewChecklist1Sublist').hide()
+        $('.createNewChecklist2Sublist').hide()
+    });
+    $('.createChecklistBtnSublist').click(function(){
+        $('.createNewChecklist1Sublist').toggle()
+        $('.createNewChecklist2Sublist').toggle()
+
+    })
+
+
+
+//creating elements in the checklist tab
+    $('.createElementsSublist input, #createActionSublist').hide()
+    $('.saveItemBtnSublist').hide() 
+
+    $('#createElementsSublist').click(function(){
+        $('.saveItemBtnSublist').show()
+        $('.createElementsSublist input, #createActionSublist').hide()
+        $('#createSidSublist').show()
+    })
+
+    $('#createElementsInputSublist, #createElementsCheckBoxSublist').click(function(){
+        $('.saveItemBtnSublist').show()
+        $('.createElementsSublist input, #createActionSublist').hide()
+        $('#createLabelSublist, #createActionSublist').show()
+    })
+
+    $('#createElementsDropDownSublist').click(function(){
+        $('.saveItemBtnSublist').show()
+        $('.createElementsSublist input, #createActionSublist').hide()
+        $('#createLabelSublist, #createActionSublist, #createListSublist').show()
+    })
+
+    $('#createElementsActionNoneSublist').click(function(){
+        //$('.createElements input, #createAction').hide()
+        $('#createTriggerSublist, #createAlertSublist, #createTicketSublist').hide()
+    })
+
+    $('#createElementsActionLockoutSublist').click(function(){
+        //$('.createElements input, #createAction').hide()
+        $('#createTriggerSublist, #createAlertSublist, #createTicketSublist').show()
+    })
+    $('#createElementsActionTicketSublist').click(function(){
+        //$('.createElements input, #createAction').hide()
+        $('#createAlertSublist').hide()
+        $('#createTriggerSublist, #createTicketSublist').show()
+    })
 
 
 </script>

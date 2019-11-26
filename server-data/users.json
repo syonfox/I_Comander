@@ -1,5 +1,5 @@
 {
-  "nextId": 7,
+  "nextId": 8,
   "users": [
     {
       "id": 1,
@@ -51,6 +51,14 @@
       "email": "test@test",
       "role": "guest",
       "password": "$2b$10$mkwWIUMWk7kfq6IhW021fekHjtctCzan9GkqnsC8fAQ1n3k5PMZBu"
+    },
+    {
+      "id": 7,
+      "username": "admin",
+      "displayName": "admin",
+      "email": "admin@asdm",
+      "role": "guest",
+      "password": "$2b$10$evMo4lV1xOZMkz6x2xwaiOidG1I86D3GmwZNolRw7NtpXR8wZePbG"
     }
   ]
 }
