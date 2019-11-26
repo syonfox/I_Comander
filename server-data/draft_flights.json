@@ -1,5 +1,5 @@
 {
-  "next_id": 18,
+  "next_id": 19,
   "flights": [
     {
       "id": 0,
@@ -296,6 +296,23 @@
         "lid": 0,
         "drone_id": 1,
         "user": "root"
+      }
+    },
+    {
+      "id": 18,
+      "start_time": "2019-11-26T21:04:30.626Z",
+      "drone_id": 1,
+      "user": "starfox",
+      "preflight_list": {
+        "Date": "",
+        "Pilot in Command": "david",
+        "Furthers Waypoints are Within Telemetry Range": "",
+        "No Loose Cables or Wiring": "",
+        "Legs / Arms Locked and Secured": "",
+        "Leg / Arm Locking Mechanism in Condition": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "starfox"
       }
     }
   ]

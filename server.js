@@ -549,8 +549,20 @@ app.get('/api/getChecklist/:checklistid', (req, res)=>{
         return item.lid==checklist_id;
     });
     checklist = checklist_filter[0];
-
+    if(checklist.sublists && checklists.sublists){
+      if(!checklist.items){
+        checklist.items = [];
+      }
+      let sublist_filter = checklists.sublists.filter(function (item,index){
+          return checklist.sublists.includes(item.sid);
+      });
+      checklist.items = checklist.items.concat(sublist_filter);
+      // for(var i = 0; i < checklist.sublists.length; i++){
+      //   var sid = checklist.sublists[i];
+      // }
+    }
     res.send(checklist);
+
   });
 });
 
