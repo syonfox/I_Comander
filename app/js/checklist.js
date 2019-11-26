@@ -22,7 +22,7 @@ function updateVars() {
     container = document.getElementById('container');
 }
 // initDB()
-// loadFormContentNetworkFirst();
+loadFormContentNetworkFirst();
 bindOnSubmit();
 function getChecklistServerData() {
     let checklist_id = parseInt(document.getElementById('checklistForm').dataset["checklist"]);
@@ -36,22 +36,60 @@ function getChecklistServerData() {
 
 
 function UpdateFormUI(checklist) {
-  let items = '';
-  Array.prototype.forEach.call(checklist, checklistItem => {
-    const item =
-      `<tr><td><input name="${checklistItem.id}" id="yes-${checklistItem.id}" value="yes" type="checkbox" onclick="onlyOne(this)" /></td><td><input name="${checklistItem.id}" id="na-${checklistItem.id}" value="na" type="checkbox" onclick="onlyOne(this)"  /></td><td>${checklistItem.name}</td></tr>`;
-      items+=item;
-  });
+  console.log(checklist);
+  let cards = '';
 
-  let template = `<table><thead><tr><td colspan="3">Required Documentation - Universal		</td></tr><tr><td>Yes</td><td>N/A</td><td>Documentation</td></tr></thead><tbody>${items}</tbody></table>`;
+  if(checklist.items){
+    Array.prototype.forEach.call(checklist.items, (checklistItem, idx) => {
+
+      let items = '';
+      Array.prototype.forEach.call(checklistItem.items, ItemInChecklistItem => {
+        let item;
+        if(ItemInChecklistItem.type!='dropdown')
+        {
+          item =`<li class="list-group-item"><label for='${ItemInChecklistItem.name}' >${ItemInChecklistItem.name}</label><input type='${ItemInChecklistItem.type}' value='' placeholder='${ItemInChecklistItem.name}' name='${ItemInChecklistItem.name}'  id='${ItemInChecklistItem.name}' /></li>`;
+        }
+        else if(ItemInChecklistItem.type=='dropdown')
+        {
+          let options='';
+          Array.prototype.forEach.call(ItemInChecklistItem.options, option => {
+            options+= `<option>${option}</option>`;
+          });
+          item =`<li class="list-group-item"><label for='${ItemInChecklistItem.name}' >${ItemInChecklistItem.name}</label><select  name='${ItemInChecklistItem.name}'  id='${ItemInChecklistItem.name}' >${options}</select></li>`;
+        }
+        items+=item;
+      });
+      let card_template = `<div class="row">
+        <div class="card mx-auto">
+          <div class="card-header" id="${'heading'+idx}">
+            <h5 class="mb-0">
+              <button type="button" class="btn btn-link" data-toggle="collapse" data-target="${'#collapse'+idx}" aria-expanded="true" aria-controls="${'collapse'+idx}">
+                <li class="list-group-item activeSelectChecklist ">${checklistItem.name}</li>
+              </button>
+            </h5>
+          </div>
+
+          <div id="${'collapse'+idx}" class="collapse" aria-labelledby="${'heading'+idx}" data-parent="#accordion">
+            <div class="card-body">
+                ${items}
+            </div>
+          </div>
+        </div>
+        </div>`;
+        cards+=card_template;
+    });
+  }
+  let template = `
+      ${cards}
+  `;
 
   container.insertAdjacentHTML('beforeend', template);
 
 }
 
 function loadFormContentNetworkFirst() {
-  getIndexedDB().then(dataFromNetwork => {
-  // getChecklistServerData().then(dataFromNetwork => {
+  // getIndexedDB().then(dataFromNetwork => {
+  getChecklistServerData().then(dataFromNetwork => {
     console.log(dataFromNetwork);
 	UpdateFormUI(dataFromNetwork);
   });

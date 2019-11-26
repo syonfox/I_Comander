@@ -536,11 +536,9 @@ app.post('/api/add', (req, res) => {
 });
 
 app.get('/api/getChecklist/:checklistid', (req, res)=>{
-  // let jsonFile = __dirname + '/server-data/flights.json';
   let checklist_id = req.params.checklistid;
-  console.log(checklist_id);
   let checklist;
-  let clJsonFile = __dirname + '/server-data/draft_cheacklist.json';
+  let clJsonFile = __dirname + '/server-data/checklist.json';
   fs.readFile(clJsonFile, (err, data) => {
     if (err) {
       res.sendStatus(500);
@@ -551,8 +549,20 @@ app.get('/api/getChecklist/:checklistid', (req, res)=>{
         return item.lid==checklist_id;
     });
     checklist = checklist_filter[0];
-
+    if(checklist.sublists && checklists.sublists){
+      if(!checklist.items){
+        checklist.items = [];
+      }
+      let sublist_filter = checklists.sublists.filter(function (item,index){
+          return checklist.sublists.includes(item.sid);
+      });
+      checklist.items = checklist.items.concat(sublist_filter);
+      // for(var i = 0; i < checklist.sublists.length; i++){
+      //   var sid = checklist.sublists[i];
+      // }
+    }
     res.send(checklist);
+
   });
 });
 
