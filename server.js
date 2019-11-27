@@ -91,7 +91,7 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
-app.get('/dashboard/drones', (req, res) => {
+app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
   res.render('dashboard/drone_managment.ejs');
 });
 
@@ -171,8 +171,6 @@ app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
 
 
 });
-
-
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
@@ -432,7 +430,7 @@ app.get('/api/get_drones', (req, res) => {
   });
 });
 
-// todo: clean up uploaded imaged that are no longer used by drones.
+// todo: clean up uploaded imaged that are no longer used by drones.z
 app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
     console.log('delete_drone');
     console.log(req.body);

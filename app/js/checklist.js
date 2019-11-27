@@ -39,7 +39,7 @@ function UpdateFormUI(checklist) {
   console.log(checklist);
   let cards = '';
 
-<<<<<<< HEAD
+
   if(checklist.items){
     Array.prototype.forEach.call(checklist.items, (checklistItem, idx) => {
 
@@ -80,48 +80,45 @@ function UpdateFormUI(checklist) {
         cards+=card_template;
     });
   }
-=======
-
-  Array.prototype.forEach.call(checklist.items, (checklistItem, idx) => {
-
-    let items = '';
-    Array.prototype.forEach.call(checklistItem.items, ItemInChecklistItem => {
-      let item;
-      if(ItemInChecklistItem.type!='dropdown')
-      {
-        item =`<li class="list-group-item"><label for='${ItemInChecklistItem.name}' >${ItemInChecklistItem.name}</label><input type='${ItemInChecklistItem.type}' value='' placeholder='${ItemInChecklistItem.name}' name='${ItemInChecklistItem.name}'  id='${ItemInChecklistItem.name}' /></li>`;
-      }
-      else if(ItemInChecklistItem.type=='dropdown')
-      {
-        let options='';
-        Array.prototype.forEach.call(ItemInChecklistItem.options, option => {
-          options+= `<option>${option}</option>`;
-        });
-        item =`<li class="list-group-item"><label for='${ItemInChecklistItem.name}' >${ItemInChecklistItem.name}</label><select  name='${ItemInChecklistItem.name}'  id='${ItemInChecklistItem.name}' >${options}</select></li>`;
-      }
-      items+=item;
-    });
-    let card_template = `<div class="row">
-      <div class="card mx-auto">
-        <div class="card-header" id="${'heading'+idx}">
-          <h5 class="mb-0">
-            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="${'#collapse'+idx}" aria-expanded="true" aria-controls="${'collapse'+idx}">
-              <li class="list-group-item activeSelectChecklist ">${checklistItem.name}</li>
-            </button>
-          </h5>
-        </div>
-
-        <div id="${'collapse'+idx}" class="collapse" aria-labelledby="${'heading'+idx}" data-parent="#accordion">
-          <div class="card-body">
-              ${items}
-          </div>
-        </div>
-      </div>
-      </div>`;
-      cards+=card_template;
-  });
-
->>>>>>> 52824e00ceabc6b04964a8d6c7c7285bbd928c6c
+  //
+  // Array.prototype.forEach.call(checklist.items, (checklistItem, idx) => {
+  //
+  //   let items = '';
+  //   Array.prototype.forEach.call(checklistItem.items, ItemInChecklistItem => {
+  //     let item;
+  //     if(ItemInChecklistItem.type!='dropdown')
+  //     {
+  //       item =`<li class="list-group-item"><label for='${ItemInChecklistItem.name}' >${ItemInChecklistItem.name}</label><input type='${ItemInChecklistItem.type}' value='' placeholder='${ItemInChecklistItem.name}' name='${ItemInChecklistItem.name}'  id='${ItemInChecklistItem.name}' /></li>`;
+  //     }
+  //     else if(ItemInChecklistItem.type=='dropdown')
+  //     {
+  //       let options='';
+  //       Array.prototype.forEach.call(ItemInChecklistItem.options, option => {
+  //         options+= `<option>${option}</option>`;
+  //       });
+  //       item =`<li class="list-group-item"><label for='${ItemInChecklistItem.name}' >${ItemInChecklistItem.name}</label><select  name='${ItemInChecklistItem.name}'  id='${ItemInChecklistItem.name}' >${options}</select></li>`;
+  //     }
+  //     items+=item;
+  //   });
+  //   let card_template = `<div class="row">
+  //     <div class="card mx-auto">
+  //       <div class="card-header" id="${'heading'+idx}">
+  //         <h5 class="mb-0">
+  //           <button type="button" class="btn btn-link" data-toggle="collapse" data-target="${'#collapse'+idx}" aria-expanded="true" aria-controls="${'collapse'+idx}">
+  //             <li class="list-group-item activeSelectChecklist ">${checklistItem.name}</li>
+  //           </button>
+  //         </h5>
+  //       </div>
+  //
+  //       <div id="${'collapse'+idx}" class="collapse" aria-labelledby="${'heading'+idx}" data-parent="#accordion">
+  //         <div class="card-body">
+  //             ${items}
+  //         </div>
+  //       </div>
+  //     </div>
+  //     </div>`;
+  //     cards+=card_template;
+  // });
   let template = `
       ${cards}
   `;

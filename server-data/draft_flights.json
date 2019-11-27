@@ -1,5 +1,5 @@
 {
-  "next_id": 19,
+  "next_id": 20,
   "flights": [
     {
       "id": 0,
@@ -300,19 +300,34 @@
     },
     {
       "id": 18,
-      "start_time": "2019-11-26T21:04:30.626Z",
+      "start_time": "2019-11-19T00:57:18.536Z",
       "drone_id": 1,
       "user": "starfox",
       "preflight_list": {
-        "Date": "",
-        "Pilot in Command": "david",
-        "Furthers Waypoints are Within Telemetry Range": "",
-        "No Loose Cables or Wiring": "",
-        "Legs / Arms Locked and Secured": "",
-        "Leg / Arm Locking Mechanism in Condition": "",
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
         "lid": 0,
         "drone_id": 1,
         "user": "starfox"
+      }
+    },
+    {
+      "id": 19,
+      "start_time": "2019-11-19T04:06:44.583Z",
+      "drone_id": 13,
+      "user": "cat",
+      "preflight_list": {
+        "Pilot_in_Command": "",
+        "Visual_Observer": "",
+        "Platform_Identifier": "",
+        "Identify_Battery": "",
+        "Identify_Propellers": "",
+        "lid": null,
+        "drone_id": 13,
+        "user": "cat"
       }
     }
   ]
