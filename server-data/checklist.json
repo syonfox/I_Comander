@@ -21,6 +21,18 @@
         {
           "type": "sublist",
           "sid": 2
+        },
+        {
+          "type": "sublist",
+          "sid": 3
+        },
+        {
+          "type": "sublist",
+          "sid": 4
+        },
+        {
+          "type": "sublist",
+          "sid": 5
         }
       ]
     },
@@ -31,6 +43,25 @@
         {
           "type": "sublist",
           "sid": 9
+        },
+        {
+          "type": "dropdown",
+          "label": "Favorite Color",
+          "options": [
+            "Red",
+            "Green",
+            "Blue",
+            "Black"
+          ],
+          "action": "TICKET",
+          "trigger": [
+            "Black",
+            "Blue"
+          ],
+          "ticket": {
+            "title": "Bad Fav Color",
+            "body": "We all know green is the best color time to change some minds"
+          }
         }
       ]
     }
