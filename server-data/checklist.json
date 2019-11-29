@@ -4,467 +4,377 @@
     {
       "lid": 0,
       "label": "Preflight Checklist",
-<<<<<<< HEAD
-      "items": [],
-      "sublists":[0, 1, 2, 3, 4, 5, 6, 7]
-    },
-=======
       "items": [
         {
-          "name":"Required Documentation-Universal",
-          "items": [
-            {
-              "name":"Apple",
-              "type":"checkbox"
-            },
-            {
-              "name":"Pilot License On-Hand",
-              "type":"checkbox"
-            },
-            {
-              "name":"Drone Registraton Certifcate On-Hand - FAA / TC",
-              "type":"checkbox"
-            },
-            {
-              "name":"Insurance On-Hand",
-              "type":"checkbox"
-            },
-            {
-              "name":"FLHA and Tailgate Completed",
-              "type":"checkbox"
-            },
-            {
-              "name":"GPS Coordinates (Lat/Long) Visible for Reference",
-              "type":"checkbox"
-            },
-            {
-              "name":"Emergency Services Contact Information Visible",
-              "type":"checkbox"
-            },
-            {
-              "name":"Air Traffic Control and Aerodrome Contact Information Visible",
-              "type":"checkbox"
-            }
-          ]
+          "type": "sublist",
+          "sid": 0
         },
         {
-          "name":"In-field and pre-flight checklist-INS 01",
-          "items": [
-            {
-              "name": "Date",
-              "type": "textbox"
-            },
-            {
-              "name": "Pilot in Command",
-              "type":"dropdown",
-              "options": ["david","joker"]
-            }
-          ]
+          "type": "check",
+          "label": "My cool Cheack box",
+          "action": "NONE"
         },
         {
-          "name": "Physical Eniveronment-Mission Area",
-          "items": [
-          {
-            "name":"Weather Check",
-            "type":"checkbox"
-          },
-          {
-            "name":"Place Safety Cones Around Area",
-            "type":"checkbox"
-          },
-          {
-            "name":"Operation Signage Appropriately Placed",
-            "type":"checkbox"
-          },
-          {
-            "name":"Safe Landing Area Established",
-            "type":"checkbox"
-          },
-          {
-            "name":"Clear Landing Area",
-            "type":"checkbox"
-          },
-          {
-            "name":"Area Clear of Non-Participants",
-            "type":"checkbox"
-          },
-          {
-            "name":"Fire Extinguisher On-Hand",
-            "type":"checkbox"
-          },
-          {
-            "name":"Wind and Temperature Within Operating Specs",
-            "type":"checkbox"
-          }
-        ]
+          "type": "sublist",
+          "sid": 1
         },
         {
-          "name": "Software/Firmware",
-          "items": [
-            {
-              "name":"Latest Version Firmware",
-              "type":"checkbox"
-            },
-            {
-              "name":"Latest Version Ground Control Software",
-              "type":"checkbox"
-            },
-            {
-              "name":"Latest Version Sensor Firmware",
-              "type":"checkbox"
-            }
-          ]
+          "type": "sublist",
+          "sid": 2
         },
         {
-          "name": "Flight planning",
-          "items": [
-          {
-            "name":"Mission Uploaded to UAV",
-            "type":"checkbox"
-          },
-          {
-            "name":"Safe \"Home\" and/or \"Start\" Location Established",
-            "type":"checkbox"
-          },
-          {
-            "name":"Correct Flight Elevation Programmed",
-            "type":"checkbox"
-          },
-          { "name":"Furthers Waypoints are Within Telemetry Range",
-            "type":""
-          }
-        ]
+          "type": "sublist",
+          "sid": 3
         },
         {
-          "name": "Communication",
-          "items": [
-          {
-            "name":"iCom Radio On",
-            "type":"checkbox"
-          },
-          {
-            "name":"Verbal Flight Description and Pattern Discussed",
-            "type":"checkbox"
-          },
-          {
-            "name":"Furthest Distance of UAV from \"Home\" is Verbalized",
-            "type":"checkbox"
-          },
-          {
-            "name":"Verbal Clarification of Flyaway Procedure",
-            "type":"checkbox"
-          },
-          {
-            "name":"Platform Identifier",
-            "type":"checkbox"
-          }
-        ]
+          "type": "sublist",
+          "sid": 4
         },
         {
-          "name": "Battery",
-          "items": [
-          {
-            "name":"Platform Battery Charged to 90% - Checked with Remote",
-            "type":"checkbox"
-          },
-          {
-            "name":"Remote Control Battery Charged",
-            "type":"checkbox"
-          },
-          {
-            "name":"Tablet / Computer Ground Station Charged",
-            "type":"checkbox"
-          }
-        ]
-        },
-        {
-          "name": "Platform Checks",
-          "items": [
-          {
-            "name":"No Loose Cables or Wiring",
-            "type":"checkbox"
-          },
-          {
-            "name":"Legs / Arms Locked and Secured",
-            "type":"checkbox"
-          },
-          {
-            "name":"Leg / Arm Locking Mechanism in Condition",
-            "type":"checkbox"
-          },
-          {
-            "name":"Propellers in Condition",
-            "type":"checkbox"
-          },
-          {
-            "name":"Body Free of Cracks and Dents",
-            "type":"checkbox"
-          },
-          {
-            "name":"Screws / Nuts / Bolts in Place and Tight",
-            "type":"checkbox"
-          },
-          {
-            "name":"Battery Connectors and Cables Secure",
-            "type":"checkbox"
-          },
-          {
-            "name":"Gimbal and Payload Assembly Secure",
-            "type":"checkbox"
-          },
-          {
-            "name":"Camera Responsive to Commands",
-            "type":"checkbox"
-          },
-          {
-            "name":"Compass Calibration if 10km From Last Flight or 30 Days)",
-            "type":"checkbox"
-          },
-          {
-            "name":"Optical Flow Sensor(s) Clear of Obstruction Debris",
-            "type":"checkbox"
-          }
+          "type": "sublist",
+          "sid": 5
+        }
       ]
-    }
-    ]
-  },
->>>>>>> 52824e00ceabc6b04964a8d6c7c7285bbd928c6c
+    },
     {
       "lid": 1,
       "label": "List Two :)",
       "items": [
         {
           "type": "sublist",
-          "sid": 0
+          "sid": 9
+        },
+        {
+          "type": "dropdown",
+          "label": "Favorite Color",
+          "options": [
+            "Red",
+            "Green",
+            "Blue",
+            "Black"
+          ],
+          "action": "TICKET",
+          "trigger": [
+            "Black",
+            "Blue"
+          ],
+          "ticket": {
+            "title": "Bad Fav Color",
+            "body": "We all know green is the best color time to change some minds"
+          }
         }
       ]
     }
   ],
-  "next_sid": 8,
+  "next_sid": 10,
   "sublists": [
     {
-      "sid": 0,
-      "name":"Required Documentation-Universal",
+      "sid": 9,
+      "label": "Required Documentation - Universal",
       "items": [
         {
-          "name":"Apple",
-          "type":"checkbox"
+          "type": "check",
+          "label": "Landowner/Flight Area Permission Forms On-Hand",
+          "action": "NONE"
         },
         {
-          "name":"Pilot License On-Hand",
-          "type":"checkbox"
+          "type": "check",
+          "label": "Is Oven Off",
+          "action": "TICKET",
+          "trigger": false,
+          "ticket": {
+            "title": "turn off oven",
+            "body": "all ovens must be off"
+          }
         },
         {
-          "name":"Drone Registraton Certifcate On-Hand - FAA / TC",
-          "type":"checkbox"
+          "type": "check",
+          "label": "is Cat Loved",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
-          "name":"Insurance On-Hand",
-          "type":"checkbox"
+          "type": "input",
+          "label": "Enter Your Licence Number",
+          "action": "NONE"
+        }
+      ]
+    },
+    {
+      "sid": 0,
+      "label": "Required Documentation-Universal",
+      "items": [
+        {
+          "label": "Apple",
+          "type": "check",
+          "action": "NONE"
         },
         {
-          "name":"FLHA and Tailgate Completed",
-          "type":"checkbox"
+          "label": "Pilot License On-Hand",
+          "type": "check",
+          "action": "NONE"
         },
         {
-          "name":"GPS Coordinates (Lat/Long) Visible for Reference",
-          "type":"checkbox"
+          "label": "Drone Registraton Certifcate On-Hand - FAA / TC",
+          "type": "check",
+          "action": "NONE"
         },
         {
-          "name":"Emergency Services Contact Information Visible",
-          "type":"checkbox"
+          "label": "Insurance On-Hand",
+          "type": "check",
+          "action": "NONE"
         },
         {
-          "name":"Air Traffic Control and Aerodrome Contact Information Visible",
-          "type":"checkbox"
+          "label": "FLHA and Tailgate Completed",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "GPS Coordinates (Lat/Long) Visible for Reference",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Emergency Services Contact Information Visible",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Air Traffic Control and Aerodrome Contact Information Visible",
+          "type": "check",
+          "action": "NONE"
         }
       ]
     },
     {
       "sid": 1,
-      "name":"In-field and pre-flight checklist-INS 01",
+      "label": "In-field and pre-flight checklist-INS 01",
       "items": [
         {
-          "name": "Date",
-          "type": "textbox"
+          "label": "Date",
+          "type": "textbox",
+          "action": "NONE"
         },
         {
-          "name": "Pilot in Command",
-          "type":"dropdown",
-          "options": ["david","joker"]
+          "label": "Pilot in Command",
+          "type": "dropdown",
+          "options": [
+            "david",
+            "joker"
+          ],
+          "action": "NONE"
         }
       ]
     },
     {
       "sid": 2,
-      "name": "Physical Eniveronment-Mission Area",
+      "label": "Physical Eniveronment-Mission Area",
       "items": [
-      {
-        "name":"Weather Check",
-        "type":"checkbox"
-      },
-      {
-        "name":"Place Safety Cones Around Area",
-        "type":"checkbox"
-      },
-      {
-        "name":"Operation Signage Appropriately Placed",
-        "type":"checkbox"
-      },
-      {
-        "name":"Safe Landing Area Established",
-        "type":"checkbox"
-      },
-      {
-        "name":"Clear Landing Area",
-        "type":"checkbox"
-      },
-      {
-        "name":"Area Clear of Non-Participants",
-        "type":"checkbox"
-      },
-      {
-        "name":"Fire Extinguisher On-Hand",
-        "type":"checkbox"
-      },
-      {
-        "name":"Wind and Temperature Within Operating Specs",
-        "type":"checkbox"
-      }
-    ]
+        {
+          "label": "Weather Check",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Place Safety Cones Around Area",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Operation Signage Appropriately Placed",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Safe Landing Area Established",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Clear Landing Area",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Area Clear of Non-Participants",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Fire Extinguisher On-Hand",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Wind and Temperature Within Operating Specs",
+          "type": "check",
+          "action": "NONE"
+        }
+      ]
     },
     {
       "sid": 3,
-      "name": "Software/Firmware",
+      "label": "Software/Firmware",
       "items": [
         {
-          "name":"Latest Version Firmware",
-          "type":"checkbox"
+          "label": "Latest Version Firmware",
+          "type": "check",
+          "action": "NONE"
         },
         {
-          "name":"Latest Version Ground Control Software",
-          "type":"checkbox"
+          "label": "Latest Version Ground Control Software",
+          "type": "check",
+          "action": "NONE"
         },
         {
-          "name":"Latest Version Sensor Firmware",
-          "type":"checkbox"
+          "label": "Latest Version Sensor Firmware",
+          "type": "check",
+          "action": "NONE"
         }
       ]
     },
     {
       "sid": 4,
-      "name": "Flight planning",
+      "label": "Flight planning",
       "items": [
-      {
-        "name":"Mission Uploaded to UAV",
-        "type":"checkbox"
-      },
-      {
-        "name":"Safe \"Home\" and/or \"Start\" Location Established",
-        "type":"checkbox"
-      },
-      {
-        "name":"Correct Flight Elevation Programmed",
-        "type":"checkbox"
-      },
-      { "name":"Furthers Waypoints are Within Telemetry Range",
-        "type":""
-      }
-    ]
+        {
+          "label": "Mission Uploaded to UAV",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Safe \"Home\" and/or \"Start\" Location Established",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Correct Flight Elevation Programmed",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Furthers Waypoints are Within Telemetry Range",
+          "type": ""
+        }
+      ]
     },
     {
       "sid": 5,
-      "name": "Communication",
+      "label": "Communication",
       "items": [
-      {
-        "name":"iCom Radio On",
-        "type":"checkbox"
-      },
-      {
-        "name":"Verbal Flight Description and Pattern Discussed",
-        "type":"checkbox"
-      },
-      {
-        "name":"Furthest Distance of UAV from \"Home\" is Verbalized",
-        "type":"checkbox"
-      },
-      {
-        "name":"Verbal Clarification of Flyaway Procedure",
-        "type":"checkbox"
-      },
-      {
-        "name":"Platform Identifier",
-        "type":"checkbox"
-      }
-    ]
+        {
+          "label": "iCom Radio On",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Verbal Flight Description and Pattern Discussed",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Furthest Distance of UAV from \"Home\" is Verbalized",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Verbal Clarification of Flyaway Procedure",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Platform Identifier",
+          "type": "check",
+          "action": "NONE"
+        }
+      ]
     },
     {
       "sid": 6,
-      "name": "Battery",
+      "label": "Battery",
       "items": [
-      {
-        "name":"Platform Battery Charged to 90% - Checked with Remote",
-        "type":"checkbox"
-      },
-      {
-        "name":"Remote Control Battery Charged",
-        "type":"checkbox"
-      },
-      {
-        "name":"Tablet / Computer Ground Station Charged",
-        "type":"checkbox"
-      }
-    ]
+        {
+          "label": "Platform Battery Charged to 90% - Checked with Remote",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Remote Control Battery Charged",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Tablet / Computer Ground Station Charged",
+          "type": "check",
+          "action": "NONE"
+        }
+      ]
     },
     {
       "sid": 7,
-      "name": "Platform Checks",
+      "label": "Platform Checks",
       "items": [
-      {
-        "name":"No Loose Cables or Wiring",
-        "type":"checkbox"
-      },
-      {
-        "name":"Legs / Arms Locked and Secured",
-        "type":"checkbox"
-      },
-      {
-        "name":"Leg / Arm Locking Mechanism in Condition",
-        "type":"checkbox"
-      },
-      {
-        "name":"Propellers in Condition",
-        "type":"checkbox"
-      },
-      {
-        "name":"Body Free of Cracks and Dents",
-        "type":"checkbox"
-      },
-      {
-        "name":"Screws / Nuts / Bolts in Place and Tight",
-        "type":"checkbox"
-      },
-      {
-        "name":"Battery Connectors and Cables Secure",
-        "type":"checkbox"
-      },
-      {
-        "name":"Gimbal and Payload Assembly Secure",
-        "type":"checkbox"
-      },
-      {
-        "name":"Camera Responsive to Commands",
-        "type":"checkbox"
-      },
-      {
-        "name":"Compass Calibration if 10km From Last Flight or 30 Days)",
-        "type":"checkbox"
-      },
-      {
-        "name":"Optical Flow Sensor(s) Clear of Obstruction Debris",
-        "type":"checkbox"
-      }
-  ]
-}
+        {
+          "label": "No Loose Cables or Wiring",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Legs / Arms Locked and Secured",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Leg / Arm Locking Mechanism in Condition",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Propellers in Condition",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Body Free of Cracks and Dents",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Screws / Nuts / Bolts in Place and Tight",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Battery Connectors and Cables Secure",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Gimbal and Payload Assembly Secure",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Camera Responsive to Commands",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Compass Calibration if 10km From Last Flight or 30 Days)",
+          "type": "check",
+          "action": "NONE"
+        },
+        {
+          "label": "Optical Flow Sensor(s) Clear of Obstruction Debris",
+          "type": "check",
+          "action": "NONE"
+        }
+      ]
+    }
   ]
 }

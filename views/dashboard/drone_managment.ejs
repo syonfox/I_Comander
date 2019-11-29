@@ -93,11 +93,9 @@
                 </button>
             </div>
             <div id="add_drone" class="pure-u-1 collapse" style="background: #99121d">
-                TODO: Fill IN
             </div>
             <div id="drone_list" class="pure-u-1">
-                TODO: FIll in
-                <!--TODO: Fill in div with js-->
+                <!--Fill in div with js init drone list()-->
             </div>
 
         </div>
@@ -161,7 +159,7 @@
         });
 
         r = await response.json();
-        console.log(r);
+        // console.log(r);
         // let drones = r;
 
         var element = document.getElementById(`drone_item_${did}`);
@@ -174,13 +172,13 @@
 
     async function editSubmit(e) {
         e.preventDefault();
-        console.log(e.target);
+        // console.log(e.target);
         // const params = new URLSearchParams([...new FormData(e.target).entries()]);
         let data = new FormData(e.target)
         // const params = new URLSearchParams([...new FormData(e.target).entries()]);
         const response = await fetch("/api/edit_drone", {method: "POST", body: data, credentials: "same-origin"})
         r = await response.json();
-        console.log(r);
+        // console.log(r);
         let drones = r;
         let d = r.updated_drone
 
@@ -189,7 +187,7 @@
         document.getElementById(`e_disabled${d.did}`).innerHTML = `disabled: ${d.disabled}`
 
         console.log("Succssesfully edited drone")
-        console.log(response);
+        // console.log(response);
 
     }
 
@@ -215,7 +213,7 @@
         dl.appendChild(item);
 
         console.log("Successfully added drone")
-        console.log(response);
+        // console.log(response);
 
     }
     // data-toggle="modal" data-target="#deleteModal${d.did}"

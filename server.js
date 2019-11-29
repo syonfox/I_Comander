@@ -26,6 +26,7 @@ var upload = multer({ dest: __dirname + '/app/images/upload' });
 // var db = require('./db'); //The folder when users are stored.
 const users = require('./users');
 const drones = require('./drones');
+const tickets = require('./tickets');
 
 const reque = require('request');
 
@@ -91,8 +92,11 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
-app.get('/dashboard/drones', (req, res) => {
+app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
   res.render('dashboard/drone_managment.ejs');
+});
+app.get('/dashboard/tickets', auth.checkAuthenticated, (req, res) => {
+  res.render('dashboard/ticket_managment.ejs');
 });
 
 app.get('/api/kier_secret', async (req, res) => {
@@ -171,8 +175,6 @@ app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res)=> {
 
 
 });
-
-
 
 app.get('/checklist', auth.checkAuthenticated, (req, res)=> {
 
@@ -416,8 +418,22 @@ app.get('/api/getAll', (req, res) => {
   });
 });
 
-//todo: cheack authenitcation
-app.get('/api/get_drones', (req, res) => {
+app.get('/api/get_tickets', auth.apiAuthenticated, (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'tickets.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
+});
+
+app.get('/api/get_drones', auth.apiAuthenticated, (req, res) => {
 
   let options = {
     root: __dirname + '/server-data/'
@@ -432,7 +448,7 @@ app.get('/api/get_drones', (req, res) => {
   });
 });
 
-// todo: clean up uploaded imaged that are no longer used by drones.
+// todo: clean up uploaded imaged that are no longer used by drones.z
 app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
     console.log('delete_drone');
     console.log(req.body);
