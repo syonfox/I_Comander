@@ -93,7 +93,7 @@ app.get(['/', '/index.html'],
 
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
-tickets.addRoutes(app,auth, io);
+tickets.addRoutes(app,auth, io, drones);
 
 
 app.get('/demo-index.html', (req, res) => {

@@ -83,6 +83,20 @@ exports.update = function(newdrone) {
 
     dronedb.drones[i] = newdrone;
     console.log("Updated Drone(did):" + dronedb.drones[i].did);
+
+    save();
+};
+
+exports.enable = function(did){
+    let i = dronedb.drones.findIndex(drone=>drone.did == did);
+    dronedb.drones[i].lockedout = false;
+    console.log('Drone enabled: ' + did);
+    save();
+};
+exports.disable = function(did){
+    let i = dronedb.drones.findIndex(drone=>drone.did == did);
+    dronedb.drones[i].lockedout = true;
+    console.log('Drone disabled: ' + did);
     save();
 };
 
