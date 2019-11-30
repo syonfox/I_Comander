@@ -680,5 +680,23 @@ const port = (process.env.PORT || 8080);
 
 app.get('/admin/users', async (req, res) => {
 
-    res.sendFile(__dirname + '/app/admin-usersView.html');
+    res.sendFile(__dirname + '/views/userMgmt.ejs');
 });
+
+
+app.get('/dashboard/ManageUsers',
+    auth.checkAuthenticated,
+    async (req, res) => {
+
+        //uncoment later when imp job is done XD!
+        // let isAuth = await req.isAuthenticated();
+        // if(!isAuth) {
+        //   r = [{ 'data': 'UNATHORIZED'}];
+        //   res.send(JSON.stringify(r));
+        // }
+        r = {
+            'user': req.user
+        };
+        res.render('userMgmt.ejs', r)
+        //res.sendFile(__dirname + '/add_checklist.ejs');
+    });
