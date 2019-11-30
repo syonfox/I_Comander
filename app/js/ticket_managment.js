@@ -20,6 +20,24 @@ responses.push(dronedb_p);
 
 let current_tid = -1;
 
+
+console.log(window.location)
+
+var socket = io.connect(window.location.origin);
+
+socket.on('new_ticket', function (data) {
+    console.log('YAY SOCKET');
+    console.log(data);
+
+     var options = {
+      body: data.body
+
+        };
+
+
+    // var myNotification = new Notification(data.title, options);
+});
+
 function parse_promises(v) {
     r = {
         ticketdb: v[0],

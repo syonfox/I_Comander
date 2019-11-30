@@ -100,7 +100,9 @@ exports.disable = function(did){
     save();
 };
 
-
+exports.valid_did = function(did){
+    return did >=0 || dronedb.drones.some(drone=>drone.did == did);
+};
 exports.get_drone_by_did = function(did){
     return dronedb.drones.find(drone=>drone.did == did);
 };

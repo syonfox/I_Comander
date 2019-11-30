@@ -12,6 +12,9 @@
     <script src="/js/umd/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <script src="/js/socket.io.js"></script>
+
+    <script src="/js/ticket_managment.js"></script>
 
     <link rel="stylesheet" href="/css/pure-min.css">
     <!--[if lte IE 8]>
@@ -23,7 +26,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
-    <script src="/js/ticket_managment.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/style/ticket_managment.css">
 
     <title>Tickets-icmd</title>
@@ -146,7 +149,7 @@
                                                                     <select id="new_issue_drone_select"
                                                                             class="custom-select mr-sm-2"
                                                                             name="did">
-                                                                        <option selected>Select Drone</option>
+                                                                        <option selected value='-1'>Select Drone</option>
 <!--                                                                        <option value="1">One</option>-->
 <!--                                                                        <option value="2">Two</option>-->
 <!--                                                                        <option value="3">Three</option>-->

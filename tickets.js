@@ -145,10 +145,12 @@ exports.addRoutes = function (app, auth, io, drones) {
 
     app.post('/api/add_ticket', auth.apiAuthenticated, (req, res) => {
         t = {};
+
         t.created_by = req.user.username;
         t.body = req.body.body;
         t.title = req.body.title;
-        t.did = req.body.did;
+        if(drones.valid_did(req.body.did))
+            t.did = req.body.did;
         t.lockout = req.body.lockout == 'on';
 
         if(t.lockout && t.did != undefined) drones.disable(t.did);
@@ -156,6 +158,11 @@ exports.addRoutes = function (app, auth, io, drones) {
         // console.log(req.body);
 
         add(t);
+
+        io.emit('new_ticket',JSON.stringify(t));
+
+
+
         res.json(ticketdb);
     });
 
