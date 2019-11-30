@@ -67,9 +67,9 @@ function formatTime(t) {
 
 async function delete_issue() {
 
-    let body = FormData();
+    let body = new FormData();
     body.append('tid', current_tid);
-    const params = new URLSearchParams([body]);
+    const params = new URLSearchParams([... body]);
 
     const response = await fetch("/api/delete_ticket", {method: "POST", body: params, credentials: "same-origin"});
     r = response.json();
@@ -79,7 +79,16 @@ async function delete_issue() {
     r.then(tdb => update_ticket_list(tdb.tickets));
 }
 async function resolve_issue() {
-    
+    let body = new FormData();
+    body.append('tid', current_tid);
+    const params = new URLSearchParams([... body]);
+
+    const response = await fetch("/api/resolve_ticket", {method: "POST", body: params, credentials: "same-origin"});
+    r = response.json();
+    // console.log(r);
+    ticketdb_p = r;
+
+    r.then(tdb => update_ticket_list(tdb.tickets));
 }
 
 
@@ -123,6 +132,9 @@ function update_issue(tid) {
                 <p>${t.body}</p>
             </div>
         `
+
+
+            $('#issue_resolve')[0].hidden = t.resolved;
         });
     });
 
@@ -144,6 +156,13 @@ function open_close_switch(e) {
 
 }
 
+function update_opened_closed() {
+    ticketdb_p.then(tdb=>{
+        document.getElementById('open_tickets').innerText = `${tdb.open} `;
+        document.getElementById('closed_tickets').innerText = `${tdb.tickets.length - tdb.open} `;
+    });
+}
+
 function update_ticket_list(tickets) {
     // console.log(tickets);
     let ticket_list = document.getElementById('ticket_list');
@@ -154,6 +173,8 @@ function update_ticket_list(tickets) {
 
     let sm = document.getElementById('issue_sort_method').value;
     tickets = tickets.filter(t => t.resolved != isOpen);
+
+    update_opened_closed();
 
     // console.log(sm);
     switch (sm) {
@@ -246,7 +267,6 @@ async function submit_ticket(e) {
     ticketdb_p = r;
 
     r.then(tdb => update_ticket_list(tdb.tickets));
-
 
     // update_ticket_list(ticketdb.tickets);
 

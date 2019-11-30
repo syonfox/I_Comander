@@ -72,6 +72,8 @@ function add(t) {
 exports.add = add;
 
 function del(tid) {
+    t = get_ticket_by_tid(tid);
+    if(t.resolved == false) ticketdb.open--;
     ticketdb.tickets = ticketdb.tickets.filter(d => d.tid != tid);
     save();
     console.log("Ticket Removed: " + tid);
@@ -148,14 +150,16 @@ exports.addRoutes = function (app, auth, io) {
     });
 
     app.post('/api/resolve_ticket', auth.apiAuthenticated, (req, res) => {
-        resolve(req.body.tid);
-        let t = get_ticket_by_tid(tid);
-        t.resolved = true;
-        t.resolved_by = req.user.username;
-        t.resolved_date = Date.now();
-        t.resolved_comment = req.body.resolved_comment || '';
+        let t = get_ticket_by_tid(req.body.tid);
 
-        update(t);
+        if(t.resolved == false) {
+            ticketdb.open--;
+            t.resolved = true;
+            t.resolved_by = req.user.username;
+            t.resolved_date = Date.now();
+            t.resolved_comment = req.body.resolved_comment || '';
+            update(t);
+        }
 
         res.json(ticketdb);
     });
