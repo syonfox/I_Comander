@@ -27,6 +27,7 @@ var upload = multer({ dest: __dirname + '/app/images/upload' });
 const users = require('./users');
 const drones = require('./drones');
 const tickets = require('./tickets');
+const checklist = require('./checklist');
 
 const reque = require('request');
 
@@ -396,6 +397,21 @@ app.get('/new_check_list',
   };
   res.render('new_checklist.ejs', r)
   //res.sendFile(__dirname + '/add_checklist.ejs');
+});
+
+app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'checklist.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
 });
 
 // // Endpoint to serve the configuration file // for Auth0

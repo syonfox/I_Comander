@@ -16,7 +16,27 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="/style/icmd.css">
     <title>create a checklist</title>
+    <script>
+            function getServerData(path) {
+                return fetch(path, {method: 'GET', credentials: "same-origin"}).then(r => {
+                    if (!r.ok) throw Error(r.statusText);
+                    return r.json();
+                })
+            }
+            let checklistdb_p = (getServerData('/api/get_checklist'));
+            let responses = []
+            responses.push(checklistdb_p);
+            // console.log(responses)
+            let listsdb = []
+            Promise.all(responses).then(value => {
+                listsdb.push(value[0].lists)
+                
+            })
+            console.log(listsdb[1])
+
+    </script>
 </head>
+
 <body>
 <div id="layout">
         <%include partials/dashboard_menu.ejs%>
@@ -312,7 +332,44 @@
         $('#createAlertSublist').hide()
         $('#createTriggerSublist, #createTicketSublist').show()
     })
+//---------------------------------
 
+async function init_drone_list() {
+        dl = document.getElementById('drone_list');
+        // todo: properly make this async
+
+        let responses = []
+        responses.push(dronedb_p);
+        responses.push(listdb_p);
+        // console.log(responses)
+        Promise.all(responses).then(value => {
+
+            console.log(value)
+            dronedb = value[0];
+            listdb = value[1];
+
+            list_options = ``;
+            listdb.lists.forEach(l => {
+                list_options += `<option value='${l.lid}'>${l.label}</option>`;
+            })
+
+            let adddiv = document.getElementById('add_drone');
+            adddiv.innerHTML = gen_drone_form(null, list_options)
+            document.getElementById(`edit_form_-1`).onsubmit = addSubmit
+            // console.log(dronedb);
+            dronedb.drones.forEach((d) => {
+                let item = gen_drone_item(d, list_options);
+                dl.appendChild(item);
+                document.getElementById(`edit_form_${d.did}`).onsubmit = editSubmit
+
+            });
+
+        });
+    }
+
+    let checklistdb = {};
+    let list_options = ``;
+    //init_drone_list();
 
 </script>
 
