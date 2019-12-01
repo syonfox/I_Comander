@@ -1,5 +1,5 @@
 body, html {
-    background: none !important;
+    background: #457B9D !important;
     margin: 0%;
     height: 100%;
 }
@@ -26,6 +26,10 @@ body {
     margin-right: 1%;
     margin-bottom: 0;
 }
+#accordion2 button {
+    margin-right: 1%;
+    margin-bottom: 0;
+}
 #sortable li {
     background: none;
     padding: 1%;
@@ -40,9 +44,9 @@ body {
     font-size: 10px !important;
 }
 
-.createNewChecklist{
+/* .createNewChecklist{
     display: none !important;
-}
+} */
 
 .input-group {
     display: inline-table;
@@ -64,9 +68,9 @@ body {
 .createElementsSublist input, .createElementsSublist div {
     margin-right: 1%;
 }
-.ui-accordion-content-active {
+/* .ui-accordion-content-active {
     height: 170%;
-}
+} */
 
 /* .createElementsSublist input, .createElements input{
 transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out

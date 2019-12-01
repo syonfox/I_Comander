@@ -7,8 +7,11 @@
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/umd/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
 
     <link rel="stylesheet" href="/css/pure-min.css">
     <!--[if lte IE 8]>
@@ -25,17 +28,17 @@
 
     <title>Tickets-icmd</title>
 
-<!--    <script>-->
+    <!--    <script>-->
 
-<!--        // let ticketdb_p  = (getServerData('/api/get_tickets'));-->
-<!--        // let listdb_p = (getServerData('/api/get_checklist'));-->
-<!--    </script>-->
+    <!--        // let ticketdb_p  = (getServerData('/api/get_tickets'));-->
+    <!--        // let listdb_p = (getServerData('/api/get_checklist'));-->
+    <!--    </script>-->
 
 
 </head>
 
 <style>
-    body{
+    body {
         background: white;
     }
 </style>
@@ -45,261 +48,236 @@
 
 <div id="layout">
     <% include ../partials/dashboard_menu.ejs %>
-<!--https://www.bootdey.com/snippets/view/support-tickets#preview-->
-     <button type="button" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Manage Tickets</button>
+    <!--https://www.bootdey.com/snippets/view/support-tickets#preview-->
+    <button type="button" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">
+        Manage Tickets
+    </button>
     <div id="main">
 
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
-<section class="content">
-	<div class="row">
-		<!-- BEGIN NAV TICKET -->
-		<div class="col-md-3">
-			<div class="grid support">
-				<div class="grid-body">
-					<h2>Browse</h2>
+        <div class="container">
+            <section class="content">
+                <div class="row">
+                    <!-- BEGIN NAV TICKET -->
+                    <!--                    <div class="col-md-3">-->
+                    <!--                        <div class="grid support">-->
+                    <!--                            <div class="grid-body">-->
+                    <!--                                <h2>Browse</h2>-->
 
-					<hr>
+                    <!--                                <hr>-->
 
-					<ul>
-						<li class="active"><a href="#">Everyone's Issues<span class="pull-right">142</span></a></li>
-						<li><a href="#">Created by you<span class="pull-right">52</span></a></li>
-						<li><a href="#">Mentioning you<span class="pull-right">18</span></a></li>
-					</ul>
+                    <!--                                <ul>-->
+                    <!--                                    <li class="active"><a href="#">Everyone's Issues<span class="pull-right">142</span></a>-->
+                    <!--                                    </li>-->
+                    <!--                                    <li><a href="#">Created by you<span class="pull-right">52</span></a></li>-->
+                    <!--                                    <li><a href="#">Mentioning you<span class="pull-right">18</span></a></li>-->
+                    <!--                                </ul>-->
 
-					<hr>
+                    <!--                                <hr>-->
 
-					<p><strong>Labels</strong></p>
-					<ul class="support-label">
-						<li><a href="#"><span class="bg-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp;ticket<span class="pull-right">2</span></a></li>
-						<li><a href="#"><span class="bg-red">&nbsp;</span>&nbsp;&nbsp;&nbsp;lockout<span class="pull-right">7</span></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- END NAV TICKET -->
-		<!-- BEGIN TICKET -->
-		<div class="col-md-9">
-			<div class="grid support-content">
-				 <div class="grid-body">
-					 <h2>Issues</h2>
+                    <!--                                <p><strong>Labels</strong></p>-->
+                    <!--                                <ul class="support-label">-->
+                    <!--                                    <li><a href="#"><span class="bg-blue">&nbsp;</span>&nbsp;&nbsp;&nbsp;ticket<span-->
+                    <!--                                                    class="pull-right">2</span></a></li>-->
+                    <!--                                    <li><a href="#"><span class="bg-red">&nbsp;</span>&nbsp;&nbsp;&nbsp;lockout<span-->
+                    <!--                                                    class="pull-right">7</span></a></li>-->
+                    <!--                                </ul>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!-- END NAV TICKET -->
+                    <!-- BEGIN TICKET -->
+                    <div class="col-md-9">
+                        <div class="grid support-content">
+                            <div class="grid-body">
+                                <h2>Issues</h2>
 
-					 <hr>
-
-					 <div class="btn-group">
-						<button type="button" class="btn btn-default active">162 Open</button>
-						<button type="button" class="btn btn-default">95,721 Closed</button>
-					</div>
-
-					 <div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Sort: <strong>Newest</strong> <span class="caret"></span></button>
-						<ul class="dropdown-menu fa-padding" role="menu">
-							<li><a href="#"><i class="fa fa-check"></i> Newest</a></li>
-							<li><a href="#"><i class="fa"> </i> Oldest</a></li>
-							<li><a href="#"><i class="fa"> </i> Recently updated</a></li>
-							<li><a href="#"><i class="fa"> </i> Least recently updated</a></li>
-							<li><a href="#"><i class="fa"> </i> Most commented</a></li>
-							<li><a href="#"><i class="fa"> </i> Least commented</a></li>
-						</ul>
-					</div>
-
-					<!-- BEGIN NEW TICKET -->
-					<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#newIssue">New Issue</button>
-					<div class="modal fade" id="newIssue" tabindex="-1" role="dialog" aria-labelledby="newIssue" aria-hidden="true">
-						<div class="modal-wrapper">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header bg-blue">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h4 class="modal-title"><i class="fa fa-pencil"></i> Create New Issue</h4>
-									</div>
-									<form action="#" method="post">
-										<div class="modal-body">
-											<div class="form-group">
-												<input name="subject" type="text" class="form-control" placeholder="Subject">
-											</div>
-											<div class="form-group">
-												<input name="department" type="text" class="form-control" placeholder="Department">
-											</div>
-											<div class="form-group">
-												<textarea name="message" class="form-control" placeholder="Please detail your issue or question" style="height: 120px;"></textarea>
-											</div>
-											<div class="form-group">
-												<input type="file" name="attachment">
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Discard</button>
-											<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Create</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- END NEW TICKET -->
-
-					<div class="padding"></div>
-
-					<div class="row">
-						<!-- BEGIN TICKET CONTENT -->
-						<div class="col-md-12">
-							<ul class="list-group fa-padding">
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-cog pull-left"></i>
-										<div class="media-body">
-											<strong>Add drag and drop config import closes</strong> <span class="label label-danger">IMPORTANT</span><span class="number pull-right"># 13698</span>
-											<p class="info">Opened by <a href="#">jwilliams</a> 5 hours ago <i class="fa fa-comments"></i> <a href="#">2 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-file-o pull-left"></i>
-										<div class="media-body">
-											<strong>Document that Helvetica Neue can cause problems on Windows</strong> <span class="label label-success">SUCCESS</span><span class="number pull-right"># 13697</span>
-											<p class="info">Opened by <a href="#">lgardner</a> 12 hours ago <i class="fa fa-comments"></i> <a href="#">7 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-code-fork pull-left"></i>
-										<div class="media-body">
-											<strong>Manually triggering dropdown not working</strong> <span class="label label-primary">NOT IMPORTANT</span><span class="number pull-right"># 13695</span>
-											<p class="info">Opened by <a href="#">ehernandez</a> 19 hours ago <i class="fa fa-comments"></i> <a href="#">14 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-code pull-left"></i>
-										<div class="media-body">
-											<strong>Add classes for respective directions to affix</strong> <span class="label label-primary">NOT IMPORTANT</span><span class="number pull-right"># 13691</span>
-											<p class="info">Opened by <a href="#">tmckenzie</a> 1 day ago <i class="fa fa-comments"></i> <a href="#">20 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-code pull-left"></i>
-										<div class="media-body">
-											<strong>Responsive tables of the horizontal scroll bar</strong> <span class="label label-danger">IMPORTANT</span><span class="number pull-right"># 13680</span>
-											<p class="info">Opened by <a href="#">tmckenzie</a> 2 days ago <i class="fa fa-comments"></i> <a href="#">5 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-cog pull-left"></i>
-										<div class="media-body">
-											<strong>Make autoprefixer browsers fixed</strong> <span class="label label-warning">URGENT</span><span class="number pull-right"># 13679</span>
-											<p class="info">Opened by <a href="#">lgardner</a> 2 days ago <i class="fa fa-comments"></i> <a href="#">29 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-code pull-left"></i>
-										<div class="media-body">
-											<strong>Popover doesn't move when tied element moves</strong> <span class="label label-primary">NOT IMPORTANT</span><span class="number pull-right"># 13678</span>
-											<p class="info">Opened by <a href="#">lgardner</a> 3 days ago <i class="fa fa-comments"></i> <a href="#">21 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-file-o pull-left"></i>
-										<div class="media-body">
-											<strong>Glyphicon chevron left/right vertical alignment</strong> <span class="label label-info">INFO</span><span class="number pull-right"># 13658</span>
-											<p class="info">Opened by <a href="#">lgardner</a> 5 days ago <i class="fa fa-comments"></i> <a href="#">9 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-file-o pull-left"></i>
-										<div class="media-body">
-											<strong>Horizontal to vertical navbar/offcanvas</strong> <span class="label label-primary">NOT IMPORTANT</span><span class="number pull-right"># 13630</span>
-											<p class="info">Opened by <a href="#">tmckenzie</a> 5 days ago <i class="fa fa-comments"></i> <a href="#">10 comments</a></p>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item" data-toggle="modal" data-target="#issue">
-									<div class="media">
-										<i class="fa fa-code pull-left"></i>
-										<div class="media-body">
-											<strong>Changing container padding</strong> <span class="label label-danger">IMPORTANT</span><span class="number pull-right"># 13627</span>
-											<p class="info">Opened by <a href="#">ehernandez</a> 1 week ago <i class="fa fa-comments"></i> <a href="#">82 comments</a></p>
-										</div>
-									</div>
-								</li>
-							</ul>
-
-							<!-- BEGIN DETAIL TICKET -->
-							<div class="modal fade" id="issue" tabindex="-1" role="dialog" aria-labelledby="issue" aria-hidden="true">
-								<div class="modal-wrapper">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header bg-blue">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-												<h4 class="modal-title"><i class="fa fa-cog"></i> Add drag and drop config import closes</h4>
-											</div>
-											<form action="#" method="post">
-												<div class="modal-body">
-													<div class="row">
-														<div class="col-md-2">
-															<img src="assets/img/user/avatar01.png" class="img-circle" alt="" width="50">
-														</div>
-														<div class="col-md-10">
-															<p>Issue <strong>#13698</strong> opened by <a href="#">jqilliams</a> 5 hours ago</p>
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-															<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-														</div>
-													</div>
-													<div class="row support-content-comment">
-														<div class="col-md-2">
-															<img src="assets/img/user/avatar02.png" class="img-circle" alt="" width="50">
-														</div>
-														<div class="col-md-10">
-															<p>Posted by <a href="#">ehernandez</a> on 16/06/2014 at 14:12</p>
-															<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-															<a href="#"><span class="fa fa-reply"></span> &nbsp;Post a reply</a>
-														</div>
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- END DETAIL TICKET -->
-						</div>
-						<!-- END TICKET CONTENT -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- END TICKET -->
-	</div>
-</section>
-</div>
+                                <hr>
 
 
-<!--        <div class="container mainDiv">-->
-<!--            <ul class="nav nav-tabs" id="myTab" role="tablist">-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">OPen Tickets</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Resolved Tickets</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary active">
+                                        <input type="radio" id="filter_open" name="options" autocomplete="off" checked>
+                                        <span id="open_tickets">
+
+                                        </span>
+                                        Open
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" id="filter_closed" name="options" autocomplete="off">
+                                        <span id="closed_tickets">
+
+                                        </span>
+                                        Closed
+                                    </label>
+                                </div>
+                                <div class="btn-group">
+                                    <select class="custom-select mr-sm-2" id="issue_sort_method" onchange="open_close_switch()">
+                                        <option selected value="new">Newest First</option>
+                                        <option value="old">Oldest First</option>
+                                    </select>
+                                </div>
+
+                                <!-- BEGIN NEW TICKET -->
+                                <button type="button" class="btn btn-success pull-right" data-toggle="modal"
+                                        data-target="#newIssue">New Issue
+                                </button>
+                                <div class="modal fade" id="newIssue" tabindex="-1" role="dialog"
+                                     aria-labelledby="newIssue" aria-hidden="true">
+                                    <div class="modal-wrapper">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-blue">
+
+                                                    <h4 class="modal-title"><i class="fa fa-pencil"></i> Create New
+                                                        Ticket</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                          aria-hidden="true">×
+                                                    </button>
+                                                </div>
+
+
+
+                                                <form id="new_issue_submit" action="#" method="post">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <div class="form-row align-items-center">
+                                                                <div class="col-auto my-1">
+                                                                    <select id="new_issue_drone_select"
+                                                                            class="custom-select mr-sm-2"
+                                                                            name="did">
+                                                                        <option selected>Select Drone</option>
+<!--                                                                        <option value="1">One</option>-->
+<!--                                                                        <option value="2">Two</option>-->
+<!--                                                                        <option value="3">Three</option>-->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-auto my-1">
+                                                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                                                        <input type="checkbox" name="lockout"
+                                                                               class="custom-control-input"
+                                                                               id="new_issue_drone_lockout">
+                                                                        <label class="custom-control-label"
+                                                                               for="new_issue_drone_lockout">Lockout
+                                                                            Drone</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input name="title" type="text" class="form-control"
+                                                                   placeholder="Subject">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <textarea name="body" class="form-control"
+                                                                      placeholder="Please detail your issue or question"
+                                                                      style="height: 120px;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal"><i class="fa fa-times"></i> Discard
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary pull-right"><i
+                                                                    class="fa fa-pencil"></i> Create
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END NEW TICKET -->
+
+                                <div class="padding"></div>
+
+                                <div class="row">
+                                    <!-- BEGIN TICKET CONTENT -->
+                                    <div class="col-md-12">
+                                        <ul id="ticket_list" class="list-group fa-padding">
+                                            <!-- FILLED IN BY init_ticket_list-->
+                                        </ul>
+                                        <!-- BEGIN DETAIL TICKET -->
+                                        <div class="modal fade" id="issue" tabindex="-1" role="dialog"
+                                             aria-labelledby="issue" aria-hidden="true">
+                                            <div class="modal-wrapper">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-blue">
+
+                                                            <h4 id='issue_title' class="modal-title"><i
+                                                                        class="fa fa-cog"></i> Add drag
+                                                                and drop config import closes</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-hidden="true">×
+                                                            </button>
+                                                        </div>
+                                                        <form action="#" method="post">
+                                                            <div class="modal-body">
+                                                                <div id="issue_body" class="row">
+                                                                    <div class="col-md-2">
+                                                                        <img id="issue_profileimage" src=""
+                                                                             class="img-circle" alt="" width="50">
+                                                                    </div>
+                                                                    <div class="col-md-10">
+                                                                        <p>Issue <strong id="issue_tid">#13698</strong>
+                                                                            opened by <a
+                                                                                    href="#"
+                                                                                    id="issue_created_by">jqilliams</a>
+                                                                            <span id="issue_created_at">5 hours ago</span>
+                                                                        </p>
+
+                                                                    </div>
+                                                                </div>
+                                                                <!--                                                                <div id="issue_comments" class="row support-content-comment">-->
+                                                                <!--                                                                    <div class="col-md-2">-->
+                                                                <!--                                                                        <img src=""-->
+                                                                <!--                                                                             class="img-circle" alt="" width="50">-->
+                                                                <!--                                                                    </div>-->
+                                                                <!--                                                                    <div class="col-md-10">-->
+                                                                <!--                                                                        <p>Posted by <a href="#">ehernandez</a> on-->
+                                                                <!--                                                                            16/06/2014 at 14:12</p>-->
+                                                                <!--                                                                        <p>Duis aute irure dolor in reprehenderit in-->
+                                                                <!--                                                                            voluptate velit esse cillum dolore eu fugiat-->
+                                                                <!--                                                                            nulla pariatur. Excepteur sint occaecat-->
+                                                                <!--                                                                            cupidatat non proident, sunt in culpa qui-->
+                                                                <!--                                                                            officia deserunt mollit anim id est-->
+                                                                <!--                                                                            laborum.</p>-->
+                                                                <!--                                                                        <a href="#"><span class="fa fa-reply"></span>-->
+                                                                <!--                                                                            &nbsp;Post a reply</a>-->
+                                                                <!--                                                                    </div>-->
+                                                                <!--                                                                </div>-->
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button id="issue_resolve" onclick="resolve_issue()" type="button" class="btn btn-outline-success"
+                                                                        data-dismiss="modal"><i class="fa fa-check"></i>
+                                                                    Mark Resolved
+                                                                </button>
+                                                                <button onclick="delete_issue()" type="button" class="btn btn-outline-danger"
+                                                                        data-dismiss="modal"><i class="fa fa-times"></i>
+                                                                    Delete
+                                                                </button>
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal"><i class="fa fa-times"></i>
+                                                                    Close
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END DETAIL TICKET -->
+                                    </div>
+                                    <!-- END TICKET CONTENT -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END TICKET -->
+                </div>
+            </section>
+        </div>
 
     </div>
 </div>
@@ -311,9 +289,9 @@
 
 </style>
 
-<script></script>
-
-
+<script>
+    init_ticket_list();
+</script>
 
 
 </html>

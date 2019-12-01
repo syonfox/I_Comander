@@ -205,7 +205,6 @@
         // // const params = new URLSearchParams([...new FormData(e.target).entries()]);
         // const response = await fetch("/api/edit_drone", {method: "POST", body: params, credentials: "same-origin"})
         r = await response.json();
-        // console.log(r);
         let drones = r;
         let d = r.updated_drone
 
@@ -213,7 +212,6 @@
         dl.appendChild(item);
 
         console.log("Successfully added drone")
-        // console.log(response);
 
     }
     // data-toggle="modal" data-target="#deleteModal${d.did}"
