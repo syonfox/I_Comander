@@ -1,5 +1,5 @@
 {
-  "next_id": 20,
+  "next_id": 22,
   "flights": [
     {
       "id": 0,
@@ -328,6 +328,28 @@
         "lid": null,
         "drone_id": 13,
         "user": "cat"
+      }
+    },
+    {
+      "id": 20,
+      "start_time": "2019-11-30T10:15:26.135Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 21,
+      "start_time": "2019-11-30T10:15:30.816Z",
+      "drone_id": 1,
+      "user": "test",
+      "preflight_list": {
+        "lid": 0,
+        "drone_id": 1,
+        "user": "test"
       }
     }
   ]
