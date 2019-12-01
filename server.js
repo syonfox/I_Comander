@@ -54,6 +54,8 @@ const tickets = require('./tickets');
 
 
 app.set('view engine', 'ejs');
+app.use('/js', express.static(__dirname + '/node_modules/flipclock/dist')); // redirect flipclock JS
+
 app.use('/js', express.static(__dirname + '/node_modules/socket.io-client/dist')); // redirect bootstrap JS
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
@@ -700,3 +702,8 @@ app.get('/dashboard/ManageUsers',
         res.render('userMgmt.ejs', r)
         //res.sendFile(__dirname + '/add_checklist.ejs');
     });
+
+
+app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
+    res.render(__dirname + '/views/inflight.ejs');
+});
