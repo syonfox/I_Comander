@@ -16,8 +16,11 @@ limitations under the License.
 
 const express = require('express');
 const app = express();
-var http = require('http').createServer(app);
-const io = require('socket.io')(http);
+var http = require('http');
+const server = http.createServer(app);
+// const io = require('socket.io')(http, { origins: '*:*'});
+
+const io = require("socket.io")(server);
 
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -51,6 +54,7 @@ const tickets = require('./tickets');
 
 
 app.set('view engine', 'ejs');
+app.use('/js', express.static(__dirname + '/node_modules/socket.io-client/dist')); // redirect bootstrap JS
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap-select/dist/js')); // redirect bootstrap JS
@@ -93,7 +97,7 @@ app.get(['/', '/index.html'],
 
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
-tickets.addRoutes(app,auth, io);
+tickets.addRoutes(app,auth, io, drones);
 
 
 app.get('/demo-index.html', (req, res) => {
@@ -664,8 +668,9 @@ app.post('/api/delete', (req, res) => {
 
 app.use(express.static(__dirname + '/app'));
 
-const port = (process.env.PORT || 8080)
-const server = app.listen(port, () => {
+const port = (process.env.PORT || 8080);
+
+ server.listen(port, () => {
 
     const host = server.address().address;
     const port = server.address().port;
