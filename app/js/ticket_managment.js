@@ -7,6 +7,24 @@ function getServerData(path) {
 }
 
 
+// Applied globally on all textareas with the "autoExpand" class
+// Applied globally on all textareas with the "autoExpand" class
+jQuery.fn.extend({
+    autoHeight: function () {
+        function autoHeight_(element) {
+            return jQuery(element).css({
+                'height': 'auto',
+                'overflow-y': 'hidden'
+            }).height(element.scrollHeight);
+        }
+        return this.each(function () {
+            autoHeight_(this).on('input', function () {
+                autoHeight_(this);
+            });
+        });
+    }
+});
+
 let ticketdb_p = (getServerData('/api/get_tickets'));
 let userdb_p = (getServerData('/api/get_users'));
 let dronedb_p = (getServerData('/api/get_drones'));
@@ -21,7 +39,7 @@ responses.push(dronedb_p);
 let current_tid = -1;
 
 
-console.log(window.location)
+console.log(window.location);
 
 var socket = io.connect(window.location.origin);
 
@@ -29,13 +47,15 @@ socket.on('new_ticket', function (data) {
     console.log('YAY SOCKET');
     console.log(data);
 
-     var options = {
-      body: data.body
+    // var options = {
+    //  body: data.body
+    //
+    //    };
+    ticketdb_p = (getServerData('/api/get_tickets'));
+    ticketdb_p.then(tdb => update_ticket_list(tdb.tickets));
 
-        };
 
-
-    // var myNotification = new Notification(data.title, options);
+    // var myNotification = new Notification("A New Ticket Was Added", {body: data.title});
 });
 
 function parse_promises(v) {
@@ -57,7 +77,7 @@ function parse_promises(v) {
 
 function gen_ticket_item(t) {
 
-    let label
+    let label;
 
 
     return
@@ -87,7 +107,7 @@ async function delete_issue() {
 
     let body = new FormData();
     body.append('tid', current_tid);
-    const params = new URLSearchParams([... body]);
+    const params = new URLSearchParams([...body]);
 
     const response = await fetch("/api/delete_ticket", {method: "POST", body: params, credentials: "same-origin"});
     r = response.json();
@@ -96,10 +116,11 @@ async function delete_issue() {
 
     r.then(tdb => update_ticket_list(tdb.tickets));
 }
+
 async function resolve_issue() {
     let body = new FormData();
     body.append('tid', current_tid);
-    const params = new URLSearchParams([... body]);
+    const params = new URLSearchParams([...body]);
 
     const response = await fetch("/api/resolve_ticket", {method: "POST", body: params, credentials: "same-origin"});
     r = response.json();
@@ -110,11 +131,29 @@ async function resolve_issue() {
 }
 
 
+async function comment() {
+
+    let body = new FormData();
+
+    body.append('tid', current_tid);
+    body.append('comment', document.getElementById('comment_area').value);
+    const params = new URLSearchParams([...body]);
+
+    const response = await fetch("/api/comment_ticket", {method: "POST", body: params, credentials: "same-origin"});
+    r = response.json();
+    // console.log(r);
+    ticketdb_p = r;
+
+    update_issue(current_tid);
+    r.then(tdb => update_ticket_list(tdb.tickets));
+
+
+}
 
 function update_issue(tid) {
 
     current_tid = tid;
-    
+
     ticketdb_p.then(ticketdb => {
         userdb_p.then(userdb => {
 
@@ -123,7 +162,7 @@ function update_issue(tid) {
 
 
             let t = ticketdb.tickets.find(t => t.tid == tid)
-            let u = userdb.users.find(u => u.username == t.created_by)
+            let u = userdb.users.find(u => u.username == t.created_by);
             if (t == undefined) {
                 throw "Ticket Doesnt Exist"
             }
@@ -152,14 +191,52 @@ function update_issue(tid) {
         `
 
 
+            ic = document.getElementById('issue_comments');
+            ic.innerHTML = '';
+
+            t.comments.forEach(c => {
+                console.log(c);
+                let cu = userdb.users.find(u => u.username == c.user);
+
+                let img = '';
+                if (cu && cu.base64data) {
+                    img = cu.base64data;
+                }
+
+                ic.innerHTML += `
+               
+            <div class="col-md-2">
+            <img src="${img}" class="img-circle" alt="" width="50">
+            </div>
+            <div class="col-md-10">
+            <p>Posted by <a href="#">${c.user}</a> on
+            ${formatTime(c.date)}</p>
+            <p>${c.body}</p>
+               `
+            });
+
+            ic.innerHTML += `
+
+
+            <textarea style="min-height: 35px" class="form-control rounded-0" rows='1' data-min-rows='1' placeholder='Comment Here :)' id="comment_area"></textarea>
+<!--            <div class="col-md-2">-->
+<!--            </div>-->
+<!--            <div class="col-md-10">-->
+            <a href="#" onclick="comment()"><span class="fa fa-reply"></span>
+            &nbsp;Post a comment</a>
+<!--            </div>-->
+        
+               `;
+            $('#comment_area').autoHeight();
             $('#issue_resolve')[0].hidden = t.resolved;
+
+
         });
     });
 
 
-
-
 }
+
 
 
 function open_close_switch(e) {
@@ -175,7 +252,7 @@ function open_close_switch(e) {
 }
 
 function update_opened_closed() {
-    ticketdb_p.then(tdb=>{
+    ticketdb_p.then(tdb => {
         document.getElementById('open_tickets').innerText = `${tdb.open} `;
         document.getElementById('closed_tickets').innerText = `${tdb.tickets.length - tdb.open} `;
     });

@@ -199,6 +199,24 @@ exports.addRoutes = function (app, auth, io, drones) {
         res.json(ticketdb);
     });
 
+      app.post('/api/comment_ticket', auth.apiAuthenticated, (req, res) => {
+        let t = get_ticket_by_tid(req.body.tid);
+
+        if(req.body.comment){
+            c = {
+                user: req.user.username,
+                body: req.body.comment,
+                date: Date.now()
+            }
+            t.comments.push(c);
+            update(t);
+
+        }
+
+
+        res.json(ticketdb);
+    });
+
 
 };
 

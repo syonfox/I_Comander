@@ -1,6 +1,6 @@
 {
-  "next_tid": 45,
-  "open": 2,
+  "next_tid": 46,
+  "open": 1,
   "tickets": [
     {
       "tid": 0,
@@ -36,6 +36,11 @@
           "user": "kier",
           "date": "1573794498921",
           "body": "I Love Cats?DSFds"
+        },
+        {
+          "user": "root",
+          "body": "So do i",
+          "date": 1575173963617
         }
       ],
       "tags": [],
@@ -45,18 +50,6 @@
       "resolved_by": "root",
       "resolved_date": 1575071637386,
       "resolved_comment": ""
-    },
-    {
-      "tid": 7,
-      "did": "2",
-      "title": "test4",
-      "body": "test",
-      "created_by": "root",
-      "created_at": 1575073314005,
-      "comments": [],
-      "tags": [],
-      "lockout": "on",
-      "resolved": false
     },
     {
       "tid": 19,
@@ -95,6 +88,20 @@
       "body": "asdasd",
       "created_by": "root",
       "created_at": 1575153397684,
+      "comments": [],
+      "tags": [],
+      "lockout": false,
+      "resolved": true,
+      "resolved_by": "root",
+      "resolved_date": 1575173955682,
+      "resolved_comment": ""
+    },
+    {
+      "tid": 45,
+      "title": "test2",
+      "body": "",
+      "created_by": "root",
+      "created_at": 1575168490197,
       "comments": [],
       "tags": [],
       "lockout": false,
