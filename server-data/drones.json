@@ -8,7 +8,7 @@
       "lockedout": true,
       "disabled": false,
       "preflight_lid": 0,
-      "postflight_lid": 1,
+      "postflight_lid": 0,
       "type": "Quad Wings1",
       "image": "upload/885cfed3ef3969f06c74e398919c94ac"
     },
@@ -18,7 +18,7 @@
       "lockedout": false,
       "disabled": true,
       "preflight_lid": 0,
-      "postflight_lid": 1,
+      "postflight_lid": 0,
       "type": "Quad Wing",
       "image": "drone2.jpg"
     },
@@ -28,7 +28,7 @@
       "lockedout": false,
       "disabled": true,
       "preflight_lid": 0,
-      "postflight_lid": 1,
+      "postflight_lid": 0,
       "type": "asd",
       "image": "deafultDrone.jpeg"
     },
@@ -36,7 +36,7 @@
       "did": 9,
       "name": "Mavic_asdasdasd",
       "preflight_lid": 0,
-      "postflight_lid": 1,
+      "postflight_lid": 0,
       "lockedout": false,
       "disabled": false,
       "type": "Quad Wing",
