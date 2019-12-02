@@ -16,7 +16,19 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="/style/icmd.css">
     <title>create a checklist</title>
+    <script>
+            function getServerData(path) {
+                return fetch(path, {method: 'GET', credentials: "same-origin"}).then(r => {
+                    if (!r.ok) throw Error(r.statusText);
+                    return r.json();
+                })
+            }
+            let checklistdb_p = (getServerData('/api/get_checklist'));
+    </script>
+    
+    
 </head>
+
 <body>
 <div id="layout">
         <%include partials/dashboard_menu.ejs%>
@@ -38,21 +50,22 @@
             <button type="button" class="createChecklistBtn btn btn-outline-dark btn-sm">Create Checklist</button>
             <div id="accordion">
                     <h3 class="row createNewChecklist1" style="overflow: hidden;">
-                        <input type="text" placeholder="Checklist name" class="form-control col-md-5" style="display: inline-block;">
-                            <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
+                        <input id="nameOfChecklist" type="text" placeholder="Checklist name" class="form-control col-md-5 required" style="display: inline-block;">
+                            <button id="saveTheChecklist" type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
                     </h3>
                     <div class="createNewChecklist2">
-                        <ul id="sortable" class="sortable0">
+                        <ul id="sortable" class="sortable0 sortable0ForAddInChecklistTab">
+
                         </ul>
                         <div class="row createElements">
                             <input type="text" class="form-control col-md-2" id="createSid" placeholder="sid">
                             <input type="text" class="form-control col-md-2" id="createLabel" placeholder="Label">
                             <input type="text" class="form-control col-md-2" id="createList" placeholder="List">
                             <div class="dropdown dropdown1" id="createAction">
-                                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
+                                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButtonAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#" id="createElementsActionNone">None</a>
-                                        <a class="dropdown-item" href="#" id="createElementsActionLockout">Lock Out</a>
+                                        <a class="dropdown-item" href="#" id="createElementsActionLockout">LockOut</a>
                                         <a class="dropdown-item" href="#" id="createElementsActionTicket">Ticket</a>
                                     </div>
                             </div>
@@ -63,7 +76,7 @@
                         <br style="color: black;"/>
                         <div class="row">
                             <div class="dropdown dropdown2 float-left col-md-5">
-                                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
+                                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButtonAddNewItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#" id="createElementsSublist">Sublist</a>
                                         <a class="dropdown-item" href="#" id="createElementsDropDown">DropDown</a>
@@ -71,118 +84,53 @@
                                         <a class="dropdown-item" href="#" id="createElementsInput">Input</a>
                                     </div>
                             </div>
-                            <button type="button" class="btn btn-outline-dark btn-sm saveItemBtn col-md-5" data-toggle="" aria-haspopup="true" aria-expanded="false" style="margin-left: 1%;">Save</button>
+                            <button type="button" id="saveChecklistSubs" class="btn btn-outline-dark btn-sm saveItemBtn col-md-5" data-toggle="" aria-haspopup="true" aria-expanded="false" style="margin-left: 1%;">Save</button>
                         </div>
                     </div>
-                    <h3 class="row" style="overflow: hidden;">
-                        Marvic drone
-                            <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-                            <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
-                    </h3>
-                    <div>
-                        <ul id="sortable" class="sortable0">
-                                <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                        </ul>
-                    </div>
-                    <h3 class="row" style="overflow: hidden;">
-                            Marvic drone 2
-                                <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-                                <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
-                        </h3>
-                        <div>
-                            <ul id="sortable" class="sortable0">
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                            </ul>
-                        </div>
-                        <h3 class="row" style="overflow: hidden;">
-                                Big Marvic drone
-                                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
-                            </h3>
-                            <div>
-                                <ul id="sortable" class="sortable0">
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                </ul>
-                            </div>
             </div>
         </div>
 
-
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tab-pane fade active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <button type="button" class="createChecklistBtnSublist btn btn-outline-dark btn-sm">Create sub-list</button>
                 <div id="accordion2">
                         <h3 class="row createNewChecklist1Sublist" style="overflow: hidden;">
-                            <input type="text" placeholder="Sub-list name" class="form-control col-md-5" style="display: inline-block;">
-                                <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
-                        </h3>
-                        <div class="createNewChecklist2Sublist">
-                            <ul id="sortable" class="sortable0">
-                            </ul>
-                            <div class="row createElementsSublist">
-                                <input type="text" class="form-control col-md-2" id="createSidSublist" placeholder="sid">
-                                <input type="text" class="form-control col-md-2" id="createLabelSublist" placeholder="Label">
-                                <input type="text" class="form-control col-md-2" id="createListSublist" placeholder="List">
-                                <div class="dropdown dropdown1" id="createActionSublist">
-                                        <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#" id="createElementsActionNoneSublist">None</a>
-                                            <a class="dropdown-item" href="#" id="createElementsActionLockoutSublist">Lock Out</a>
-                                            <a class="dropdown-item" href="#" id="createElementsActionTicketSublist">Ticket</a>
-                                        </div>
-                                </div>
-                                <input type="text" class="form-control col-md-2" id="createTriggerSublist" placeholder="Trigger">
-                                <input type="text" class="form-control col-md-2" id="createAlertSublist" placeholder="Alert">
-                                <input type="text" class="form-control col-md-2" id="createTicketSublist" placeholder="ticket">
-                            </div>
-                            <br style="color: black;"/>
-                            <div class="row">
-                                <div class="dropdown dropdown2 float-left row col-md-5">
-                                        <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#" id="createElementsSublistSublist">Sublist</a>
-                                            <a class="dropdown-item" href="#" id="createElementsDropDownSublist">DropDown</a>
-                                            <a class="dropdown-item" href="#" id="createElementsCheckBoxSublist">CheckBox</a>
-                                            <a class="dropdown-item" href="#" id="createElementsInputSublist">Input</a>
-                                        </div>
-                                </div>
-                                <button type="button" class="btn btn-outline-dark btn-sm saveItemBtnSublist col-md-5" data-toggle="" aria-haspopup="true" aria-expanded="false" style="margin-left: 1%;">Save</button>
-                            </div>
-                        </div>
-                        <h3 class="row" style="overflow: hidden;">
-                                hardware sublist
-                                <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-                                <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
-                        </h3>
-                        <div>
-                            <ul id="sortable" class="sortable0">
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                    <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                            </ul>
-                        </div>
-                        <h3 class="row" style="overflow: hidden;">
-                                universal sublist
-                                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
+                                <input type="text" placeholder="Sub-list name" class="form-control col-md-5" style="display: inline-block;">
+                                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
                             </h3>
-                            <div>
-                                <ul id="sortable" class="sortable0">
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Required Documentation-Universal<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>In-field and pre-flight checklist-INS 01<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Hardware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
-                                        <li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Easyware<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>
+                            <div class="createNewChecklist2Sublist">
+                                <ul id="sortable" class="sortable0 sortable0ForAddInSublistTab">
+
                                 </ul>
-                            </div>
+                                <div class="row createElementsSublist">
+                                    <input type="text" class="form-control col-md-2" id="createSidSublist" placeholder="sid">
+                                    <input type="text" class="form-control col-md-2" id="createLabelSublist" placeholder="Label">
+                                    <input type="text" class="form-control col-md-2" id="createListSublist" placeholder="List">
+                                    <div class="dropdown dropdown1" id="createActionSublist">
+                                            <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButtonActionSublist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#" id="createElementsActionNoneSublist">None</a>
+                                                <a class="dropdown-item" href="#" id="createElementsActionLockoutSublist">LockOut</a>
+                                                <a class="dropdown-item" href="#" id="createElementsActionTicketSublist">Ticket</a>
+                                            </div>
+                                    </div>
+                                    <input type="text" class="form-control col-md-2" id="createTriggerSublist" placeholder="Trigger">
+                                    <input type="text" class="form-control col-md-2" id="createAlertSublist" placeholder="Alert">
+                                    <input type="text" class="form-control col-md-2" id="createTicketSublist" placeholder="ticket">
+                                </div>
+                                <br style="color: black;"/>
+                                <div class="row">
+                                    <div class="dropdown dropdown2 float-left row col-md-5">
+                                            <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButtonAddNewItemSublist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#" id="createElementsSublistSublist">Sublist</a>
+                                                <a class="dropdown-item" href="#" id="createElementsDropDownSublist">DropDown</a>
+                                                <a class="dropdown-item" href="#" id="createElementsCheckBoxSublist">CheckBox</a>
+                                                <a class="dropdown-item" href="#" id="createElementsInputSublist">Input</a>
+                                            </div>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-dark btn-sm saveItemBtnSublist col-md-5" data-toggle="" aria-haspopup="true" aria-expanded="false" style="margin-left: 1%;">Save</button>
+                                </div>
+                        </div>
                 </div>
         </div>
     </div>
@@ -193,20 +141,22 @@
         $('.createNewChecklist1').hide()
         $('.createNewChecklist2').hide()
     });
-        $( function() {
           $( "#accordion, #accordion2" ).accordion();
-        } );
 
         $( function() {
             $( ".sortable0" ).sortable();
             $( ".sortable0" ).disableSelection();
         } );
+        $("#accordion, #accordion2").accordion({ 
+            heightStyle: "content" 
+        });
 
         $("#accordion, #accordion2").accordion({
     animate: {
         duration: 250
     }
 });
+$("#accordion, #accordion2").accordion({ header: "h3", collapsible: true, active: false });   //collapsed as defualt
 
     $('.createChecklistBtn').click(function(){
         $('.createNewChecklist1').toggle()
@@ -261,8 +211,6 @@
         $('#createAlert').hide()
         $('#createTrigger, #createTicket').show()
     })
-
-
     //___________________sub-list tab ______________________________________________________________
     $(document).ready(function(){
         $('.createNewChecklist1Sublist').hide()
@@ -273,8 +221,6 @@
         $('.createNewChecklist2Sublist').toggle()
 
     })
-
-
 
 //creating elements in the checklist tab
     $('.createElementsSublist input, #createActionSublist').hide()
@@ -312,9 +258,11 @@
         $('#createAlertSublist').hide()
         $('#createTriggerSublist, #createTicketSublist').show()
     })
+//---------------------------------
 
 
 </script>
+<script src="/js/new_checklist.js"></script>
 
 </body>
 </html>
