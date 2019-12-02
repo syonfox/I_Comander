@@ -20,6 +20,40 @@ function apiAuthenticated(req, res, next) {
   res.sendStatus(401)
 }
 
+let roleRank = {'superadmin':0, 'admin':1, 'tech':3, 'user':4, 'guest':5};
+function checkAuthenticatedRole(role) {
+    return function (req,res,next) {
+
+        if (req.isAuthenticated()) {
+
+           if(roleRank[req.user.role] <= roleRank[role]){
+               return next();
+           } else {
+
+               res.render('accessDenied.ejs', r);
+               return;
+           }
+        }
+        res.redirect('/login')
+    }
+}
+
+function apiAuthenticatedRole(role) {
+    return function (req,res,next) {
+
+        if (req.isAuthenticated()) {
+
+           if(roleRank[req.user.role] <= roleRank[role]){
+               return next();
+           }
+            console.log("WARNING USER IS AUTHENTICATED BUT NOT AUTHORIZED FOR THIS" + role);
+            console.log(req.route);
+        }
+
+        res.sendStatus(401);
+    }
+}
+
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect('/')
@@ -213,6 +247,8 @@ module.exports.register = register;
 module.exports.checkAuthenticated = checkAuthenticated;
 //cheacks if a user is authenticated if not it redirects to login page (also sets req.user)
 module.exports.apiAuthenticated = apiAuthenticated;
+module.exports.apiAuthenticatedRole = apiAuthenticatedRole;
+module.exports.checkAuthenticatedRole = checkAuthenticatedRole;
 
 //cheacks if usere is not authenticated if it is redirets to home page
 module.exports.checkNotAuthenticated = checkNotAuthenticated;

@@ -137,11 +137,11 @@ exports.addRoutes = function (app, auth, io, drones) {
             drones.enable(did);
     }
 
-    app.get('/api/get_tickets', auth.apiAuthenticated, (req, res) => {
+    app.get('/api/get_tickets', auth.apiAuthenticatedRole('user'), (req, res) => {
         res.json(ticketdb);
     });
 
-    app.post('/api/add_ticket', auth.apiAuthenticated, (req, res) => {
+    app.post('/api/add_ticket', auth.apiAuthenticatedRole('user'), (req, res) => {
         t = {};
         console.log(req.body);
         t.created_by = req.user.username;
@@ -163,7 +163,7 @@ exports.addRoutes = function (app, auth, io, drones) {
     });
 
 
-    app.post('/api/delete_ticket', auth.apiAuthenticated, (req, res) => {
+    app.post('/api/delete_ticket', auth.apiAuthenticatedRole('user'), (req, res) => {
 
         let t = get_ticket_by_tid(req.body.tid);
         del(t.tid);
@@ -175,7 +175,7 @@ exports.addRoutes = function (app, auth, io, drones) {
         res.json(ticketdb);
     });
 
-    app.post('/api/resolve_ticket', auth.apiAuthenticated, (req, res) => {
+    app.post('/api/resolve_ticket', auth.apiAuthenticatedRole('user'), (req, res) => {
         let t = get_ticket_by_tid(req.body.tid);
 
         if(t.resolved == false) {
@@ -195,7 +195,7 @@ exports.addRoutes = function (app, auth, io, drones) {
         res.json(ticketdb);
     });
 
-      app.post('/api/comment_ticket', auth.apiAuthenticated, (req, res) => {
+      app.post('/api/comment_ticket', auth.apiAuthenticatedRole('user'), (req, res) => {
         let t = get_ticket_by_tid(req.body.tid);
 
         if(req.body.comment){
