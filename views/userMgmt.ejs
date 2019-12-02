@@ -36,7 +36,7 @@
             })
         }
 
-        let userdb_p = (getServerData('/api/users'));
+        let userdb_p = (getServerData('/api/get_users'));
         
     </script>
 
@@ -144,12 +144,12 @@
 </style>
 
 <script>
-    async function deleteSubmit( did) {
+    async function deleteSubmit( id) {
         // console.log(e);
         // e.preventDefault();
         // console.log(e.target);
         // const params = new URLSearchParams([...new FormData(e.target).entries()]);
-        console.log('delete: '+ did);
+        console.log('delete: '+ id);
         // let data = new FormData(;
         // data.set('did', did);
 
@@ -161,7 +161,7 @@
                 'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify({did: did}),
+            body: JSON.stringify({id: id}),
 
             credentials: "same-origin"
         });
@@ -170,7 +170,7 @@
         // console.log(r);
         // let users = r;
 
-        var element = document.getElementById(`user_item_${did}`);
+        var element = document.getElementById(`user_item_${id}`);
         element.parentNode.removeChild(element);
 
         console.log("Successfully deleted user")
@@ -190,9 +190,10 @@
         let users = r;
         let d = r.updated_user
 
-        document.getElementById(`e_name${d.did}`).innerHTML = `${d.name}:${d.type}`
-        document.getElementById(`e_lockedout${d.did}`).innerHTML = `lockedout: ${d.lockedout}`
-        document.getElementById(`e_disabled${d.did}`).innerHTML = `disabled: ${d.disabled}`
+        document.getElementById(`username${d.id}`).innerHTML = `${d.username}:${d.password}`
+        document.getElementById(`e_displayName${d.id}`).innerHTML = `DisplayName: ${d.displayName}`
+        document.getElementById(`e_disabled${d.id}`).innerHTML = `email: ${d.email}`
+        document.getElementById(`e_disabled${d.id}`).innerHTML = `role: ${d.role}`
 
         console.log("Succssesfully edited user")
         // console.log(response);
