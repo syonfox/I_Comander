@@ -1,5 +1,5 @@
 {
-  "next_lid": 33,
+  "next_lid": 34,
   "lists": [
     {
       "lid": 0,
@@ -81,9 +81,27 @@
           }
         }
       ]
+    },
+    {
+      "lid": 34,
+      "label": "testList",
+      "items": [
+        {
+          "type": "Sublist",
+          "sid": "18"
+        },
+        {
+          "type": "DropDown",
+          "label": "testDrop",
+          "options": [
+            "[a,b,c]"
+          ],
+          "action": "None"
+        }
+      ]
     }
   ],
-  "next_sid": 17,
+  "next_sid": 18,
   "sublists": [
     {
       "sid": 9,
@@ -555,6 +573,28 @@
         {
           "type": "Sublist",
           "sid": "0"
+        }
+      ]
+    },
+    {
+      "sid": 18,
+      "label": "test1",
+      "items": [
+        {
+          "type": "Input",
+          "label": "test",
+          "action": "None"
+        },
+        {
+          "type": "CheckBox",
+          "label": "test2",
+          "action": "LockOut",
+          "trigger": "false",
+          "alert": "action",
+          "ticket": {
+            "title": "ticket body?",
+            "body": "ticket body?"
+          }
         }
       ]
     }

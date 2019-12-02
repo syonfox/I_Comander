@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "next_tid": 60,
   "open": 15,
-=======
-  "next_tid": 53,
-  "open": 8,
->>>>>>> 9044332347b0822d61b5a0e5749ec195b8eadd62
   "tickets": [
     {
       "tid": 0,
