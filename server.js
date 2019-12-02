@@ -48,6 +48,8 @@ auth.initialize(
 
 const drones = require('./drones');
 const tickets = require('./tickets');
+
+
 // tickets.initialize(app,auth, io);
 // const app = express();
 
@@ -375,7 +377,7 @@ app.get('/logout',
     });
 
 
-app.get('/admin/add_drone/add_check_list',
+app.get('/dashboard/checklist',
     auth.checkAuthenticated,
     async (req, res) => {
         r = {
@@ -385,9 +387,53 @@ app.get('/admin/add_drone/add_check_list',
 });
 
 
-app.post('/api/add_check_list', (req, res) => {
-    console.log("hehhehee")
+app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+    const path = __dirname + '/server-data/checklist.json';
+    let checklistdb = {};
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        checklistdb = JSON.parse(data);
+        ++checklistdb.next_lid
+        checklistdb.lists.push(req.body);
 
+        let checklistJson = JSON.stringify(checklistdb, null, 2);
+        fs.writeFile(path, checklistJson, err => {
+            if (err) {
+                console.error(err);
+                // return false;
+            } else {
+                console.log("Saved checklistDB to file");
+                res.send(checklistJson);
+            }
+        });
+    });
+});
+app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+    const path = __dirname + '/server-data/checklist.json';
+    let sublistdb = {};
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        sublistdb = JSON.parse(data);
+        ++sublistdb.next_sid
+        sublistdb.sublists.push(req.body);
+
+        let checklistJson = JSON.stringify(sublistdb, null, 2);
+        fs.writeFile(path, checklistJson, err => {
+            if (err) {
+                console.error(err);
+                // return false;
+            } else {
+                console.log("Saved sublistdb to file");
+                res.send(checklistJson);
+            }
+        });
+    });
 });
 // app.post('/pre_checklist_admin', (req, res) => {
 //     console.log("hahhahhahhahahahhahahahhhah");
@@ -733,8 +779,7 @@ app.get('/admin/users', async (req, res) => {
 });
 
 
-app.get('/dashboard/ManageUsers',
-    auth.checkAuthenticated,
+app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
     async (req, res) => {
 
         //uncoment later when imp job is done XD!
@@ -746,11 +791,86 @@ app.get('/dashboard/ManageUsers',
         r = {
             'user': req.user
         };
-        res.render('userMgmt.ejs', r)
+
+        req.session.save(() => {
+            console.log(req.user.role);
+            switch (req.user.role) {
+                case "guest":
+                    res.render('accessDenied.ejs', r);
+                    return;
+                case "user":
+                    res.redirect('accessDenied.ejs', r);
+                    return;
+                case 'admin':
+                case 'superadmin':
+                    res.redirect('userMgmt.ejs', r);
+                    return;
+                default:
+                    res.redirect('accessDenied.ejs', r);
+                    return;
+            }
+
+
+     /*   res.render('userMgmt.ejs', r)*/
         //res.sendFile(__dirname + '/add_checklist.ejs');
     });
+
+
+app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
+    console.log('delete_user');
+    console.log(req.body);
+
+    users.del(req.body.did);
+    r = users.get_users();
+    r.deleted_did = req.body.did;
+    res.send(JSON.stringify(r));
+});
+
+app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
+
+    // console.log(req.file.path);
+    // console.log(req.file.encoding);
+    // console.log(req.file.mimetype);
+
+    console.log(req.body);
+    let d;
+    if (req.body.id == -1) {
+        d = users.add();
+    } else {
+        d = users.get_user_by_id(req.body.id);
+    }
+
+   
+    // console.log(d);
+    // console.log(req.body);
+
+    if (typeof req.body.username != "undefined") d.username = req.body.username;
+    if (typeof req.body.password != "undefined") d.password = req.body.password;
+    
+    if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
+    if (typeof req.body.role != "undefined") d.role = req.body.role;
+    if (typeof req.body.email != "undefined") d.email = req.body.email;
+    console.log(req.body.disabled);
+    // if(typeof req.body.disabled != "undefined") {
+    //if the disabled flag is not sent to the server the drone will be not disabled
+    
+    if (d.id == -1) {
+        newd = users.add(d)
+    }
+    users.update(d);
+    r = users.get_users();
+    r.updated_user = d;
+    res.send(JSON.stringify(r));
+
+
+});
 
 
 app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
     res.render(__dirname + '/views/inflight.ejs');
 });
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e

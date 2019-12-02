@@ -10,10 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <!-- <link rel="stylesheet" href="/css/grids-responsive-min.css">
+    <link rel="stylesheet" href="/css/pure-min.css"> -->
+    <script src="/js/icmd.js"></script>
     <link rel="stylesheet" type="text/css" href="/style/icmd.css">
     <title>create a checklist</title>
     <script>
@@ -94,8 +97,8 @@
                 <button type="button" class="createChecklistBtnSublist btn btn-outline-dark btn-sm">Create sub-list</button>
                 <div id="accordion2">
                         <h3 class="row createNewChecklist1Sublist" style="overflow: hidden;">
-                                <input type="text" placeholder="Sub-list name" class="form-control col-md-5" style="display: inline-block;">
-                                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
+                                <input id="nameOfSublist" type="text" placeholder="Sub-list name" class="form-control col-md-5" style="display: inline-block;">
+                                    <button id="saveTheSublist" type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
                             </h3>
                             <div class="createNewChecklist2Sublist">
                                 <ul id="sortable" class="sortable0 sortable0ForAddInSublistTab">
@@ -122,7 +125,6 @@
                                     <div class="dropdown dropdown2 float-left row col-md-5">
                                             <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle2 btn-sm" id="dropdownMenuButtonAddNewItemSublist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Add New Item</button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#" id="createElementsSublistSublist">Sublist</a>
                                                 <a class="dropdown-item" href="#" id="createElementsDropDownSublist">DropDown</a>
                                                 <a class="dropdown-item" href="#" id="createElementsCheckBoxSublist">CheckBox</a>
                                                 <a class="dropdown-item" href="#" id="createElementsInputSublist">Input</a>
@@ -141,6 +143,7 @@
         $('.createNewChecklist1').hide()
         $('.createNewChecklist2').hide()
     });
+    delete($.ui.accordion.prototype._keydown);  //disable keyboard controlling for accordion
           $( "#accordion, #accordion2" ).accordion();
 
         $( function() {

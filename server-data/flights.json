@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "next_id": 47,
+=======
+  "next_id": 44,
+>>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
   "flights": [
     {
       "id": 0,
@@ -172,9 +176,15 @@
     },
     {
       "id": 43,
+<<<<<<< HEAD
       "start_time": "2019-12-02T05:19:28.036Z",
       "drone_id": 1,
       "user": "test",
+=======
+      "start_time": "2019-12-02T07:15:21.186Z",
+      "drone_id": 1,
+      "user": "root",
+>>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
       "preflight_list": {
         "Apple": "",
         "Pilot License On-Hand": "",
@@ -185,6 +195,7 @@
         "Emergency Services Contact Information Visible": "",
         "Air Traffic Control and Aerodrome Contact Information Visible": "",
         "My cool Cheack box": "",
+<<<<<<< HEAD
         "Date": "2019-01-01",
         "Pilot in Command": "david",
         "Weather Check": "",
@@ -290,6 +301,10 @@
         "Air Traffic Control and Aerodrome Contact Information Visible": "",
         "Date": "",
         "Pilot in Command": "david",
+=======
+        "Date": "",
+        "Pilot in Command": "joker",
+>>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
         "Weather Check": "",
         "Place Safety Cones Around Area": "",
         "Operation Signage Appropriately Placed": "",
@@ -298,6 +313,7 @@
         "Area Clear of Non-Participants": "",
         "Fire Extinguisher On-Hand": "",
         "Wind and Temperature Within Operating Specs": "",
+<<<<<<< HEAD
         "Furthers Waypoints are Within Telemetry Range": "",
         "lid": 0,
         "drone_id": 1,
@@ -328,6 +344,23 @@
         "drone_id": null,
         "fid": "46",
         "end_time": "Mon Dec 02 2019 09:42:21 GMT-0800 (北美太平洋标准时间)"
+=======
+        "Latest Version Firmware": "",
+        "Latest Version Ground Control Software": "",
+        "Latest Version Sensor Firmware": "",
+        "Mission Uploaded to UAV": "",
+        "Safe \"Home\" and/or \"Start\" Location Established": "",
+        "Correct Flight Elevation Programmed": "",
+        "Furthers Waypoints are Within Telemetry Range": "",
+        "iCom Radio On": "",
+        "Verbal Flight Description and Pattern Discussed": "",
+        "Furthest Distance of UAV from \"Home\" is Verbalized": "",
+        "Verbal Clarification of Flyaway Procedure": "",
+        "Platform Identifier": "",
+        "lid": 0,
+        "drone_id": 1,
+        "user": "root"
+>>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
       }
     }
   ]

@@ -118,6 +118,7 @@ async function delete_issue() {
 }
 
 async function resolve_issue() {
+
     let body = new FormData();
     body.append('tid', current_tid);
     const params = new URLSearchParams([...body]);
