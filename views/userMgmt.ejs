@@ -10,6 +10,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+
     <link rel="stylesheet" href="/css/pure-min.css">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
@@ -20,21 +21,23 @@
 
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
+<!-- var jsonRead = require(s-readJson) -->
+
 
 <title>Manage Users</title>
 
     <script>
 
         function getServerData(path) {
-            //  ie /api/getDrones
+            //  ie /api/getusers
             return fetch(path, {method: 'GET', credentials: "same-origin"}).then(r => {
                 if (!r.ok) throw Error(r.statusText);
                 return r.json();
             })
         }
 
-        let dronedb_p = (getServerData('/api/get_drones'));
-        let listdb_p = (getServerData('/api/get_checklist'));
+        let userdb_p = (getServerData('/api/get_users'));
+        
     </script>
 
 
@@ -87,15 +90,20 @@
 
             <div id="list_header" class="pure-u-1 ">
                 <span style="">User List</span>
-                <button id="add_drone_btn" class="pure-button-primary" data-toggle="collapse" data-target="#add_drone"
+                <button id="add_user_btn" class="pure-button-primary" data-toggle="collapse" data-target="#add_user"
                         style="width: 50%; border-radius: 0px; border: hidden; float: right">
                     Add User
                 </button>
             </div>
-            <div id="add_drone" class="pure-u-1 collapse" style="background: #99121d">
+<div id="add_user" class="pure-u-1 collapse" style=" border-style: solid;
+        border-width: 2px;
+        border-radius: 0.5em;
+        margin: .5em;
+        /*background: #04a9f4;*/
+        background: mintcream;">
             </div>
-            <div id="drone_list" class="pure-u-1">
-                <!--Fill in div with js init drone list()-->
+            <div id="user_list" class="pure-u-1">
+                <!--Fill in div with js init user list()-->
             </div>
 
         </div>
@@ -135,6 +143,247 @@
 
 </style>
 
+<script>
+    async function deleteSubmit( id) {
+        // console.log(e);
+        // e.preventDefault();
+        // console.log(e.target);
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        console.log('delete: '+ id);
+        // let data = new FormData(;
+        // data.set('did', did);
+
+
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/delete_user", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({id: id}),
+
+            credentials: "same-origin"
+        });
+
+        r = await response.json();
+        // console.log(r);
+        // let users = r;
+
+        var element = document.getElementById(`user_item_${id}`);
+        element.parentNode.removeChild(element);
+
+        console.log("Successfully deleted user")
+
+
+    }
+
+    async function editSubmit(e) {
+        e.preventDefault();
+        // console.log(e.target);
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        let data = new FormData(e.target)
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_user", {method: "POST", body: data, credentials: "same-origin"})
+        r = await response.json();
+        // console.log(r);
+        let users = r;
+        let d = r.updated_user
+
+        document.getElementById(`e_name${d.id}`).innerHTML = `${d.username}:${d.password}`
+        document.getElementById(`e_displayName${d.id}`).innerHTML = `DisplayName: ${d.displayName}`
+        document.getElementById(`e_email${d.id}`).innerHTML = `email: ${d.email}`
+        document.getElementById(`e_role${d.id}`).innerHTML = `role: ${d.role}`
+
+        console.log("Succssesfully edited user")
+        // console.log(response);
+
+    }
+
+    async function addSubmit(e) {
+        e.preventDefault();
+        let dl = document.getElementById('user_list');
+
+        console.log(e.target);
+
+         let data = new FormData(e.target)
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        const response = await fetch("/api/edit_user", {method: "POST", body: data, credentials: "same-origin"})
+        // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        //
+        // // const params = new URLSearchParams([...new FormData(e.target).entries()]);
+        // const response = await fetch("/api/edit_user", {method: "POST", body: params, credentials: "same-origin"})
+        r = await response.json();
+        // console.log(r);
+        let users = r;
+        let d = r.updated_user
+
+        let item = gen_user_item(d, list_options);
+        dl.appendChild(item);
+
+        console.log("Successfully added user")
+
+    }
+    // data-toggle="modal" data-target="#deleteModal${d.did}"
+    function gen_delete_confirm(d) {
+        return `
+            <div class="modal fade" id="deleteModal${d.id}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel${d.id}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel${d.id}">Are you sure you with to delete user: ${d.name}?\n This can't be undone!</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteSubmit(${d.id})">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+    }
+
+    function gen_user_form(d) {
+        if(d == null) {
+            d = {
+                id:-1,
+                name:'',
+                password:'',
+            }
+        }
+
+        return `<form id='edit_form_${d.id}' class="pure-form pure-form-aligned" enctype='multipart/form-data'
+                      action="#" style="height: 100%; background: mintcream">
+                    <input hidden name='id' type="number" value='${d.id}'>
+                    <fieldset>
+
+
+                        <div class="pure-control-group">
+                            <label for="name">user Name</label>
+                            <input name="name" type="text" placeholder="Name"
+                                   value="${d.username}">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="type">Password</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.password}">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="type">Display Name</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.displayName}">
+                        </div>
+
+                         <div class="pure-control-group">
+                            <label for="type">Role</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.role}">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="type">Email ID</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.email}">
+                        </div>
+
+                        <div class="pure-controls">
+                            <button type="submit" class="pure-button pure-button-primary" style="float: left">Submit
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>`
+    }
+
+    function gen_user_item(d, list_options) {
+
+        let item = document.createElement('div')
+        item.classList.add('user_item')
+        item.classList.add('pure-u-1')
+
+        item.id = `user_item_${d.id}`;
+
+
+
+
+        let disabled = '';
+        if(d.disabled) disabled = 'checked';
+
+        let _form = gen_user_form(d,list_options);
+        // data-toggle="modal" data-target="#deleteModal${d.did}"
+        item.innerHTML = `
+
+                <div  id="e_info${d.id}" class="pure-g">
+
+                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_name${d.id}" style="">
+                            ${d.username}:${d.password}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_displayname${d.id}">
+                            DisplayName: ${d.displayName}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_role${d.id}">
+                            Role: ${d.role}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_email${d.id}">
+                            Role: ${d.email}
+                        </div>
+
+                    <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.id}" style="float: right;">
+                         <button class="pure-button-primary" style="background: mintcream; color: #99121d" data-toggle="modal" data-target="#deleteModal${d.id}" >X</button>
+                         <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_user_${d.id}">Edit</button>
+                    </div>
+
+
+
+
+                <div id="edit_user_${d.id}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
+                    ${_form}
+                </div>
+                </div>
+
+                ${gen_delete_confirm(d)}
+                `
+
+        console.log(d)
+        return item;
+
+    }
+
+    async function init_user_list() {
+        dl = document.getElementById('user_list');
+        // todo: properly make this async
+
+        let responses = []
+        responses.push(userdb_p);
+        responses.push(Ulistdb_p);
+        // console.log(responses)
+        Promise.all(responses).then(value => {
+
+            console.log(value)
+            userdb = value[0];
+            listdb = value[1];
+
+            Ulist_options = ``;
+            Ulistdb.lists.forEach(l => {
+                list_options += `<option value='${l.lid}'>${l.label}</option>`;
+            })
+
+            let adddiv = document.getElementById('add_user');
+            adddiv.innerHTML = gen_user_form(null, list_options)
+            document.getElementById(`edit_form_-1`).onsubmit = addSubmit
+            // console.log(userdb);
+            users.users.forEach((d) => {
+                let item = gen_user_item(d, list_options);
+                dl.appendChild(item);
+                document.getElementById(`edit_form_${d.id}`).onsubmit = editSubmit
+
+            });
+
+        });
+    }
+
+    let users = {};
+
+</script>
 
 
 </html>

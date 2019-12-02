@@ -1,5 +1,5 @@
 {
-  "next_lid": 2,
+  "next_lid": 33,
   "lists": [
     {
       "lid": 0,
@@ -17,41 +17,34 @@
         {
           "type": "sublist",
           "sid": 1
-        },
-        {
-          "type": "sublist",
-          "sid": 2
-        },
-        {
-          "type": "sublist",
-          "sid": 3
-        },
-        {
-          "type": "sublist",
-          "sid": 4
-        },
-        {
-          "type": "sublist",
-          "sid": 5
         }
       ]
     },
     {
-      "lid": 1,
-      "label": "List Two :)",
+      "lid": 22,
+      "label": "uselessChecklist",
       "items": [
         {
-          "type": "sublist",
-          "sid": 9
+          "type": "Input",
+          "label": "enter ur name user!",
+          "action": "LockOut",
+          "trigger": "angry",
+          "alert": "danger",
+          "ticket": {
+            "title": "asdczxc asd",
+            "body": "asdczxc asd"
+          }
         },
         {
-          "type": "dropdown",
-          "label": "Favorite Color",
+          "type": "CheckBox",
+          "label": "human?",
+          "action": "None"
+        },
+        {
+          "type": "DropDown",
+          "label": "drink",
           "options": [
-            "Red",
-            "Green",
-            "Blue",
-            "Black"
+            "cofee,beer,water"
           ],
           "action": "ticket",
           "trigger": [
@@ -66,7 +59,7 @@
       ]
     }
   ],
-  "next_sid": 10,
+  "next_sid": 15,
   "sublists": [
     {
       "sid": 9,
@@ -469,6 +462,55 @@
           "label": "Optical Flow Sensor(s) Clear of Obstruction Debris",
           "type": "checkbox",
           "action": "none"
+        }
+      ]
+    },
+    {
+      "sid": 13,
+      "label": "useless sublist",
+      "items": [
+        {
+          "type": "CheckBox",
+          "label": "useless",
+          "action": "LockOut",
+          "trigger": "no trigger",
+          "alert": "no alert",
+          "ticket": {
+            "title": "no",
+            "body": "no"
+          }
+        },
+        {
+          "type": "Input",
+          "label": "useless 2",
+          "action": "None"
+        },
+        {
+          "type": "Input",
+          "label": "useless 2",
+          "action": "None"
+        }
+      ]
+    },
+    {
+      "sid": 14,
+      "label": "test",
+      "items": [
+        {
+          "type": "CheckBox",
+          "label": "asdasd",
+          "action": "None"
+        }
+      ]
+    },
+    {
+      "sid": 15,
+      "label": "t1",
+      "items": [
+        {
+          "type": "CheckBox",
+          "label": "asd",
+          "action": "None"
         }
       ]
     }
