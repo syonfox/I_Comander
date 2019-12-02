@@ -1,10 +1,6 @@
 {
-<<<<<<< HEAD
-  "next_did": 34,
-=======
   "next_did": 36,
-  "next_did": 32,
->>>>>>> 308644be439feec094320c3c0641ac320acaa776
+
   "drones": [
     {
       "did": 1,
