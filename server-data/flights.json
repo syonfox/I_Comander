@@ -35,7 +35,7 @@
         }
       ],
       "postflight_list": [
-        {
+         {
           "label": "Favorite Color",
           "result": "Green"
         }
@@ -246,5 +246,5 @@
         "end_time": "Mon Dec 02 2019 11:47:45 GMT-0800 (北美太平洋标准时间)"
       }
     }
-  ]
+    ]
 }
