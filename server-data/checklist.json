@@ -10,9 +10,9 @@
           "sid": 0
         },
         {
-          "type": "check",
+          "type": "checkbox",
           "label": "My cool Cheack box",
-          "action": "NONE"
+          "action": "none"
         },
         {
           "type": "sublist",
@@ -53,7 +53,7 @@
             "Blue",
             "Black"
           ],
-          "action": "TICKET",
+          "action": "ticket",
           "trigger": [
             "Black",
             "Blue"
@@ -73,14 +73,14 @@
       "label": "Required Documentation - Universal",
       "items": [
         {
-          "type": "check",
+          "type": "checkbox",
           "label": "Landowner/Flight Area Permission Forms On-Hand",
-          "action": "NONE"
+          "action": "none"
         },
         {
-          "type": "check",
+          "type": "checkbox",
           "label": "Is Oven Off",
-          "action": "TICKET",
+          "action": "ticket",
           "trigger": false,
           "ticket": {
             "title": "turn off oven",
@@ -88,7 +88,7 @@
           }
         },
         {
-          "type": "check",
+          "type": "checkbox",
           "label": "is Cat Loved",
           "action": "LOCKOUT",
           "trigger": false,
@@ -101,7 +101,7 @@
         {
           "type": "input",
           "label": "Enter Your Licence Number",
-          "action": "NONE"
+          "action": "none"
         }
       ]
     },
@@ -111,43 +111,91 @@
       "items": [
         {
           "label": "Apple",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Pilot License On-Hand",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Drone Registraton Certifcate On-Hand - FAA / TC",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Insurance On-Hand",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "FLHA and Tailgate Completed",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "GPS Coordinates (Lat/Long) Visible for Reference",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Emergency Services Contact Information Visible",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Air Traffic Control and Aerodrome Contact Information Visible",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         }
       ]
     },
@@ -158,7 +206,7 @@
         {
           "label": "Date",
           "type": "textbox",
-          "action": "NONE"
+          "action": "none"
         },
         {
           "label": "Pilot in Command",
@@ -167,7 +215,7 @@
             "david",
             "joker"
           ],
-          "action": "NONE"
+          "action": "none"
         }
       ]
     },
@@ -177,43 +225,91 @@
       "items": [
         {
           "label": "Weather Check",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Place Safety Cones Around Area",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Operation Signage Appropriately Placed",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Safe Landing Area Established",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Clear Landing Area",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Area Clear of Non-Participants",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Fire Extinguisher On-Hand",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         },
         {
           "label": "Wind and Temperature Within Operating Specs",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "LOCKOUT",
+          "trigger": false,
+          "alert": "Not Loving Cat will lock this drone out of service",
+          "ticket": {
+            "title": "Teack USer to love cat",
+            "body": "all cats must be loved"
+          }
         }
       ]
     },
@@ -223,18 +319,18 @@
       "items": [
         {
           "label": "Latest Version Firmware",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Latest Version Ground Control Software",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Latest Version Sensor Firmware",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         }
       ]
     },
@@ -244,18 +340,18 @@
       "items": [
         {
           "label": "Mission Uploaded to UAV",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Safe \"Home\" and/or \"Start\" Location Established",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Correct Flight Elevation Programmed",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Furthers Waypoints are Within Telemetry Range",
@@ -269,28 +365,28 @@
       "items": [
         {
           "label": "iCom Radio On",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Verbal Flight Description and Pattern Discussed",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Furthest Distance of UAV from \"Home\" is Verbalized",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Verbal Clarification of Flyaway Procedure",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Platform Identifier",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         }
       ]
     },
@@ -300,18 +396,18 @@
       "items": [
         {
           "label": "Platform Battery Charged to 90% - Checked with Remote",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Remote Control Battery Charged",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Tablet / Computer Ground Station Charged",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         }
       ]
     },
@@ -321,58 +417,58 @@
       "items": [
         {
           "label": "No Loose Cables or Wiring",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Legs / Arms Locked and Secured",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Leg / Arm Locking Mechanism in Condition",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Propellers in Condition",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Body Free of Cracks and Dents",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Screws / Nuts / Bolts in Place and Tight",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Battery Connectors and Cables Secure",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Gimbal and Payload Assembly Secure",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Camera Responsive to Commands",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Compass Calibration if 10km From Last Flight or 30 Days)",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         },
         {
           "label": "Optical Flow Sensor(s) Clear of Obstruction Debris",
-          "type": "check",
-          "action": "NONE"
+          "type": "checkbox",
+          "action": "none"
         }
       ]
     }

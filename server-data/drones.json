@@ -27,12 +27,16 @@
       "name": "test",
       "lockedout": false,
       "disabled": true,
+      "preflight_lid": 0,
+      "postflight_lid": 1,
       "type": "asd",
       "image": "deafultDrone.jpeg"
     },
     {
       "did": 9,
       "name": "Mavic_asdasdasd",
+      "preflight_lid": 0,
+      "postflight_lid": 1,
       "lockedout": false,
       "disabled": false,
       "type": "Quad Wing",

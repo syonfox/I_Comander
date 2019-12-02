@@ -214,6 +214,15 @@ app.get('/profile', auth.checkAuthenticated, (req, res) => {
     res.render('profile.ejs', r);
 
 });
+app.get('/postchecklist', auth.checkAuthenticated, (req, res) => {
+
+    console.log(req.user.username);
+    r = {
+        'user': req.user
+    };
+    res.render('postchecklist.ejs', r);
+
+});
 
 app.get('/api/get_weather', auth.checkAuthenticated, (req, res) => {
     const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
@@ -512,25 +521,103 @@ app.get('/api/getChecklist/:checklistid', (req, res) => {
             return item.lid == checklist_id;
         });
         checklist = checklist_filter[0];
-        if (checklist.sublists && checklists.sublists) {
-            if (!checklist.items) {
-                checklist.items = [];
-            }
-            let sublist_filter = checklists.sublists.filter(function (item, index) {
-                return checklist.sublists.includes(item.sid);
+        let newItems = [];
+        if (checklist && checklist.items && checklists.sublists) {
+            Array.prototype.forEach.call(checklist.items, ItemInChecklistItem => {
+              let item = ItemInChecklistItem;
+              if(ItemInChecklistItem.type=='sublist'){
+                let sublist_filter = checklists.sublists.filter(function (sublist, index) {
+                    return ItemInChecklistItem.sid == sublist.sid;
+                });
+                item = sublist_filter[0];
+              }
+              newItems.push(item);
             });
-            checklist.items = checklist.items.concat(sublist_filter);
+
             // for(var i = 0; i < checklist.sublists.length; i++){
             //   var sid = checklist.sublists[i];
             // }
+            checklist.items = newItems;
         }
         res.send(checklist);
 
     });
 });
 
+app.get('/api/getPostChecklist/:fid', (req, res) => {
+    let fid = req.params.fid;
+    console.log(fid);
+    let checklist;
+    let flightJsonFile = __dirname + '/server-data/flights.json';
+    fs.readFile(flightJsonFile, (err, data) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        let flights = JSON.parse(data);
+        let flight_filter = flights.flights.filter(function (item, index) {
+            return item.id == fid;
+        });
+        let flight = flight_filter[0];
+        let drone_id = flight.drone_id;
+
+        let jsonFile = __dirname + '/server-data/drones.json';
+        let drone;
+        fs.readFile(jsonFile, (err, dronedata) => {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            let drones = JSON.parse(dronedata);
+
+            let drone_filter = drones.drones.filter(function (item, index) {
+                return item.did == drone_id;
+            });
+            drone = drone_filter[0];
+
+
+            let checklist_id = drone.postflight_lid;
+
+            let clJsonFile = __dirname + '/server-data/checklist.json';
+            fs.readFile(clJsonFile, (err, clData) => {
+                if (err) {
+                    res.sendStatus(500);
+                    return;
+                }
+                let checklists = JSON.parse(clData);
+                let checklist_filter = checklists.lists.filter(function (item, index) {
+                    return item.lid == checklist_id;
+                });
+                checklist = checklist_filter[0];
+                let newItems = [];
+                if (checklist && checklist.items && checklists.sublists) {
+                    Array.prototype.forEach.call(checklist.items, ItemInChecklistItem => {
+                      let item = ItemInChecklistItem;
+                      if(ItemInChecklistItem.type=='sublist'){
+                        let sublist_filter = checklists.sublists.filter(function (sublist, index) {
+                            return ItemInChecklistItem.sid == sublist.sid;
+                        });
+                        item = sublist_filter[0];
+                      }
+                      newItems.push(item);
+                    });
+
+                    // for(var i = 0; i < checklist.sublists.length; i++){
+                    //   var sid = checklist.sublists[i];
+                    // }
+                    checklist.items = newItems;
+                }
+                res.send(checklist);
+
+            });
+
+        });
+
+    });
+});
+
 app.post('/api/submit_flight', (req, res) => {
-    let jsonFile = __dirname + '/server-data/draft_flights.json';
+    let jsonFile = __dirname + '/server-data/flights.json';
     let formData = req.body;
 
     // let newEvent = req.body;
@@ -552,6 +639,42 @@ app.post('/api/submit_flight', (req, res) => {
         };
         flights.next_id += 1;
         flights.flights.push(newFlight);
+        let flightsJson = JSON.stringify(flights, null, 2);
+        fs.writeFile(jsonFile, flightsJson, err => {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            // You could also respond with the database json to save a round trip
+            res.send({fid:flights.next_id-1});
+        });
+    });
+});
+
+app.post('/api/submit_postflight', (req, res) => {
+    let jsonFile = __dirname + '/server-data/flights.json';
+    let formData = req.body;
+    console.log(formData);
+    // let newEvent = req.body;
+    // TODO: get list and save it to flights.json
+
+    // console.log('Adding new event:', newEvent);
+    fs.readFile(jsonFile, (err, data) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        let flights = JSON.parse(data);
+        // let flight_filter = flights.flights.filter(function (item, index) {
+        //   // console.log(item.id);
+        //     return item.id == formData.fid;
+        // });
+        for (var i =0; i < flights.flights.length; i ++){
+          let f = flights.flights[i];
+          if(f.id == formData.fid){
+            f.postflight_list = formData;
+          }
+        }
         let flightsJson = JSON.stringify(flights, null, 2);
         fs.writeFile(jsonFile, flightsJson, err => {
             if (err) {
@@ -630,3 +753,4 @@ app.get('/dashboard/ManageUsers',
 app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
     res.render(__dirname + '/views/inflight.ejs');
 });
+
