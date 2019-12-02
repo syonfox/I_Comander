@@ -1,7 +1,7 @@
-var contain2 = document.getElementById('container2');
+var contain2 = document.getElementById('container');
 
 function updateVar() {
-    contain2 = document.getElementById('container2');
+    contain2 = document.getElementById('container');
 }
 
 
@@ -27,6 +27,7 @@ function displayRecentFlights(flights) {
             <th>End Time</th>`;
 
     Array.prototype.forEach.call(flights.flights, flight => {
+        // need a better way to crop out the time zone
         var startTime = flight.start_time.slice(4, 24);
         var endTime = flight.end_time.slice(4, 24);
 

@@ -36,10 +36,12 @@ function getServerWeather() {
 function displayWeather(weather) {
     console.log(weather);
     const item =
-          `<img id="w_icon" src="http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png">
-           <h1 id="w_city">${weather.name}</h1>
-           <h2 id="w_temp">${weather.main.temp}°C</h2>
-           <h2 id="w_status">${weather.weather[0].description}</h2>`;
+        `<div id="w_holder">
+        <img id="w_icon" src="http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png">
+           <h3 id="w_city">${weather.name}</h3>
+           <h4 id="w_temp">${weather.main.temp}°C</h4>
+           <h4 id="w_status">${weather.weather[0].description}</h4>
+           </div>`;
     container2.insertAdjacentHTML('beforeend', item);
 
 }
