@@ -52,7 +52,11 @@ function getHTMLForItem(checklistItem){
   let item = '';
   if(checklistItem.type!='dropdown')
   {
-    item =`<li class="list-group-item"><label for='${checklistItem.label}' >${checklistItem.label}</label><input type='${checklistItem.type}' value='' placeholder='${checklistItem.label}' name='${checklistItem.label}'  id='${checklistItem.label}' onChange='bindEvent(this);' data-json='${JSON.stringify(checklistItem)}' /></li>`;
+    item =`
+      <li class="list-group-item">
+        <label for='${checklistItem.label}' >${checklistItem.label}</label>
+        <input type='${checklistItem.type}' value='' placeholder='${checklistItem.label}' name='${checklistItem.label}'  id='${checklistItem.label}' onChange='bindEvent(this);' data-json='${JSON.stringify(checklistItem)}' />
+      </li>`;
   }
   else if(checklistItem.type=='dropdown')
   {
@@ -60,7 +64,11 @@ function getHTMLForItem(checklistItem){
     Array.prototype.forEach.call(checklistItem.options, option => {
       options+= `<option>${option}</option>`;
     });
-    item =`<li class="list-group-item"><label for='${checklistItem.label}' >${checklistItem.label}</label><select  name='${checklistItem.label}'  id='${checklistItem.label}' onChange='bindEvent(this);' data-json='${JSON.stringify(checklistItem)}' >${options}</select></li>`;
+    item =`
+      <li class="list-group-item">
+         <label for='${checklistItem.label}' >${checklistItem.label}</label>
+         <select  name='${checklistItem.label}'  id='${checklistItem.label}' onChange='bindEvent(this);' data-json='${JSON.stringify(checklistItem)}' >${options}</select>
+      </li>`;
   }
   return item;
 }
@@ -163,25 +171,79 @@ function loadFormContentNetworkFirst() {
 }
 
 function bindEvent(ele){
+  //ele is cheackbox
   let eleJson = JSON.parse(ele.dataset.json);
-  if(eleJson && eleJson.action ){
-    if(eleJson.type == 'checkbox' && ( (ele.checked && eleJson.trigger != undefined && !eleJson.trigger) || (!ele.checked && eleJson.trigger != undefined && eleJson.trigger))){
-      if(eleJson.action == "LOCKOUT"){
-        lockouts.splice(lockouts.indexOf(eleJson),1);
+
+
+  console.log(lockouts);
+  console.log(eleJson);
+  // console.log(ele);
+  if (eleJson && eleJson.action) {
+    if (eleJson.type == 'checkbox') {
+      if (eleJson.action == "LOCKOUT") {
+        if (ele.checked && eleJson.trigger != undefined && !eleJson.trigger) {
+          lockouts = lockouts.filter(e=>(e.label!=eleJson.label && e.alert!=eleJson.alert));//
+        } else {//(!ele.checked && eleJson.trigger != undefined && eleJson.trigger))){
+          lockouts.push(eleJson);
+        }
+      } else if (eleJson.action == "ticket") {
+        if (ele.checked && eleJson.trigger != undefined && !eleJson.trigger) {
+          tickets = tickets.filter(e=>(e.label!=eleJson.label && e.alert!=eleJson.alert));//
+        } else {//(!ele.checked && eleJson.trigger != undefined && eleJson.trigger))){
+          tickets.push(eleJson);
+        }
       }
-      if(eleJson.action == "ticket"){
-        tickets.splice(tickets.indexOf(eleJson));
-      }
-    }
-    else if(eleJson.type == 'dropdown' && eleJson.trigger && (ele.value == eleJson.trigger || eleJson.trigger.includes(ele.value))){
-      if(eleJson.action == "LOCKOUT"){
-        lockouts.push(eleJson)
-      }
-      if(eleJson.action == "ticket"){
-        tickets.push(eleJson);
+    } else if (eleJson.type == 'dropdown') {
+      if (eleJson.action == "LOCKOUT") {
+        if (ele.value == eleJson.trigger || eleJson.trigger.includes(ele.value)) {
+          lockouts = lockouts.filter(e=>(e.label!=eleJson.label && e.alert!=eleJson.alert));//
+        } else {//(!ele.checked && eleJson.trigger != undefined && eleJson.trigger))){
+          lockouts.push(eleJson);
+        }
+      } else if (eleJson.action == "ticket") {
+        if (ele.value == eleJson.trigger || eleJson.trigger.includes(ele.value)) {
+          tickets = tickets.filter(e=>(e.label!=eleJson.label && e.alert!=eleJson.alert));//
+        } else {//(!ele.checked && eleJson.trigger != undefined && eleJson.trigger))){
+          tickets.push(eleJson);
+        }
       }
     }
   }
+  console.log(lockouts)
+
+  // }
+  //   else if(eleJson.type == 'dropdown' && eleJson.trigger && (ele.value == eleJson.trigger || eleJson.trigger.includes(ele.value))){
+  //     if(eleJson.action == "LOCKOUT"){
+  //       lockouts.push(eleJson)
+  //     }
+  //     if(eleJson.action == "ticket"){
+  //       tickets.push(eleJson);
+  //     }
+  //   }
+  // }
+
+
+  //     if(eleJson.action == "LOCKOUT"){
+  //       console.log(lockouts);
+  //       lockouts.splice(lockouts.indexOf(eleJson),1);
+  //       console.log(lockouts);
+  //
+  //       lockouts = lockouts.filter(eleJson);//
+  //
+  //     }
+  //     if(eleJson.action == "ticket"){
+  //       tickets.splice(tickets.indexOf(eleJson));
+  //     }
+  //   }
+  //   else if(eleJson.type == 'dropdown' && eleJson.trigger && (ele.value == eleJson.trigger || eleJson.trigger.includes(ele.value))){
+  //     if(eleJson.action == "LOCKOUT"){
+  //       lockouts.push(eleJson)
+  //     }
+  //     if(eleJson.action == "ticket"){
+  //       tickets.push(eleJson);
+  //     }
+  //   }
+  // }
 }
 
 var dialogBox;
