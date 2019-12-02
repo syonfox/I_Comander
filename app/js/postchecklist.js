@@ -20,15 +20,16 @@ limitations under the License.
 var container = document.getElementById('container');
 var lockouts = [];
 var tickets = [];
+let fid = window.localStorage.getItem('fid');
+
 function updateVars() {
     container = document.getElementById('container');
 }
 // initDB()
 loadFormContentNetworkFirst();
 bindOnSubmit();
-function getChecklistServerData() {
-    let checklist_id = parseInt(document.getElementById('checklistForm').dataset["checklist"]);
-  return fetch('/api/getChecklist/'+checklist_id).then(response => {
+function getPostChecklistServerData() {
+  return fetch('/api/getPostChecklist/'+fid).then(response => {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -155,7 +156,7 @@ function UpdateFormUI(checklist) {
 
 function loadFormContentNetworkFirst() {
   // getIndexedDB().then(dataFromNetwork => {
-  getChecklistServerData().then(dataFromNetwork => {
+  getPostChecklistServerData().then(dataFromNetwork => {
     console.log(dataFromNetwork);
 	UpdateFormUI(dataFromNetwork);
   });
@@ -302,6 +303,7 @@ function submitForm(e){
   object['lid']= parseInt(document.getElementById('checklistForm').dataset["checklist"]);
   object['drone_id']= parseInt(document.getElementById('checklistForm').dataset["drone"]);
   object['user']= document.getElementById('checklistForm').dataset["user"];
+  object['fid']=fid;
   console.log(JSON.stringify(object));
   if(Object.keys(object).length>0){
     saveToDB(object);
@@ -415,36 +417,24 @@ async function getIndexedDB(){
 }
 
 function saveToDB(formData){
-  getMaxID().then(id=> {
-    console.log(id);
-    let newRecord = {
-      "id":id+1,
-      "formData": JSON.stringify(formData),
-      "date": new Date()
-    };
-    console.log(newRecord);
+    console.log(formData);
     var request = window.indexedDB.open("icmd", 1);
     request.onsuccess = function() {
       let db = request.result;
       var resultStore = db.transaction("checklistResult", "readwrite").objectStore("checklistResult");
-
-      var saveRequest = resultStore.add(newRecord);
-      // resultStore.transaction.oncomplete = function(event) {
-      //   // Store values in the newly created objectStore.
-      //   console.log(event.target.result);
-      //   window.localStorage.setItem('dbID', newRecord.id);
-      //   var resultCLStore = db.transaction("checklistResult", "readwrite").objectStore("checklistResult");
-      //
-      // };
-      // var request = objectStore.add(data);
-      saveRequest.onsuccess = function(event){
-          // document.write("Saved with id ", event.result)
-          var key = event.target.result;
-          window.localStorage.setItem('dbID', key);
+      var dbId = parseInt(window.localStorage.getItem('dbID'));
+      resultStore.get(dbId).onsuccess = function(e) {
+        console.log(e.target.result);
+        var updateStore = db.transaction("checklistResult", "readwrite").objectStore("checklistResult");
+        var obj = e.target.result;
+        obj.postflightForm = JSON.stringify(formData);
+        var updateRequest = updateStore.put(obj, dbId);
+        updateRequest.onsuccess = function(e){
+            //
+        };
       };
 
     };
-  });
 
 }
 
@@ -475,12 +465,12 @@ function saveToServer(formData){
   console.log(formData);
   saveDataToServer(formData).then(dataFromNetwork => {
     console.log(dataFromNetwork);
-    window.localStorage.setItem('fid', dataFromNetwork.fid);
-    loadIndex();
+    window.location.replace("/");
+	 //go to next page
   });
 }
 function saveDataToServer(formData){
-  return fetch('/api/submit_flight', {
+  return fetch('/api/submit_postflight', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
@@ -488,6 +478,6 @@ function saveDataToServer(formData){
     if (!response.ok) {
       throw Error(response.statusText);
     }
-    return response.json();
+    return;// response.json();
   });
 }

@@ -143,7 +143,7 @@ exports.addRoutes = function (app, auth, io, drones) {
 
     app.post('/api/add_ticket', auth.apiAuthenticated, (req, res) => {
         t = {};
-
+        console.log(req.body);
         t.created_by = req.user.username;
         t.body = req.body.body;
         t.title = req.body.title;
@@ -213,7 +213,3 @@ exports.addRoutes = function (app, auth, io, drones) {
     });
 
 };
-
-
-
-
