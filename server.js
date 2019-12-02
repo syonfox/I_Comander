@@ -48,6 +48,8 @@ auth.initialize(
 
 const drones = require('./drones');
 const tickets = require('./tickets');
+
+
 // tickets.initialize(app,auth, io);
 // const app = express();
 
@@ -794,7 +796,63 @@ app.get('/dashboard/ManageUsers',
     });
 
 
+app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
+    console.log('delete_user');
+    console.log(req.body);
+
+    users.del(req.body.did);
+    r = users.get_users();
+    r.deleted_did = req.body.did;
+    res.send(JSON.stringify(r));
+});
+
+app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
+
+    // console.log(req.file.path);
+    // console.log(req.file.encoding);
+    // console.log(req.file.mimetype);
+
+    console.log(req.body);
+    let d;
+    if (req.body.id == -1) {
+        d = users.add();
+    } else {
+        d = users.get_drone_by_id(req.body.id);
+    }
+
+   
+    // console.log(d);
+    // console.log(req.body);
+
+    if (typeof req.body.name != "undefined") d.username = req.body.username;
+    if (typeof req.body.type != "undefined") d.password = req.body.password;
+    
+    if (typeof req.body.pre_list != "undefined") d.displayName = req.body.displayName;
+    if (typeof req.body.post_list != "undefined") d.role = req.body.role;
+    if (typeof req.body.post_list != "undefined") d.email = req.body.email;
+    console.log(req.body.disabled);
+    // if(typeof req.body.disabled != "undefined") {
+    //if the disabled flag is not sent to the server the drone will be not disabled
+    if (req.body.disabled == 'on')
+        d.disabled = true;
+    else
+        d.disabled = false;
+    // }
+
+    if (d.id == -1) {
+        newd = users.add(d)
+    }
+    users.update(d);
+    r = users.get_users();
+    r.updated_user = d;
+    res.send(JSON.stringify(r));
+
+
+});
+
+
 app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
     res.render(__dirname + '/views/inflight.ejs');
 });
+
 
