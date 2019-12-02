@@ -1,6 +1,6 @@
 {
-  "next_tid": 51,
-  "open": 6,
+  "next_tid": 52,
+  "open": 7,
   "tickets": [
     {
       "tid": 0,
@@ -50,7 +50,6 @@
       "resolved_by": "root",
       "resolved_date": 1575071637386,
       "resolved_comment": ""
-
     },
     {
       "tid": 19,
@@ -155,7 +154,18 @@
       "tags": [],
       "lockout": false,
       "resolved": false
-
+    },
+    {
+      "tid": 51,
+      "did": 1,
+      "title": "Invalid pre-flight checklist",
+      "body": "Apple need check,Pilot License On-Hand,Drone Registraton Certifcate On-Hand - FAA / TC need check,Insurance On-Hand need check,FLHA and Tailgate Completed need check,GPS Coordinates (Lat/Long) Visible for Reference need check,Emergency Services Contact Information Visible need check,Air Traffic Control and Aerodrome Contact Information Visible need check,Weather need Check,Place Safety Cones Around Area need check,Operation Signage Appropriately Placed need check,Safe Landing Area Established need check,Clear Landing Area need check,Area Clear of Non-Participants need check,Fire Extinguisher On-Hand need check,Wind and Temperature Within Operating Specs need check",
+      "created_by": "root",
+      "created_at": 1575313173724,
+      "comments": [],
+      "tags": [],
+      "lockout": false,
+      "resolved": false
     }
   ]
 }
