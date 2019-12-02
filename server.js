@@ -377,7 +377,7 @@ app.get('/logout',
     });
 
 
-app.get('/admin/add_drone/add_check_list',
+app.get('/dashboard/checklist',
     auth.checkAuthenticated,
     async (req, res) => {
         r = {
