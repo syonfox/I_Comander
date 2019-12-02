@@ -23,7 +23,7 @@ var tickets = [];
 function updateVars() {
     container = document.getElementById('container');
 }
-// initDB()
+initDB();
 loadFormContentNetworkFirst();
 bindOnSubmit();
 function getChecklistServerData() {
@@ -154,10 +154,11 @@ function UpdateFormUI(checklist) {
 }
 
 function loadFormContentNetworkFirst() {
-  // getIndexedDB().then(dataFromNetwork => {
-  getChecklistServerData().then(dataFromNetwork => {
-    console.log(dataFromNetwork);
-	UpdateFormUI(dataFromNetwork);
+  getIndexedDB().then(dataFromDB => {
+    getChecklistServerData().then(dataFromNetwork => {
+      console.log(dataFromNetwork);
+  	UpdateFormUI(dataFromNetwork);
+    });
   });
 }
 
