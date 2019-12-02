@@ -107,7 +107,7 @@
 
                         <br>
                         <hr>
-                        <button class="btn btn-primary btn-lg btn-block">End Flight</button>
+                        <button class="btn btn-primary btn-lg btn-block" onclick="endFlight();">End Flight</button>
                     </div>
                     <script src="/js/flipclock.js"></script>
 
@@ -121,6 +121,21 @@
                         const clock = new FlipClock(el, new Date, {
                             face: 'HourCounter'
                         });
+
+                        function endFlight(){
+                        //   window.localStorage.setItem('endFlight',new Date());
+                          return fetch('/api/end_flight', {
+                              method: 'post',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({fid: parseInt(window.localStorage.getItem('fid')), end_time: new Date()})
+                            }).then(response => {
+                            if (!response.ok) {
+                              throw Error(response.statusText);
+                            }
+                            window.location.replace("/postchecklist");
+                          });
+                        //   window.location.replace("/postchecklist");
+                        }
                     </script>
                 </div>
             </div>

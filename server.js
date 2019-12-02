@@ -89,7 +89,7 @@ app.use(passport.session());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 app.get(['/', '/index.html'],
-    auth.checkAuthenticated,
+    auth.checkAuthenticatedRole('user'),
     (req, res) => {
         // res.sendFile(__dirname + '/app/index.html');
         r = {
@@ -100,6 +100,7 @@ app.get(['/', '/index.html'],
 
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
+users.addRoutes(app,auth);
 tickets.addRoutes(app,auth, io, drones);
 drones.addRoutes(app,auth, upload);
 
@@ -110,14 +111,23 @@ app.get('/demo-index.html', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-    res.render('dashboard');
+    r = {
+        'user': req.user,
+    };
+    res.render('dashboard', r);
 });
 
-app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
-    res.render('dashboard/drone_managment.ejs');
+app.get('/dashboard/drones', auth.checkAuthenticatedRole('admin'), (req, res) => {
+    r = {
+        'user': req.user,
+    };
+    res.render('dashboard/drone_managment.ejs', r);
 });
-app.get('/dashboard/tickets', auth.checkAuthenticated, (req, res) => {
-    res.render('dashboard/ticket_managment.ejs');
+app.get('/dashboard/tickets', auth.checkAuthenticatedRole('tech'), (req, res) => {
+    r = {
+        'user': req.user,
+    };
+    res.render('dashboard/ticket_managment.ejs', r );
 });
 
 app.get('/api/kier_secret', async (req, res) => {
@@ -145,7 +155,7 @@ app.get('/api/kier_secret', async (req, res) => {
 });
 
 
-app.get('/drones', auth.checkAuthenticated, (req, res) => {
+app.get('/drones', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -155,7 +165,7 @@ app.get('/drones', auth.checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/index_partial', auth.checkAuthenticated, (req, res) => {
+app.get('/index_partial', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -165,7 +175,7 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res) => {
+app.get('/checklist/:droneid', auth.checkAuthenticatedRole('user'), (req, res) => {
     let droneId = req.params.droneid;
     let jsonFile = __dirname + '/server-data/drones.json';
     let drone;
@@ -197,7 +207,7 @@ app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/checklist', auth.checkAuthenticated, (req, res) => {
+app.get('/checklist', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -216,7 +226,7 @@ app.get('/profile', auth.checkAuthenticated, (req, res) => {
     res.render('profile.ejs', r);
 
 });
-app.get('/postchecklist', auth.checkAuthenticated, (req, res) => {
+app.get('/postchecklist', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -268,7 +278,7 @@ app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
     })
 });
 
-app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => { 
+app.get('/api/get_recent_flights', auth.apiAuthenticatedRole('user'), (req, res) => {
     let options = {
         root: __dirname + '/server-data/'
     };
@@ -282,7 +292,7 @@ app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => {
     });
 });
 
-app.post('/api/edit_profile', auth.apiAuthenticated, (req, res) => {
+app.post('/api/edit_profile', auth.apiAuthenticatedRole('admin'), (req, res) => {
     // console.log(req.user);
     // console.log(req.body);
     console.log("EditUser");
@@ -378,7 +388,7 @@ app.get('/logout',
 
 
 app.get('/dashboard/checklist',
-    auth.checkAuthenticated,
+    auth.checkAuthenticatedRole('admin'),
     async (req, res) => {
         r = {
             'user': req.user
@@ -387,7 +397,7 @@ app.get('/dashboard/checklist',
 });
 
 
-app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticatedRole('admin'), (req, res) => {
     const path = __dirname + '/server-data/checklist.json';
     let checklistdb = {};
     fs.readFile(path, (err, data) => {
@@ -411,7 +421,7 @@ app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticated, (req, re
         });
     });
 });
-app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticatedRole('admin'), (req, res) => {
     const path = __dirname + '/server-data/checklist.json';
     let sublistdb = {};
     fs.readFile(path, (err, data) => {
@@ -508,7 +518,7 @@ app.post('/api/remove_sublist_sublist_tab', auth.apiAuthenticated, (req, res) =>
 // });
 
 
-app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
+app.get('/api/get_checklist', auth.apiAuthenticatedRole('user'), (req, res) => {
 
   let options = {
     root: __dirname + '/server-data/'
@@ -546,7 +556,7 @@ app.get('/api/getAll', (req, res) => {
 //in tickets.js now
 // app.get('/api/get_tickets', auth.apiAuthenticated, (req, res) => {
 
-app.get('/api/get_users', auth.apiAuthenticated, (req, res) => {
+app.get('/api/get_users', auth.apiAuthenticatedRole('user'), (req, res) => {
     let options = {
         root: __dirname + '/server-data/'
     };
@@ -562,7 +572,7 @@ app.get('/api/get_users', auth.apiAuthenticated, (req, res) => {
 
 //all drones api calls are in drones.js now
 
-app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
+app.get('/api/get_checklist', auth.apiAuthenticatedRole('user'), (req, res) => {
 
     let options = {
         root: __dirname + '/server-data/'
@@ -726,7 +736,7 @@ app.post('/api/submit_flight', (req, res) => {
         let flights = JSON.parse(data);
         let newFlight = {
             id: flights.next_id,
-            start_time: new Date(),
+            start_time: formData.start_time,
             drone_id: formData.drone_id,
             user: formData.user,
             preflight_list: formData
@@ -741,6 +751,42 @@ app.post('/api/submit_flight', (req, res) => {
             }
             // You could also respond with the database json to save a round trip
             res.send({fid:flights.next_id-1});
+        });
+    });
+});
+
+app.post('/api/end_flight', (req, res) => {
+    let jsonFile = __dirname + '/server-data/flights.json';
+    let formData = req.body;
+    console.log(formData);
+    // let newEvent = req.body;
+    // TODO: get list and save it to flights.json
+
+    // console.log('Adding new event:', newEvent);
+    fs.readFile(jsonFile, (err, data) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        let flights = JSON.parse(data);
+        // let flight_filter = flights.flights.filter(function (item, index) {
+        //   // console.log(item.id);
+        //     return item.id == formData.fid;
+        // });
+        for (var i =0; i < flights.flights.length; i ++){
+          let f = flights.flights[i];
+          if(f.id == formData.fid){
+            f.end_time = formData.end_time;
+          }
+        }
+        let flightsJson = JSON.stringify(flights, null, 2);
+        fs.writeFile(jsonFile, flightsJson, err => {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            // You could also respond with the database json to save a round trip
+            res.sendStatus(200);
         });
     });
 });
@@ -766,6 +812,7 @@ app.post('/api/submit_postflight', (req, res) => {
         for (var i =0; i < flights.flights.length; i ++){
           let f = flights.flights[i];
           if(f.id == formData.fid){
+            // f.end_time = formData.end_time;
             f.postflight_list = formData;
           }
         }
@@ -826,8 +873,7 @@ app.get('/admin/users', async (req, res) => {
 });
 
 
-app.get('/dashboard/ManageUsers',
-    auth.checkAuthenticated,
+app.get('/dashboard/ManageUsers', auth.checkAuthenticatedRole('admin'),
     async (req, res) => {
 
         //uncoment later when imp job is done XD!
@@ -839,12 +885,29 @@ app.get('/dashboard/ManageUsers',
         r = {
             'user': req.user
         };
-        res.render('userMgmt.ejs', r)
-        //res.sendFile(__dirname + '/add_checklist.ejs');
+
+        // req.session.save(() => {
+            console.log(req.user.role);
+            switch (req.user.role) {
+                case 'admin':
+                case 'superadmin':
+                    res.render(__dirname + '/views/userMgmt.ejs', r);
+                    return;
+                case "user":
+                case "guest":
+                default:
+                    res.render('accessDenied.ejs', r);
+                    return;
+            }
+
+
+            /*   res.render('userMgmt.ejs', r)*/
+            //res.sendFile(__dirname + '/add_checklist.ejs');
+        // });
     });
 
 
-app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
+app.post('/api/delete_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
     console.log('delete_user');
     console.log(req.body);
 
@@ -854,7 +917,7 @@ app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
     res.send(JSON.stringify(r));
 });
 
-app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
+app.post('/api/edit_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
 
     // console.log(req.file.path);
     // console.log(req.file.encoding);
@@ -868,24 +931,19 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
         d = users.get_user_by_id(req.body.id);
     }
 
-   
+
     // console.log(d);
     // console.log(req.body);
 
-    if (typeof req.body.name != "undefined") d.username = req.body.username;
-    if (typeof req.body.type != "undefined") d.password = req.body.password;
-    
-    if (typeof req.body.pre_list != "undefined") d.displayName = req.body.displayName;
-    if (typeof req.body.post_list != "undefined") d.role = req.body.role;
-    if (typeof req.body.post_list != "undefined") d.email = req.body.email;
+    if (typeof req.body.username != "undefined") d.username = req.body.username;
+    if (typeof req.body.password != "undefined") d.password = req.body.password;
+
+    if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
+    if (typeof req.body.role != "undefined") d.role = req.body.role;
+    if (typeof req.body.email != "undefined") d.email = req.body.email;
     console.log(req.body.disabled);
     // if(typeof req.body.disabled != "undefined") {
     //if the disabled flag is not sent to the server the drone will be not disabled
-    if (req.body.disabled == 'on')
-        d.disabled = true;
-    else
-        d.disabled = false;
-    // }
 
     if (d.id == -1) {
         newd = users.add(d)
@@ -899,8 +957,9 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
 });
 
 
-app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
-    res.render(__dirname + '/views/inflight.ejs');
+app.get('/inflight', auth.checkAuthenticatedRole('user'), (req,res)=>{
+    r = {
+        'user': req.user,
+    };
+    res.render(__dirname + '/views/inflight.ejs', r);
 });
-
-

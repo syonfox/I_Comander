@@ -190,12 +190,13 @@
         let users = r;
         let d = r.updated_user
 
-        document.getElementById(`e_name${d.id}`).innerHTML = `${d.username}:${d.password}`
+        document.getElementById(`e_username${d.id}`).innerHTML = `Username: ${d.username}`
+        /*document.getElementById(`e_password${d.id}`).innerHTML = `Password: ${d.password}`*/
         document.getElementById(`e_displayName${d.id}`).innerHTML = `DisplayName: ${d.displayName}`
         document.getElementById(`e_email${d.id}`).innerHTML = `email: ${d.email}`
         document.getElementById(`e_role${d.id}`).innerHTML = `role: ${d.role}`
 
-        console.log("Succssesfully edited user")
+        console.log("Successfully edited user")
         // console.log(response);
 
     }
@@ -214,11 +215,10 @@
         // // const params = new URLSearchParams([...new FormData(e.target).entries()]);
         // const response = await fetch("/api/edit_user", {method: "POST", body: params, credentials: "same-origin"})
         r = await response.json();
-        // console.log(r);
         let users = r;
         let d = r.updated_user
 
-        let item = gen_user_item(d, list_options);
+        let item = gen_user_item(d);
         dl.appendChild(item);
 
         console.log("Successfully added user")
@@ -231,7 +231,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel${d.id}">Are you sure you with to delete user: ${d.name}?\n This can't be undone!</h5>
+                            <h5 class="modal-title" id="deleteModalLabel${d.id}">Are you sure you with to delete user: ${d.username}?\n This can't be undone!</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -258,31 +258,31 @@
 
 
                         <div class="pure-control-group">
-                            <label for="name">user Name</label>
-                            <input name="name" type="text" placeholder="Name"
+                            <label for="username">User Name</label>
+                            <input name="username" type="text" placeholder="Username"
                                    value="${d.username}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">Password</label>
-                            <input name="type" type="text" placeholder="Type"
+                            <label for="password">Password</label>
+                            <input name="password" type="text" placeholder="password"
                                    value="${d.password}">
                         </div>
 
                         <div class="pure-control-group">
-                            <label for="type">Display Name</label>
-                            <input name="type" type="text" placeholder="Type"
+                            <label for="displayName">Display Name</label>
+                            <input name="displayName" type="text" placeholder="displayName"
                                    value="${d.displayName}">
                         </div>
 
                          <div class="pure-control-group">
-                            <label for="type">Role</label>
-                            <input name="type" type="text" placeholder="Type"
+                            <label for="role">Role</label>
+                            <input name="role" type="text" placeholder="role"
                                    value="${d.role}">
                         </div>
 
                         <div class="pure-control-group">
-                            <label for="type">Email ID</label>
-                            <input name="type" type="text" placeholder="Type"
+                            <label for="email">Email ID</label>
+                            <input name="email" type="text" placeholder="email"
                                    value="${d.email}">
                         </div>
 
@@ -294,7 +294,14 @@
                 </form>`
     }
 
-    function gen_user_item(d, list_options) {
+
+/*                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_password${d.id}" style="">
+                            ${d.password}
+                        </div>
+*/
+
+
+    function gen_user_item(d) {
 
         let item = document.createElement('div')
         item.classList.add('user_item')
@@ -303,41 +310,37 @@
         item.id = `user_item_${d.id}`;
 
 
-
-
-        let disabled = '';
-        if(d.disabled) disabled = 'checked';
-
-        let _form = gen_user_form(d,list_options);
-        // data-toggle="modal" data-target="#deleteModal${d.did}"
+        let _form = gen_user_form(d);
+        // data-toggle="modal" data-target="#deleteModal${d.id}"
         item.innerHTML = `
 
                 <div  id="e_info${d.id}" class="pure-g">
 
-                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_name${d.id}" style="">
-                            ${d.username}:${d.password}
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_username${d.id}" style="">
+                            ${d.username}
                         </div>
-                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_displayname${d.id}">
-                            DisplayName: ${d.displayName}
+                        
+
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-4" id="e_displayname${d.id}">
+                            Display Name: ${d.displayName}
                         </div>
                         <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_role${d.id}">
                             Role: ${d.role}
                         </div>
-                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_email${d.id}">
-                            Role: ${d.email}
+                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-1-4" id="e_email${d.id}">
+                            Email: ${d.email}
                         </div>
 
                     <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.id}" style="float: right;">
                          <button class="pure-button-primary" style="background: mintcream; color: #99121d" data-toggle="modal" data-target="#deleteModal${d.id}" >X</button>
+
                          <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_user_${d.id}">Edit</button>
                     </div>
 
-
-
-
-                <div id="edit_user_${d.id}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
+                    <div id="edit_drone_${d.id}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
                     ${_form}
                 </div>
+
                 </div>
 
                 ${gen_delete_confirm(d)}
@@ -354,25 +357,25 @@
 
         let responses = []
         responses.push(userdb_p);
-        responses.push(Ulistdb_p);
+        /*responses.push(Ulistdb_p);*/
         // console.log(responses)
         Promise.all(responses).then(value => {
 
             console.log(value)
-            userdb = value[0];
-            listdb = value[1];
+            users = value[0];
+            /*listdb = value[1];*/
 
-            Ulist_options = ``;
+            /*Ulist_options = ``;
             Ulistdb.lists.forEach(l => {
                 list_options += `<option value='${l.lid}'>${l.label}</option>`;
-            })
+            })*/
 
             let adddiv = document.getElementById('add_user');
-            adddiv.innerHTML = gen_user_form(null, list_options)
+            adddiv.innerHTML = gen_user_form(null)
             document.getElementById(`edit_form_-1`).onsubmit = addSubmit
             // console.log(userdb);
             users.users.forEach((d) => {
-                let item = gen_user_item(d, list_options);
+                let item = gen_user_item(d);
                 dl.appendChild(item);
                 document.getElementById(`edit_form_${d.id}`).onsubmit = editSubmit
 
@@ -382,6 +385,7 @@
     }
 
     let users = {};
+    init_user_list();
 
 </script>
 

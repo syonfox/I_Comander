@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
     <!--<![endif]--></head>
 <link rel="stylesheet" type="text/css" href="/style/icmd.css">
+<link rel="stylesheet" type="text/css" href="/style/weather.css">
+<link rel="stylesheet" type="text/css" href="/style/flight_display.css">
 
 </head>
 
@@ -44,7 +46,7 @@
 <style>
 
     .style1 {
-        background: url(/images/calvin_sky.png) repeat center center fixed ;
+        /*background: url(/images/calvin_sky.png) repeat center center fixed ;*/
         /*-webkit-background-size: cover;*/
         /*-moz-background-size: cover;*/
         /*-o-background-size: cover;*/
@@ -73,10 +75,16 @@
         /*-moz-background-size: cover;*/
         /*-o-background-size: cover;*/
         background-size: 100%;
+        background: none !important;
+        background-color: #457b9d !important;
     }
 
-    #w_icon {
-        margin-top: 20px;
+    #container {
+        background-color: white;
+        display: inline-block;
+        margin: 10px;
+        padding: 20px;
+        border-radius: 10px;
     }
 </style>
 
@@ -92,12 +100,9 @@
 
     <div id="main">
         
-<button class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Welcome</button>
+<button class="pure-button-primary pure-button" id="dashboard_banner" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Welcome</button>
         <div id="container">
             
-        </div>
-        <div id="container2">
-
         </div>
     </div>
 </div>

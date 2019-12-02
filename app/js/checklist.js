@@ -23,7 +23,7 @@ var tickets = [];
 function updateVars() {
     container = document.getElementById('container');
 }
-// initDB()
+initDB();
 loadFormContentNetworkFirst();
 bindOnSubmit();
 function getChecklistServerData() {
@@ -154,10 +154,11 @@ function UpdateFormUI(checklist) {
 }
 
 function loadFormContentNetworkFirst() {
-  // getIndexedDB().then(dataFromNetwork => {
-  getChecklistServerData().then(dataFromNetwork => {
-    console.log(dataFromNetwork);
-	UpdateFormUI(dataFromNetwork);
+  getIndexedDB().then(dataFromDB => {
+    getChecklistServerData().then(dataFromNetwork => {
+      console.log(dataFromNetwork);
+  	UpdateFormUI(dataFromNetwork);
+    });
   });
 }
 
@@ -302,6 +303,7 @@ function submitForm(e){
   object['lid']= parseInt(document.getElementById('checklistForm').dataset["checklist"]);
   object['drone_id']= parseInt(document.getElementById('checklistForm').dataset["drone"]);
   object['user']= document.getElementById('checklistForm').dataset["user"];
+  object['start_time'] = new Date();
   console.log(JSON.stringify(object));
   if(Object.keys(object).length>0){
     saveToDB(object);
@@ -476,7 +478,8 @@ function saveToServer(formData){
   saveDataToServer(formData).then(dataFromNetwork => {
     console.log(dataFromNetwork);
     window.localStorage.setItem('fid', dataFromNetwork.fid);
-    loadIndex();
+    window.location.replace("/inflight");
+    //loadIndex();
   });
 }
 function saveDataToServer(formData){

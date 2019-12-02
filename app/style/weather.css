@@ -1,0 +1,17 @@
+#w_city, #w_temp, #w_status {
+    margin: 0.2em;
+}
+
+#w_holder {
+   /* display: inline-block; */
+    /* background-color: rgb(25, 25, 24);
+    color: rgb(153, 153, 153); */
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#w_icon {
+    float: left;
+}
+

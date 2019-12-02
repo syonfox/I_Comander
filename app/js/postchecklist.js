@@ -21,6 +21,7 @@ var container = document.getElementById('container');
 var lockouts = [];
 var tickets = [];
 let fid = window.localStorage.getItem('fid');
+let endFlight = window.localStorage.getItem('endFlight');
 
 function updateVars() {
     container = document.getElementById('container');
@@ -189,79 +190,94 @@ function bindOnSubmit(){
   document.querySelector("#checklistForm").addEventListener("submit", function(e){
       e.preventDefault();
 
-    if(lockouts.length>0){
-      let message = '';
-      let title = lockouts[0].ticket.title;
-      let body = '';
-      lockouts.forEach(function(lock, idx){
-        if(idx>0){
-          message+='<br/>';
-          title = 'Invalid pre-flight checklist';
-          body+=',';
-        }
-        if(lock.alert){
-          message+=lock.alert;
-        }
-        else{
-          message+='Invalid input will lock drone out of service: '+lock.label;
-        }
-        body += lock.ticket.body;
-      });
-      tickets.forEach(function(lock, idx){
-        if(idx>0){
-          title = 'Tickets in pre-flight checklist';
-          body+=',';
-        }
-        body += lock.ticket.body;
-      });
-      dialogBox = bootbox.confirm({
-        message:message,
-        buttons: {
-            confirm: {
-                label: 'Yes',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: 'Back to checklist',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-
-            if(result){
-              let submitTickets = {title: title, body: body, did: parseInt(document.getElementById('checklistForm').dataset["drone"])};
-
-              let response = fetch("/api/add_ticket", {method: "POST",
-              headers: { 'Content-Type': 'application/json' },body: JSON.stringify(submitTickets), credentials: "same-origin"});
-              loadIndex();
-            }
-            else{
-              return;
-            }
-        }
-      });
-    }
-    else{
+    // if(lockouts.length>0){
+    //   let message = '';
+    //   let title = lockouts[0].ticket.title;
+    //   let body = '';
+    //   lockouts.forEach(function(lock, idx){
+    //     if(idx>0){
+    //       message+='<br/>';
+    //       title = 'Invalid post-flight checklist';
+    //       body+=',';
+    //     }
+    //     if(lock.alert){
+    //       message+=lock.alert;
+    //     }
+    //     else{
+    //       message+='Invalid input will lock drone out of service: '+lock.label;
+    //     }
+    //     body += lock.ticket.body;
+    //   });
+    //   tickets.forEach(function(lock, idx){
+    //     if(idx>0){
+    //       title = 'Tickets in post-flight checklist';
+    //       body+=',';
+    //     }
+    //     body += lock.ticket.body;
+    //   });
+    //   dialogBox = bootbox.confirm({
+    //     message:message,
+    //     buttons: {
+    //         confirm: {
+    //             label: 'Yes',
+    //             className: 'btn-success'
+    //         },
+    //         cancel: {
+    //             label: 'Back to checklist',
+    //             className: 'btn-danger'
+    //         }
+    //     },
+    //     callback: function (result) {
+    //
+    //         if(result){
+    //           let submitTickets = {title: title, body: body, did: parseInt(document.getElementById('checklistForm').dataset["drone"])};
+    //
+    //           let response = fetch("/api/add_ticket", {method: "POST",
+    //           headers: { 'Content-Type': 'application/json' },body: JSON.stringify(submitTickets), credentials: "same-origin"});
+    //           window.location.replace("/");
+    //         }
+    //         else{
+    //           return;
+    //         }
+    //     }
+    //   });
+    // }
+    // else{
       checkTickets(e);
-    }
+    // }
   });
 }
 
 function checkTickets(e){
 
-  if(tickets.length>0){
+  if(lockouts.length>0 || tickets.length>0){
     let message = 'Submitting the form will also submit a ticket. Are you sure?';
-    let title = tickets[0].ticket.title;
+    let title = 'Tickets in post-flight checklist';
     let body = '';
-    tickets.forEach(function(lock, idx){
+    lockouts.forEach(function(lock, idx){
       if(idx>0){
-        title = 'Tickets in pre-flight checklist';
         body+=',';
       }
-      body += lock.ticket.body;
+      if(lock.ticket){
+        body += lock.ticket.body;
+      }
+      else{
+        body += lock.label;
+      }
+    });
+    tickets.forEach(function(lock, idx){
+      if(idx>0){
+        body+=',';
+      }
+      if(lock.ticket){
+        body += lock.ticket.body;
+      }
+      else{
+        body += lock.label;
+      }
     });
     dialogBox = bootbox.confirm({
-      message:message,
+      message:"Are you sure you want to submit the checklist?",
       buttons: {
           confirm: {
               label: 'Yes',
@@ -304,6 +320,7 @@ function submitForm(e){
   object['drone_id']= parseInt(document.getElementById('checklistForm').dataset["drone"]);
   object['user']= document.getElementById('checklistForm').dataset["user"];
   object['fid']=fid;
+  // object['end_time']=endFlight;
   console.log(JSON.stringify(object));
   if(Object.keys(object).length>0){
     saveToDB(object);

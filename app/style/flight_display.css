@@ -1,0 +1,19 @@
+#flight_table {
+    /*background-color: rgb(25, 25, 24);
+    color: rgb(153, 153, 153); */
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.f_header {
+    border-bottom: 1px solid rgb(153, 153, 153);
+    padding: 5px;
+}
+
+.f_data {
+    padding: 8px;
+}
+

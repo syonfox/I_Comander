@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="/css/pure-min.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/css/grids-responsive-min.css">
+    <![endif]-->
+
+<link rel="stylesheet" type="text/css" href="/style/icmd.css">
+
+<!-- var jsonRead = require(s-readJson) -->
+
+
+<title>ACCESS DENIED</title>
+
+    <script>
+
+        function getServerData(path) {
+            //  ie /api/getusers
+            return fetch(path, {method: 'GET', credentials: "same-origin"}).then(r => {
+                if (!r.ok) throw Error(r.statusText);
+                return r.json();
+            })
+        }
+
+        let userdb_p = (getServerData('/api/get_users'));
+        
+    </script>
+
+
+</head>
+
+<style>
+
+    body {
+        background: #457b9d;
+    }
+
+    .pure-g {
+        background: #A8DADC;
+        border-radius: 1em;
+        margin: 0em;
+    }
+
+    /* At the top level of your code */
+    @media screen and (min-width: 35.5em) {
+        .pure-g {
+            margin: 3em;
+        }
+    }
+
+    @media screen and (max-width: 48em) {
+        #profilepic {
+            order: -1;
+        }
+
+        #profile1 {
+            order: -2;
+        }
+    }
+
+
+</style>
+
+<body>
+
+
+<div id="layout">
+    <%include partials/dashboard_menu.ejs%>
+
+    <div id="main">
+
+        <div class="pure-g" style="padding: 2em">
+            <div class="pure-u-1 ">
+                <h1>ACCESS DENIED</h1>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/icmd.js"></script>
+
+
+<style>
+    .user_item {}
+    .user_item .pure-g{
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 0.5em;
+        margin: .5em;
+        /*background: #04a9f4;*/
+        background: mintcream;
+        /*transition: height 1s ease-in-out;*/
+    }
+
+    .user_image {
+        width: 3em;
+        height: 3em;
+        border-radius: 0.5em;
+        padding: 3px;
+    }
+
+    .user_item button {
+        border: none;
+        float: right;
+        /*padding: 0.5em;*/
+        background: #457b9d;
+        height: 2em;
+        margin: 0.5em;
+    }
+
+</style>
+</html>

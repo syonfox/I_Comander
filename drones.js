@@ -114,12 +114,12 @@ exports.get_drone_by_did = get_drone_by_did;
 
 exports.addRoutes = function(app, auth, upload){
 
-    app.get('/api/get_drones', auth.apiAuthenticated, (req, res) => {
+    app.get('/api/get_drones', auth.apiAuthenticatedRole('user'), (req, res) => {
         res.json(dronedb);
     });
 
     // todo: clean up uploaded imaged that are no longer used by drones.z
-    app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
+    app.post('/api/delete_drone', auth.apiAuthenticatedRole('admin'), (req, res) => {
         // console.log('delete_drone');
         // console.log(req.body);
         del(req.body.did);
@@ -134,7 +134,7 @@ exports.addRoutes = function(app, auth, upload){
 //takes in body paramated for the drone as input and will update them in the drone specified by body.did
 //if did==-1 it will be added insted
 // https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
-    app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req, res) => {
+    app.post('/api/edit_drone', auth.apiAuthenticatedRole('admin'), upload.single('photo'), (req, res) => {
 
         // console.log(req.file.path);
         // console.log(req.file.encoding);
@@ -155,8 +155,8 @@ exports.addRoutes = function(app, auth, upload){
         if (typeof req.body.name != "undefined") d.name = req.body.name;
         if (typeof req.body.type != "undefined") d.type = req.body.type;
         //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
-        if (typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
-        if (typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
+        if (typeof req.body.postflight_lid != "undefined") d.preflight_lid = parseInt(req.body.preflight_lid);
+        if (typeof req.body.postflight_lid != "undefined") d.postflight_lid = parseInt(req.body.postflight_lid);
 
         //if the disabled flag is not sent to the server the drone will be not disabled
         d.disabled = (req.body.disabled == 'on');
