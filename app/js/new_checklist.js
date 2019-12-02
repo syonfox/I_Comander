@@ -28,11 +28,11 @@ async function init_drone_list() {
         for (let [index, l] of checklistdb.lists.entries()) {
             //<button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
             list_of_checklists_tab += `
-            <h3 class="row" style="overflow: hidden;">
+            <h3 class="row " style="overflow: hidden;" uniqueId="checklistWithSubs${l.lid}">
                     ${l.label}
-                    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm float-right deleteChecklistBtn">Delete</button>
             </h3>
-            <div>
+            <div class="" uniqueId="checklistWithSubs${l.lid}">
                     <ul id="sortable" class="sortable0">
                             ${createSubHeaders(index, l.items)}
                     </ul>
@@ -44,12 +44,12 @@ async function init_drone_list() {
         //------- sublists tab
         for (let [index, l] of checklistdb.sublists.entries()) {
             list_of_sublists_tab += `
-            <h3 class="row" style="overflow: hidden;">
+            <h3 class="row" style="overflow: hidden;" uniqueId="sublistWithSubs${l.sid}">
                     ${l.label}
                     <span class="badge badge-dark">${l.sid}</span>
-                    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm float-right deleteSublistBtn">Delete</button>
             </h3>
-            <div>
+            <div class="" uniqueId="sublistWithSubs${l.sid}">
                     <ul id="sortable" class="sortable0">
                             ${createSubHeaders(index, l.items)}
                     </ul>
@@ -72,7 +72,7 @@ function addChecklistTab(){
 
     if(createSid==''&&createLabel==''&&createList==''&&createTrigger==''&&createAlert==''&&createTicket=='')return;
 
-    itemsForOneList = `<li class="ui-state-default" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+    itemsForOneList = `<li class="ui-state-default" id="liForChecklistSubs" style="overflow: hidden;"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
     ${dropdownMenuButtonAddNewItem?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${dropdownMenuButtonAddNewItem}</button>`:''}
     ${createSid?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createSid}</button>`:''}
     ${createLabel?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createLabel}</button>`:''}
@@ -194,7 +194,7 @@ function addSublistTab(){
     ${createTrigger?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createTrigger}</button>`:''}
     ${createAlert?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createAlert}</button>`:''}
     ${createTicket?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createTicket}</button>`:''}
-    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>`
+    <button type="button" class="btn btn-outline-danger btn-sm float-right deleteForSubsSublist">Delete</button></li>`
 
     $('.sortable0ForAddInSublistTab').append(itemsForOneList)
 
@@ -330,13 +330,47 @@ async function addAllSublistWithSubsToDB(){
 }
 
 function removeSubButtons(){
-    $('.deleteForSubsChecklist').click(function(){
-        $('body').hide()
-        //this.hidden()
+    $('#accordion').on('click', '.deleteForSubsChecklist', function() {  //For checklists
+        $(this).parent().remove()
+    })
+    $('#accordion2').on('click', '.deleteForSubsSublist', function() {  //For sublists
+        $(this).parent().remove()
+    })
+}
+
+async function removeAllChecklistButton(){
+    $('#accordion').on('click', '.deleteChecklistBtn',async function() {  //For checklists
+        //console.log($(this).parent().attr('uniqueId'))
+        idWithString = $(this).parent().attr('uniqueId')
+        idNoString= idWithString.substring(idWithString.indexOf("s") + 10)
+
+        const response = await fetch("/api/remove_checklist_checklist_tab", {method: "POST", body: JSON.stringify({lid: idNoString}), headers: { "Content-Type": "application/json" }, credentials: "same-origin"})
+        //$(idWithString).parent().remove()
+        mm = $("#accordion").find(`[uniqueId='${idWithString}']`).remove()
+        console.log(mm)
+        //r = await response.json();
+        //console.log(idNoString)
+    })
+}
+
+async function removeAllSublistButton(){
+    $('#accordion2').on('click', '.deleteSublistBtn',async function() {  //For checklists
+        //console.log($(this).parent().attr('uniqueId'))
+        idWithString = $(this).parent().attr('uniqueId')
+        idNoString= idWithString.substring(idWithString.indexOf("s") + 15)
+
+        const response = await fetch("/api/remove_sublist_sublist_tab", {method: "POST", body: JSON.stringify({sid: idNoString}), headers: { "Content-Type": "application/json" }, credentials: "same-origin"})
+        //$(idWithString).parent().remove()
+        mm = $("#accordion2").find(`[uniqueId='${idWithString}']`).remove()
+        console.log(idNoString)
+        //r = await response.json();
+        //console.log(idNoString)
     })
 }
 
 
+
+//Calling funs and Global vars
 let checklistdb = {};
 let checklistSubs = []
 let sublistSubs = []
@@ -354,5 +388,8 @@ $('#saveTheSublist').click(function(){
     addAllSublistWithSubsToDB()
 })
 removeSubButtons();
+removeAllChecklistButton();
+removeAllSublistButton();
+
 
 
