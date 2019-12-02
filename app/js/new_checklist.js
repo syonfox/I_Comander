@@ -7,6 +7,7 @@ function createSubHeaders(index, l){
         ${value.sid?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.sid}</button>`:''}
         ${value.type?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.type}</button>`:''}
         ${value.label?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.label}</button>`:''}
+        ${value.options?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.options}</button>`:''}
         ${value.action?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.action}</button>`:''}
         ${value.trigger?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.trigger}</button>`:''}
         ${value.alert?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.alert}</button>`:''}
@@ -25,10 +26,10 @@ async function init_drone_list() {
         list_of_checklists_tab = ``;
         list_of_sublists_tab = ``;
         for (let [index, l] of checklistdb.lists.entries()) {
+            //<button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
             list_of_checklists_tab += `
             <h3 class="row" style="overflow: hidden;">
                     ${l.label}
-                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
                     <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
             </h3>
             <div>
@@ -46,7 +47,6 @@ async function init_drone_list() {
             <h3 class="row" style="overflow: hidden;">
                     ${l.label}
                     <span class="badge badge-dark">${l.sid}</span>
-                    <button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
                     <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button>
             </h3>
             <div>
@@ -91,6 +91,87 @@ function addChecklistTab(){
     $('#createTrigger').val('')
     $('#createAlert').val('')
     $('#createTicket').val('')
+
+    oneItem = {}
+    if(dropdownMenuButtonAddNewItem == 'Sublist'){
+        oneItem = {
+            "type": dropdownMenuButtonAddNewItem,
+            "sid": createSid
+        }
+    }else if((dropdownMenuButtonAddNewItem == 'CheckBox') || (dropdownMenuButtonAddNewItem == 'Input')){
+        if(dropdownMenuButtonAction == 'LockOut'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "alert": createAlert,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        }else if(dropdownMenuButtonAction == 'Ticket'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        } else{       //none is selected
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "action": "None"
+              }
+        }
+    }else if(dropdownMenuButtonAddNewItem == 'DropDown'){
+        if(dropdownMenuButtonAction == 'LockOut'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "options": [
+                    createList
+                  ],
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "alert": createAlert,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        }else if(dropdownMenuButtonAction == 'Ticket'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "options": [
+                    createList
+                  ],
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        }else{
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "options": [
+                    createList
+                  ],
+                "action": "None"
+              }
+        }
+    }
+    checklistSubs.push(oneItem)
+    console.log(checklistSubs)
 }
 
 function addSublistTab(){
@@ -126,7 +207,22 @@ function addSublistTab(){
     $('#createTicket').val('')
 }
 
-
+async function addAllChecklistWithSubsToDB(){
+    if($('#nameOfChecklist').val() == '') return;
+    //if(checklistSubs.length == 0) return;
+    nameOfChecklist = $('#nameOfChecklist').val()
+    checklist = {
+        "lid": 0,
+        "label": nameOfChecklist,
+        "items": checklistSubs
+    }
+    console.log(checklist)
+    const response = await fetch("/api/add_check_list", {method: "POST", body: checklist, credentials: "same-origin"})
+    // r = await response.json();
+    // // console.log(r);
+    // let drones = r;
+    // let d = r.updated_drone
+}
 
 
 let checklistdb = {};
@@ -138,4 +234,8 @@ $('#saveChecklistSubs').click(function(){
 $('.saveItemBtnSublist').click(function(){
     addSublistTab()
 })
+$('#saveTheChecklist').click(function(){
+    addAllChecklistWithSubsToDB()
+})
+
 

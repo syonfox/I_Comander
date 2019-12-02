@@ -83,7 +83,15 @@ exports.del = del;
 
 function update(new_t) {
     let i = ticketdb.tickets.findIndex(t => t.tid == new_t.tid);
+    // console.log('test ts')
+    // console.log(ticketdb.tickets[i]);
+    // console.log(new_t);
+    // if(new_t.resolved != ticketdb.tickets[i].resolved){
+    //     if(new_t.resolved) ticketdb.open--;
+    //     else ticketdb.open++;
+    // }
     ticketdb.tickets[i] = new_t;
+
 
     console.log("Updated Ticket #" + ticketdb.tickets[i].tid);
     save();
@@ -92,6 +100,7 @@ function update(new_t) {
 exports.update = update;
 
 function del(tid) {
+    if(get_ticket_by_tid(tid).resolved == false) ticketdb.open--;
     ticketdb.tickets = ticketdb.tickets.filter(d => d.tid != tid);
     save();
     console.log("Ticket Removed: " + tid);
@@ -120,8 +129,15 @@ function get_ticket_by_tid(tid) {
 exports.get_ticket_by_tid = get_ticket_by_tid;
 
 
-exports.addRoutes = function (app, auth, io) {
+exports.addRoutes = function (app, auth, io, drones) {
 
+    function safeEnable(did) {
+        dt = ticketdb.tickets.filter(t=> t.did == did && t.lockout == true && t.resolved == false);
+        console.log("SAFE ENABLE");
+        console.log(dt);
+        if(dt.length == 0 )
+            drones.enable(did);
+    }
 
     app.get('/api/get_tickets', auth.apiAuthenticated, (req, res) => {
         res.json(ticketdb);
@@ -129,23 +145,37 @@ exports.addRoutes = function (app, auth, io) {
 
     app.post('/api/add_ticket', auth.apiAuthenticated, (req, res) => {
         t = {};
+
         t.created_by = req.user.username;
         t.body = req.body.body;
         t.title = req.body.title;
-        t.did = req.body.did;
-        t.lockout = req.body.lockout;
+        if(drones.valid_did(req.body.did))
+            t.did = req.body.did;
+        t.lockout = req.body.lockout == 'on';
 
-        console.log(t);
-        console.log(req.body);
+        if(t.lockout && t.did != undefined) drones.disable(t.did);
+        // console.log(t);
+        // console.log(req.body);
 
         add(t);
+
+        io.emit('new_ticket',JSON.stringify(t));
+
+
+
         res.json(ticketdb);
     });
 
 
     app.post('/api/delete_ticket', auth.apiAuthenticated, (req, res) => {
-        del(req.body.tid);
 
+        let t = get_ticket_by_tid(req.body.tid);
+        del(t.tid);
+
+        if(t.did && t.lockout && !t.resolved) {
+            //todo reenable drone
+            safeEnable(t.did);
+        }
         res.json(ticketdb);
     });
 
@@ -160,6 +190,29 @@ exports.addRoutes = function (app, auth, io) {
             t.resolved_comment = req.body.resolved_comment || '';
             update(t);
         }
+
+        if(t.did && t.lockout) {
+            //reenable drone
+            safeEnable(t.did);
+        }
+
+        res.json(ticketdb);
+    });
+
+      app.post('/api/comment_ticket', auth.apiAuthenticated, (req, res) => {
+        let t = get_ticket_by_tid(req.body.tid);
+
+        if(req.body.comment){
+            c = {
+                user: req.user.username,
+                body: req.body.comment,
+                date: Date.now()
+            }
+            t.comments.push(c);
+            update(t);
+
+        }
+
 
         res.json(ticketdb);
     });

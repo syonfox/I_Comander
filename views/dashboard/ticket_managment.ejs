@@ -12,6 +12,9 @@
     <script src="/js/umd/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
+    <script src="/js/socket.io.js"></script>
+
+    <script src="/js/ticket_managment.js"></script>
 
     <link rel="stylesheet" href="/css/pure-min.css">
     <!--[if lte IE 8]>
@@ -23,7 +26,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style/icmd.css">
 
-    <script src="/js/ticket_managment.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/style/ticket_managment.css">
 
     <title>Tickets-icmd</title>
@@ -37,11 +40,11 @@
 
 </head>
 
-<style>
-    body {
-        background: white;
-    }
-</style>
+<!--<style>-->
+<!--    body {-->
+<!--        background: white;-->
+<!--    }-->
+<!--</style>-->
 
 <body>
 
@@ -146,7 +149,7 @@
                                                                     <select id="new_issue_drone_select"
                                                                             class="custom-select mr-sm-2"
                                                                             name="did">
-                                                                        <option selected>Select Drone</option>
+                                                                        <option selected value='-1'>Select Drone</option>
 <!--                                                                        <option value="1">One</option>-->
 <!--                                                                        <option value="2">Two</option>-->
 <!--                                                                        <option value="3">Three</option>-->
@@ -229,24 +232,35 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <!--                                                                <div id="issue_comments" class="row support-content-comment">-->
-                                                                <!--                                                                    <div class="col-md-2">-->
-                                                                <!--                                                                        <img src=""-->
-                                                                <!--                                                                             class="img-circle" alt="" width="50">-->
-                                                                <!--                                                                    </div>-->
-                                                                <!--                                                                    <div class="col-md-10">-->
-                                                                <!--                                                                        <p>Posted by <a href="#">ehernandez</a> on-->
-                                                                <!--                                                                            16/06/2014 at 14:12</p>-->
-                                                                <!--                                                                        <p>Duis aute irure dolor in reprehenderit in-->
-                                                                <!--                                                                            voluptate velit esse cillum dolore eu fugiat-->
-                                                                <!--                                                                            nulla pariatur. Excepteur sint occaecat-->
-                                                                <!--                                                                            cupidatat non proident, sunt in culpa qui-->
-                                                                <!--                                                                            officia deserunt mollit anim id est-->
-                                                                <!--                                                                            laborum.</p>-->
-                                                                <!--                                                                        <a href="#"><span class="fa fa-reply"></span>-->
-                                                                <!--                                                                            &nbsp;Post a reply</a>-->
-                                                                <!--                                                                    </div>-->
-                                                                <!--                                                                </div>-->
+                                                                <div id="issue_comments" class="row support-content-comment">
+
+<!--                                                                    <div id="issue_comment">-->
+<!--                                                                        <div class="col-md-2">-->
+<!--                                                                        </div>-->
+<!--                                                                        <div class="col-md-10">-->
+<!--                                                                            <a href="#"><span-->
+<!--                                                                                        class="fa fa-reply"></span>-->
+<!--                                                                                &nbsp;Post a comment</a>-->
+<!--                                                                        </div>-->
+<!--                                                                        <textarea></textarea>-->
+                                                                    </div>
+<!--                                                                    <div class="col-md-2">-->
+<!--                                                                        <img src=""-->
+<!--                                                                             class="img-circle" alt="" width="50">-->
+<!--                                                                    </div>-->
+<!--                                                                    <div class="col-md-10">-->
+<!--                                                                        <p>Posted by <a href="#">ehernandez</a> on-->
+<!--                                                                            16/06/2014 at 14:12</p>-->
+<!--                                                                        <p>Duis aute irure dolor in reprehenderit in-->
+<!--                                                                            voluptate velit esse cillum dolore eu fugiat-->
+<!--                                                                            nulla pariatur. Excepteur sint occaecat-->
+<!--                                                                            cupidatat non proident, sunt in culpa qui-->
+<!--                                                                            officia deserunt mollit anim id est-->
+<!--                                                                            laborum.</p>-->
+<!--                                                                        <a href="#"><span class="fa fa-reply"></span>-->
+<!--                                                                            &nbsp;Post a reply</a>-->
+<!--                                                                    </div>-->
+
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button id="issue_resolve" onclick="resolve_issue()" type="button" class="btn btn-outline-success"

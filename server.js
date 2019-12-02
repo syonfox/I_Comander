@@ -16,8 +16,11 @@ limitations under the License.
 
 const express = require('express');
 const app = express();
-var http = require('http').createServer(app);
-const io = require('socket.io')(http);
+var http = require('http');
+const server = http.createServer(app);
+// const io = require('socket.io')(http, { origins: '*:*'});
+
+const io = require("socket.io")(server);
 
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -51,6 +54,7 @@ const tickets = require('./tickets');
 
 
 app.set('view engine', 'ejs');
+app.use('/js', express.static(__dirname + '/node_modules/socket.io-client/dist')); // redirect bootstrap JS
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap-select/dist/js')); // redirect bootstrap JS
@@ -93,7 +97,7 @@ app.get(['/', '/index.html'],
 
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
-tickets.addRoutes(app,auth, io);
+tickets.addRoutes(app,auth, io, drones);
 
 
 app.get('/demo-index.html', (req, res) => {
@@ -348,60 +352,41 @@ app.get('/logout',
 app.get('/admin/add_drone/add_check_list',
     auth.checkAuthenticated,
     async (req, res) => {
-
-        //uncoment later when imp job is done XD!
-        // let isAuth = await req.isAuthenticated();
-        // if(!isAuth) {
-        //   r = [{ 'data': 'UNATHORIZED'}];
-        //   res.send(JSON.stringify(r));
-        // }
-        r = {
-            'user': req.user
-        };
-        res.render('add_checklist.ejs', r)
-        //res.sendFile(__dirname + '/add_checklist.ejs');
-    });
-
-app.post('/pre_checklist_admin', (req, res) => {
-    console.log("hahhahhahhahahahhahahahhhah");
-    let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
-    let newEvent = req.body;
-    console.log('Adding new event:', newEvent);
-    fs.readFile(jsonFile, (err, data) => {
-        if (err) {
-            res.sendStatus(500);
-            return;
-        }
-        let events = JSON.parse(data);
-        events.push(newEvent);
-        let eventsJson = JSON.stringify(events, null, 2);
-        fs.writeFile(jsonFile, eventsJson, err => {
-            if (err) {
-                res.sendStatus(500);
-                return;
-            }
-            // You could also respond with the database json to save a round trip
-            res.sendStatus(200);
-        });
-    });
-});
-
-app.get('/new_check_list',
-    auth.checkAuthenticated,
-    async (req, res) => {
-
-        //uncoment later when imp job is done XD!
-        // let isAuth = await req.isAuthenticated();
-        // if(!isAuth) {
-        //   r = [{ 'data': 'UNATHORIZED'}];
-        //   res.send(JSON.stringify(r));
-        // }
         r = {
             'user': req.user
         };
         res.render('new_checklist.ejs', r)
-        //res.sendFile(__dirname + '/add_checklist.ejs');
-    });
+});
+
+
+app.post('/api/add_check_list', (req, res) => {
+    console.log("hehhehee")
+
+});
+// app.post('/pre_checklist_admin', (req, res) => {
+//     console.log("hahhahhahhahahahhahahahhhah");
+//     let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
+//     let newEvent = req.body;
+//     console.log('Adding new event:', newEvent);
+//     fs.readFile(jsonFile, (err, data) => {
+//         if (err) {
+//             res.sendStatus(500);
+//             return;
+//         }
+//         let events = JSON.parse(data);
+//         events.push(newEvent);
+//         let eventsJson = JSON.stringify(events, null, 2);
+//         fs.writeFile(jsonFile, eventsJson, err => {
+//             if (err) {
+//                 res.sendStatus(500);
+//                 return;
+//             }
+//             // You could also respond with the database json to save a round trip
+//             res.sendStatus(200);
+//         });
+//     });
+// });
+
 
 app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
 
@@ -501,7 +486,6 @@ app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req,
     // console.log(req.file.mimetype);
 
     console.log(req.body);
-    console.log("bmbmmb")
     let d;
     if (req.body.did == -1) {
         d = drones.add();
@@ -680,8 +664,9 @@ app.post('/api/delete', (req, res) => {
 
 app.use(express.static(__dirname + '/app'));
 
-const port = (process.env.PORT || 8080)
-const server = app.listen(port, () => {
+const port = (process.env.PORT || 8080);
+
+ server.listen(port, () => {
 
     const host = server.address().address;
     const port = server.address().port;

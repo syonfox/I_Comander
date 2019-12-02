@@ -7,18 +7,31 @@ body {
     align-items: center;
     background-color: white;
 
-  }
-  
-  .container {
+}
+
+.container {
     padding-top: 1% !important;
     padding-left: 13% !important;
-  }
-  .tab-content {
-      padding: 2%;
-  }
-  .btn-outline-dark {
-      margin-bottom: 1%;
-  }
+}
+.tab-content {
+    padding: 2%;
+    background: white;
+    padding: 4%;
+    border-radius: 1em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: auto;
+    clear: both;
+}
+.nav-tabs {
+    background: white;
+    padding-top: 1%;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+.btn-outline-dark {
+    margin-bottom: 1%;
+}
 .btnsPerList {
     display: inline-block;
 }
@@ -68,11 +81,3 @@ body {
 .createElementsSublist input, .createElementsSublist div {
     margin-right: 1%;
 }
-/* .ui-accordion-content-active {
-    height: 170%;
-} */
-
-/* .createElementsSublist input, .createElements input{
-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
-} */
-

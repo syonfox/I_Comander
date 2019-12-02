@@ -50,8 +50,8 @@
             <button type="button" class="createChecklistBtn btn btn-outline-dark btn-sm">Create Checklist</button>
             <div id="accordion">
                     <h3 class="row createNewChecklist1" style="overflow: hidden;">
-                        <input type="text" placeholder="Checklist name" class="form-control col-md-5 required" style="display: inline-block;">
-                            <button type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
+                        <input id="nameOfChecklist" type="text" placeholder="Checklist name" class="form-control col-md-5 required" style="display: inline-block;">
+                            <button id="saveTheChecklist" type="button" class="btn btn-outline-dark btn-sm float-right">Save</button>
                     </h3>
                     <div class="createNewChecklist2">
                         <ul id="sortable" class="sortable0 sortable0ForAddInChecklistTab">
@@ -65,7 +65,7 @@
                                     <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButtonAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#" id="createElementsActionNone">None</a>
-                                        <a class="dropdown-item" href="#" id="createElementsActionLockout">Lock Out</a>
+                                        <a class="dropdown-item" href="#" id="createElementsActionLockout">LockOut</a>
                                         <a class="dropdown-item" href="#" id="createElementsActionTicket">Ticket</a>
                                     </div>
                             </div>
@@ -109,7 +109,7 @@
                                             <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle1 btn-md" id="dropdownMenuButtonActionSublist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 0.70rem;">Action</button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="#" id="createElementsActionNoneSublist">None</a>
-                                                <a class="dropdown-item" href="#" id="createElementsActionLockoutSublist">Lock Out</a>
+                                                <a class="dropdown-item" href="#" id="createElementsActionLockoutSublist">LockOut</a>
                                                 <a class="dropdown-item" href="#" id="createElementsActionTicketSublist">Ticket</a>
                                             </div>
                                     </div>
