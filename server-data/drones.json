@@ -1,9 +1,13 @@
 {
+<<<<<<< HEAD
   "next_did": 36,
+=======
+  "next_did": 32,
+>>>>>>> ca7ad3d748af42dab9a695fcc8d515ec1c67fb39
   "drones": [
     {
       "did": 1,
-      "name": "Mavic_testasd",
+      "name": "Mavic_test",
       "lockedout": true,
       "disabled": false,
       "preflight_lid": 0,
@@ -38,12 +42,12 @@
       "image": "upload/58c2664c9b9e0ed2783658b82939ef5e"
     },
     {
-      "did": 35,
-      "name": "",
+      "did": 30,
+      "name": "Mavic_test2",
       "lockedout": false,
-      "disabled": false,
-      "type": "",
-      "image": "deafultDrone.jpeg"
+      "disabled": true,
+      "type": "Quad Wings1",
+      "image": "upload/b7ef601393f0f4671167f40fcbaf9d1a"
     }
   ],
   "updated_drone": {
