@@ -1,12 +1,6 @@
 {
-<<<<<<< HEAD
   "next_tid": 51,
   "open": 6,
-=======
-
-  "next_tid": 2,
-  "open": 0,
->>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
   "tickets": [
     {
       "tid": 0,
@@ -56,7 +50,7 @@
       "resolved_by": "root",
       "resolved_date": 1575071637386,
       "resolved_comment": ""
-<<<<<<< HEAD
+
     },
     {
       "tid": 19,
@@ -161,8 +155,7 @@
       "tags": [],
       "lockout": false,
       "resolved": false
-=======
->>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
+
     }
   ]
 }

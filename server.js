@@ -100,6 +100,7 @@ app.get(['/', '/index.html'],
 
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
+users.addRoutes(app,auth);
 tickets.addRoutes(app,auth, io, drones);
 drones.addRoutes(app,auth, upload);
 
@@ -811,8 +812,9 @@ app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
             }
 
 
-     /*   res.render('userMgmt.ejs', r)*/
-        //res.sendFile(__dirname + '/add_checklist.ejs');
+            /*   res.render('userMgmt.ejs', r)*/
+            //res.sendFile(__dirname + '/add_checklist.ejs');
+        });
     });
 
 
@@ -869,8 +871,3 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
 app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
     res.render(__dirname + '/views/inflight.ejs');
 });
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f0c162bfada0ebc05b35cceb5bd6c91ffee62d1e
