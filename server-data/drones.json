@@ -16,8 +16,8 @@
       "name": "F16",
       "lockedout": false,
       "disabled": true,
-      "preflight_lid": 0,
-      "postflight_lid": 0,
+      "preflight_lid": 22,
+      "postflight_lid": 22,
       "type": "Quad Wing",
       "image": "drone2.jpg"
     },

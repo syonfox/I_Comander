@@ -445,6 +445,54 @@ app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticatedRole('admin'
         });
     });
 });
+
+app.post('/api/remove_checklist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+    const path = __dirname + '/server-data/checklist.json';
+    let checklistdb = {};
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        checklistdb = JSON.parse(data);
+        lid = req.body.lid
+        checklistdb.lists = checklistdb.lists.filter(d=> d.lid != lid);
+        let checklistJson = JSON.stringify(checklistdb, null, 2);
+        fs.writeFile(path, checklistJson, err => {
+            if (err) {
+                console.error(err);
+                // return false;
+            } else {
+                console.log("Removed checklistdb from db");
+                res.send(checklistJson);
+            }
+        });
+    });
+});
+
+app.post('/api/remove_sublist_sublist_tab', auth.apiAuthenticated, (req, res) => {
+    const path = __dirname + '/server-data/checklist.json';
+    let sublistdb = {};
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        sublistdb = JSON.parse(data);
+        sid = req.body.sid
+        sublistdb.sublists = sublistdb.sublists.filter(d=> d.sid != sid);
+        let sublistJson = JSON.stringify(sublistdb, null, 2);
+        fs.writeFile(path, sublistJson, err => {
+            if (err) {
+                console.error(err);
+                // return false;
+            } else {
+                console.log("Removed sublistdb from db");
+                res.send(sublistJson);
+            }
+        });
+    });
+});
 // app.post('/pre_checklist_admin', (req, res) => {
 //     console.log("hahhahhahhahahahhahahahhhah");
 //     let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
@@ -764,7 +812,7 @@ app.post('/api/submit_postflight', (req, res) => {
         for (var i =0; i < flights.flights.length; i ++){
           let f = flights.flights[i];
           if(f.id == formData.fid){
-            f.end_time = formData.end_time;
+            // f.end_time = formData.end_time;
             f.postflight_list = formData;
           }
         }

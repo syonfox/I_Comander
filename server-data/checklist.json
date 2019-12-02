@@ -45,6 +45,45 @@
       ]
     },
     {
+      "lid": 2,
+      "label": "Test List",
+      "items": [
+        {
+          "type": "Input",
+          "label": "enter ur name user!",
+          "action": "LockOut",
+          "trigger": "angry",
+          "alert": "danger",
+          "ticket": {
+            "title": "asdczxc asd",
+            "body": "asdczxc asd"
+          }
+        },
+        {
+          "type": "CheckBox",
+          "label": "human?",
+          "action": "None"
+        },
+        {
+          "type": "DropDown",
+          "label": "drink",
+          "options": [
+            "cofee,beer,water"
+          ],
+          "action": "ticket",
+          "trigger": [
+            "Black",
+            "Blue"
+          ],
+          "ticket": {
+            "title": "Bad Fav Color",
+            "body": "We all know green is the best color time to change some minds"
+          }
+        }
+      ]
+    },
+
+    {
       "lid": 22,
       "label": "uselessChecklist",
       "items": [
@@ -101,7 +140,7 @@
       ]
     }
   ],
-  "next_sid": 18,
+  "next_sid": 16,
   "sublists": [
     {
       "sid": 9,
