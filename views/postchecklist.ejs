@@ -95,19 +95,81 @@
 
 <div id="layout">
     <% include partials/dashboard_menu.ejs %>
+    <!-- <button class="pure-button-primary pure-button" style="width: 10%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; float: left;" onclick="loadDrones();">Back</button> -->
+    <button class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Postflight Checklist</button>
+    <form id="checklistForm">
+      
+       <div id="container" class="container">
 
-    <div id="main">
-        <button id="startFlyingBtn" class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px" onclick="loadDrones()">Start Flying</button>
-        <div class="crop">
-            <img src="/images/calvin_fly.gif" alt="Calvin Flying">
-        </div>
-    </div>
+
+      </div>
+
+          <div class="row">
+          <div class="submitContainer">
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+          </div>
+          </div>
+    </form>
+
+    <script>
+    function init_menu(window, document) {
+
+        var layout   = document.getElementById('layout');
+        var  menu     = document.getElementById('menu');
+        var  menuLink = document.getElementById('menuLink');
+        var    content  = document.getElementById('main');
+
+        function toggleClass(element, className) {
+            var classes = element.className.split(/\s+/),
+                length = classes.length,
+                i = 0;
+
+            for(; i < length; i++) {
+                if (classes[i] === className) {
+                    classes.splice(i, 1);
+                    break;
+                }
+            }
+            // The className is not found
+            if (length === classes.length) {
+                classes.push(className);
+            }
+
+            element.className = classes.join(' ');
+        }
+
+        function toggleAll(e) {
+            var active = 'active';
+
+            e.preventDefault();
+            toggleClass(layout, active);
+            toggleClass(menu, active);
+            toggleClass(menuLink, active);
+        }
+
+        menuLink.onclick = function (e) {
+            toggleAll(e);
+        };
+
+        content.onclick = function(e) {
+            if (menu.className.indexOf('active') !== -1) {
+                toggleAll(e);
+            }
+        };
+
+    }
+
+    init_menu(this, this.document);
+    $('select').selectpicker();
+    </script>
+
 </div>
 
 
 <!--</div>-->
 
-<script src="/js/icmd.js"></script>
 <!--script>
     $(document).ready(function(){
         $("#startFlyingBtn").click(function(){
@@ -123,23 +185,7 @@
 </script-->
 
 
-<script>
-function loadDrones() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          $('#main').hide().html(this.responseText).fadeIn();
-          updateVars();
-          loadContentNetworkFirst();
-    }
-  };
-  xhttp.open("GET", "drones", true);
-  xhttp.send();
-}
-</script>
-
-<script src="js/idb-promised.js"></script>
-<script src="js/drones.js"></script>
+<script src="js/postchecklist.js"></script>
 <!--<div style="width:100%;height:0;padding-bottom:68%;position:relative;"><iframe src="/images/calvin_fly.gif" width="100%" height="100%" style=" allowFullScreen></iframe></div>-->
 </body>
 </html>

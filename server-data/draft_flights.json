@@ -1,5 +1,5 @@
 {
-  "next_id": 22,
+  "next_id": 24,
   "flights": [
     {
       "id": 0,
@@ -349,6 +349,36 @@
       "preflight_list": {
         "lid": 0,
         "drone_id": 1,
+        "user": "test"
+      }
+    },
+    {
+      "id": 22,
+      "start_time": "2019-12-01T22:32:12.899Z",
+      "drone_id": 2,
+      "user": "test",
+      "preflight_list": {
+        "Is Oven Off": "",
+        "is Cat Loved": "",
+        "Enter Your Licence Number": "",
+        "Favorite Color": "Red",
+        "lid": 1,
+        "drone_id": 2,
+        "user": "test"
+      }
+    },
+    {
+      "id": 23,
+      "start_time": "2019-12-01T22:33:05.304Z",
+      "drone_id": 2,
+      "user": "test",
+      "preflight_list": {
+        "Is Oven Off": "",
+        "is Cat Loved": "",
+        "Enter Your Licence Number": "",
+        "Favorite Color": "Red",
+        "lid": 1,
+        "drone_id": 2,
         "user": "test"
       }
     }

@@ -1,5 +1,4 @@
 /*
-Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,7 +32,7 @@ var upload = multer({dest: __dirname + '/app/images/upload'});
 // var db = require('./db'); //The folder when users are stored.
 
 const reque = require('request');
-
+const checklist = require('./checklist');
 
 
 const users = require('./users');
@@ -56,6 +55,8 @@ const tickets = require('./tickets');
 
 
 app.set('view engine', 'ejs');
+app.use('/js', express.static(__dirname + '/node_modules/flipclock/dist')); // redirect flipclock JS
+
 app.use('/js', express.static(__dirname + '/node_modules/socket.io-client/dist')); // redirect bootstrap JS
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
@@ -100,6 +101,8 @@ app.get(['/', '/index.html'],
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
 tickets.addRoutes(app,auth, io, drones);
+drones.addRoutes(app,auth, upload);
+
 
 
 app.get('/demo-index.html', (req, res) => {
@@ -213,6 +216,15 @@ app.get('/profile', auth.checkAuthenticated, (req, res) => {
     res.render('profile.ejs', r);
 
 });
+app.get('/postchecklist', auth.checkAuthenticated, (req, res) => {
+
+    console.log(req.user.username);
+    r = {
+        'user': req.user
+    };
+    res.render('postchecklist.ejs', r);
+
+});
 
 app.get('/api/get_weather', auth.checkAuthenticated, (req, res) => {
     const api_key = "7ade1c47b19d13b35e323b0d31f3b6b3";
@@ -254,6 +266,20 @@ app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
             res.send(data);
         }
     })
+});
+
+app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => { 
+    let options = {
+        root: __dirname + '/server-data/'
+    };
+
+    const fileName = 'flights.json';
+    res.sendFile(fileName, options, (err) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+    });
 });
 
 app.post('/api/edit_profile', auth.apiAuthenticated, (req, res) => {
@@ -354,60 +380,56 @@ app.get('/logout',
 app.get('/admin/add_drone/add_check_list',
     auth.checkAuthenticated,
     async (req, res) => {
-
-        //uncoment later when imp job is done XD!
-        // let isAuth = await req.isAuthenticated();
-        // if(!isAuth) {
-        //   r = [{ 'data': 'UNATHORIZED'}];
-        //   res.send(JSON.stringify(r));
-        // }
-        r = {
-            'user': req.user
-        };
-        res.render('add_checklist.ejs', r)
-        //res.sendFile(__dirname + '/add_checklist.ejs');
-    });
-
-app.post('/pre_checklist_admin', (req, res) => {
-    console.log("hahhahhahhahahahhahahahhhah");
-    let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
-    let newEvent = req.body;
-    console.log('Adding new event:', newEvent);
-    fs.readFile(jsonFile, (err, data) => {
-        if (err) {
-            res.sendStatus(500);
-            return;
-        }
-        let events = JSON.parse(data);
-        events.push(newEvent);
-        let eventsJson = JSON.stringify(events, null, 2);
-        fs.writeFile(jsonFile, eventsJson, err => {
-            if (err) {
-                res.sendStatus(500);
-                return;
-            }
-            // You could also respond with the database json to save a round trip
-            res.sendStatus(200);
-        });
-    });
-});
-
-app.get('/new_check_list',
-    auth.checkAuthenticated,
-    async (req, res) => {
-
-        //uncoment later when imp job is done XD!
-        // let isAuth = await req.isAuthenticated();
-        // if(!isAuth) {
-        //   r = [{ 'data': 'UNATHORIZED'}];
-        //   res.send(JSON.stringify(r));
-        // }
         r = {
             'user': req.user
         };
         res.render('new_checklist.ejs', r)
-        //res.sendFile(__dirname + '/add_checklist.ejs');
-    });
+});
+
+
+app.post('/api/add_check_list', (req, res) => {
+    console.log("hehhehee")
+
+});
+// app.post('/pre_checklist_admin', (req, res) => {
+//     console.log("hahhahhahhahahahhahahahhhah");
+//     let jsonFile = __dirname + '/server-data/pre_checklist_admin.json';
+//     let newEvent = req.body;
+//     console.log('Adding new event:', newEvent);
+//     fs.readFile(jsonFile, (err, data) => {
+//         if (err) {
+//             res.sendStatus(500);
+//             return;
+//         }
+//         let events = JSON.parse(data);
+//         events.push(newEvent);
+//         let eventsJson = JSON.stringify(events, null, 2);
+//         fs.writeFile(jsonFile, eventsJson, err => {
+//             if (err) {
+//                 res.sendStatus(500);
+//                 return;
+//             }
+//             // You could also respond with the database json to save a round trip
+//             res.sendStatus(200);
+//         });
+//     });
+// });
+
+
+app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
+
+  let options = {
+    root: __dirname + '/server-data/'
+  };
+
+  const fileName = 'checklist.json';
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  });
+});
 
 // // Endpoint to serve the configuration file // for Auth0
 // app.get("/auth_config.json", (req, res) => {
@@ -446,95 +468,7 @@ app.get('/api/get_users', auth.apiAuthenticated, (req, res) => {
     });
 });
 
-
-app.get('/api/get_drones', auth.apiAuthenticated, (req, res) => {
-
-    let options = {
-        root: __dirname + '/server-data/'
-    };
-
-    const fileName = 'drones.json';
-    res.sendFile(fileName, options, (err) => {
-        if (err) {
-            res.sendStatus(500);
-            return;
-        }
-    });
-});
-
-// todo: clean up uploaded imaged that are no longer used by drones.z
-app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
-    console.log('delete_drone');
-    console.log(req.body);
-
-    drones.del(req.body.did);
-    r = drones.get_dronedb();
-    r.deleted_did = req.body.did;
-    res.send(JSON.stringify(r));
-});
-
-//takes in body paramated for the drone as input and will update them in the drone specified by body.did
-//if did==-1 it will be added insted
-// https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
-
-
-app.post('/api/test_submit_body', auth.apiAuthenticated, (req, res) => {
-
-    console.log("test2");
-    console.log(req.body);
-});
-
-
-app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req, res) => {
-
-    // console.log(req.file.path);
-    // console.log(req.file.encoding);
-    // console.log(req.file.mimetype);
-
-    console.log(req.body);
-    let d;
-    if (req.body.did == -1) {
-        d = drones.add();
-    } else {
-        d = drones.get_drone_by_did(req.body.did);
-    }
-
-    if (req.file) {
-        d.image = 'upload/' + req.file.filename;
-        console.log('image set to: ' + d.image);
-    } else {
-        console.log("No Image");
-    }
-
-    // console.log(d);
-    // console.log(req.body);
-
-    if (typeof req.body.name != "undefined") d.name = req.body.name;
-    if (typeof req.body.type != "undefined") d.type = req.body.type;
-    //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
-    if (typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
-    if (typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
-    console.log(req.body.disabled);
-    // if(typeof req.body.disabled != "undefined") {
-    //if the disabled flag is not sent to the server the drone will be not disabled
-    if (req.body.disabled == 'on')
-        d.disabled = true;
-    else
-        d.disabled = false;
-    // }
-
-    if (d.did == -1) {
-        newd = drones.add(d)
-    }
-    drones.update(d);
-    r = drones.get_dronedb();
-    r.updated_drone = d;
-    res.send(JSON.stringify(r));
-
-
-});
-
-
+//all drones api calls are in drones.js now
 
 app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
 
@@ -589,25 +523,103 @@ app.get('/api/getChecklist/:checklistid', (req, res) => {
             return item.lid == checklist_id;
         });
         checklist = checklist_filter[0];
-        if (checklist.sublists && checklists.sublists) {
-            if (!checklist.items) {
-                checklist.items = [];
-            }
-            let sublist_filter = checklists.sublists.filter(function (item, index) {
-                return checklist.sublists.includes(item.sid);
+        let newItems = [];
+        if (checklist && checklist.items && checklists.sublists) {
+            Array.prototype.forEach.call(checklist.items, ItemInChecklistItem => {
+              let item = ItemInChecklistItem;
+              if(ItemInChecklistItem.type=='sublist'){
+                let sublist_filter = checklists.sublists.filter(function (sublist, index) {
+                    return ItemInChecklistItem.sid == sublist.sid;
+                });
+                item = sublist_filter[0];
+              }
+              newItems.push(item);
             });
-            checklist.items = checklist.items.concat(sublist_filter);
+
             // for(var i = 0; i < checklist.sublists.length; i++){
             //   var sid = checklist.sublists[i];
             // }
+            checklist.items = newItems;
         }
         res.send(checklist);
 
     });
 });
 
+app.get('/api/getPostChecklist/:fid', (req, res) => {
+    let fid = req.params.fid;
+    console.log(fid);
+    let checklist;
+    let flightJsonFile = __dirname + '/server-data/flights.json';
+    fs.readFile(flightJsonFile, (err, data) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        let flights = JSON.parse(data);
+        let flight_filter = flights.flights.filter(function (item, index) {
+            return item.id == fid;
+        });
+        let flight = flight_filter[0];
+        let drone_id = flight.drone_id;
+
+        let jsonFile = __dirname + '/server-data/drones.json';
+        let drone;
+        fs.readFile(jsonFile, (err, dronedata) => {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            let drones = JSON.parse(dronedata);
+
+            let drone_filter = drones.drones.filter(function (item, index) {
+                return item.did == drone_id;
+            });
+            drone = drone_filter[0];
+
+
+            let checklist_id = drone.postflight_lid;
+
+            let clJsonFile = __dirname + '/server-data/checklist.json';
+            fs.readFile(clJsonFile, (err, clData) => {
+                if (err) {
+                    res.sendStatus(500);
+                    return;
+                }
+                let checklists = JSON.parse(clData);
+                let checklist_filter = checklists.lists.filter(function (item, index) {
+                    return item.lid == checklist_id;
+                });
+                checklist = checklist_filter[0];
+                let newItems = [];
+                if (checklist && checklist.items && checklists.sublists) {
+                    Array.prototype.forEach.call(checklist.items, ItemInChecklistItem => {
+                      let item = ItemInChecklistItem;
+                      if(ItemInChecklistItem.type=='sublist'){
+                        let sublist_filter = checklists.sublists.filter(function (sublist, index) {
+                            return ItemInChecklistItem.sid == sublist.sid;
+                        });
+                        item = sublist_filter[0];
+                      }
+                      newItems.push(item);
+                    });
+
+                    // for(var i = 0; i < checklist.sublists.length; i++){
+                    //   var sid = checklist.sublists[i];
+                    // }
+                    checklist.items = newItems;
+                }
+                res.send(checklist);
+
+            });
+
+        });
+
+    });
+});
+
 app.post('/api/submit_flight', (req, res) => {
-    let jsonFile = __dirname + '/server-data/draft_flights.json';
+    let jsonFile = __dirname + '/server-data/flights.json';
     let formData = req.body;
 
     // let newEvent = req.body;
@@ -629,6 +641,42 @@ app.post('/api/submit_flight', (req, res) => {
         };
         flights.next_id += 1;
         flights.flights.push(newFlight);
+        let flightsJson = JSON.stringify(flights, null, 2);
+        fs.writeFile(jsonFile, flightsJson, err => {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            // You could also respond with the database json to save a round trip
+            res.send({fid:flights.next_id-1});
+        });
+    });
+});
+
+app.post('/api/submit_postflight', (req, res) => {
+    let jsonFile = __dirname + '/server-data/flights.json';
+    let formData = req.body;
+    console.log(formData);
+    // let newEvent = req.body;
+    // TODO: get list and save it to flights.json
+
+    // console.log('Adding new event:', newEvent);
+    fs.readFile(jsonFile, (err, data) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        let flights = JSON.parse(data);
+        // let flight_filter = flights.flights.filter(function (item, index) {
+        //   // console.log(item.id);
+        //     return item.id == formData.fid;
+        // });
+        for (var i =0; i < flights.flights.length; i ++){
+          let f = flights.flights[i];
+          if(f.id == formData.fid){
+            f.postflight_list = formData;
+          }
+        }
         let flightsJson = JSON.stringify(flights, null, 2);
         fs.writeFile(jsonFile, flightsJson, err => {
             if (err) {
@@ -703,6 +751,7 @@ app.get('/dashboard/ManageUsers',
         //res.sendFile(__dirname + '/add_checklist.ejs');
     });
 
+
 app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
     console.log('delete_user');
     console.log(req.body);
@@ -756,3 +805,10 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
 
 
 });
+
+
+app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
+    res.render(__dirname + '/views/inflight.ejs');
+});
+
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+    <title>In Flight</title>
+    <link rel="stylesheet" href="style/main.css"/>
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Chrome for Android theme color -->
+    <meta name="theme-color" content="#90a8b2">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PSK">
+    <link rel="icon" sizes="192x192" href="images/touch/icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
+    <link rel="apple-touch-icon" href="images/touch/icon-192x192.png">
+
+    <!-- Tile for Win8 -->
+    <meta name="msapplication-TileColor" content="#90a8b2">
+    <meta name="msapplication-TileImage" content="images/touch/icon-192x192.png">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/umd/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <script src="/js/socket.io.js"></script>
+
+
+    <script src="/js/ticket_managment.js"></script>
+
+    <link rel="stylesheet" href="/css/pure-min.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/css/grids-responsive-min.css">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/style/icmd.css">
+    <link rel="stylesheet" href="/js/flipclock.css">
+
+
+    <style>
+
+        body {
+            /*background:#eee;*/
+            background: #457b9d;
+            overflow: hidden;
+        }
+
+        .myclock{
+        zoom: 1.5;
+        -moz-transform: scale(1.5)
+        }
+        .clock_contiainer{
+            background: white;
+            border-radius: 1em;
+            padding: 1em;
+            margin-top: 1em;
+        }
+
+        @media screen and (max-width: 48em) {
+            .myclock {
+
+                zoom: 3.333;
+                -moz-transform: scale(3.333);
+                padding: 5%;
+            }
+        }
+    </style>
+
+</head>
+
+<!--<div style="background: rebeccapurple;opacity: 0.5; width: 100%; height: auto; position: absolute; top: 100px; left: 0px">-->
+
+<div id="layout">
+
+    <% include partials/dashboard_menu.ejs %>
+
+    <div id="main">
+
+        <!--        <button class="pure-button-primary pure-button" style="width: 100%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Welcome</button>-->
+        <div id="container">
+            <div class="grid support-content">
+                <div class="grid-body">
+                    <div class="row justify-content-center">
+                    <div class="clock_contiainer col-sm col-md-6 align-content-center text-center pagination-centered" style="background: white">
+
+                        <h2>In Flight</h2>
+                        <hr>
+                        <br>
+                        <br>
+                        <div class="col">
+                        </div>
+                        <div class="myclock">
+
+                        </div>
+
+                        <br>
+                        <hr>
+                        <button class="btn btn-primary btn-lg btn-block">End Flight</button>
+                    </div>
+                    <script src="/js/flipclock.js"></script>
+
+
+                    <script type="text/javascript">
+
+                        // import FlipClock from 'flipclock';
+
+                        const el = document.querySelector('.myclock');
+
+                        const clock = new FlipClock(el, new Date, {
+                            face: 'HourCounter'
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script src="/js/icmd.js"></script>
+<!--<script src="/js/weather.js"></script>-->
+</body>
+</html>

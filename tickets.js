@@ -14,7 +14,7 @@ function load() {
         // console.log(JSON.parse(data));
         console.log("TicketsDB Loaded")
     });
-};
+}
 load();
 
 async function save() {
@@ -60,12 +60,10 @@ function add(t) {
         "resolved_date": t.resolved
     };
 
-
     ticketdb.open++;
     ticketdb.tickets.push(new_t);
     save();
     return new_t;
-
 
 }
 
@@ -145,7 +143,7 @@ exports.addRoutes = function (app, auth, io, drones) {
 
     app.post('/api/add_ticket', auth.apiAuthenticated, (req, res) => {
         t = {};
-
+        console.log(req.body);
         t.created_by = req.user.username;
         t.body = req.body.body;
         t.title = req.body.title;
@@ -160,8 +158,6 @@ exports.addRoutes = function (app, auth, io, drones) {
         add(t);
 
         io.emit('new_ticket',JSON.stringify(t));
-
-
 
         res.json(ticketdb);
     });
@@ -213,13 +209,7 @@ exports.addRoutes = function (app, auth, io, drones) {
 
         }
 
-
         res.json(ticketdb);
     });
 
-
 };
-
-
-
-
