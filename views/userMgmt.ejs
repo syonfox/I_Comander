@@ -190,10 +190,10 @@
         let users = r;
         let d = r.updated_user
 
-        document.getElementById(`username${d.id}`).innerHTML = `${d.username}:${d.password}`
+        document.getElementById(`e_name${d.id}`).innerHTML = `${d.username}:${d.password}`
         document.getElementById(`e_displayName${d.id}`).innerHTML = `DisplayName: ${d.displayName}`
-        document.getElementById(`e_disabled${d.id}`).innerHTML = `email: ${d.email}`
-        document.getElementById(`e_disabled${d.id}`).innerHTML = `role: ${d.role}`
+        document.getElementById(`e_email${d.id}`).innerHTML = `email: ${d.email}`
+        document.getElementById(`e_role${d.id}`).innerHTML = `role: ${d.role}`
 
         console.log("Succssesfully edited user")
         // console.log(response);
@@ -227,15 +227,15 @@
     // data-toggle="modal" data-target="#deleteModal${d.did}"
     function gen_delete_confirm(d) {
         return `
-            <div class="modal fade" id="deleteModal${d.did}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel${d.did}" aria-hidden="true">
+            <div class="modal fade" id="deleteModal${d.id}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel${d.id}" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel${d.did}">Are you sure you with to delete user: ${d.name}?\n This can't be undone!</h5>
+                            <h5 class="modal-title" id="deleteModalLabel${d.id}">Are you sure you with to delete user: ${d.name}?\n This can't be undone!</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteSubmit(${d.did})">Continue</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteSubmit(${d.id})">Continue</button>
                         </div>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
     function gen_user_form(d, Ulist_options) {
         if(d == null) {
             d = {
-                did:-1,
+                id:-1,
                 name:'',
                 type:'',
             }
@@ -254,52 +254,39 @@
         let disabled = '';
         if(d.disabled) disabled = 'checked';
 
-        return `<form id='edit_form_${d.did}' class="pure-form pure-form-aligned" enctype='multipart/form-data'
+        return `<form id='edit_form_${d.id}' class="pure-form pure-form-aligned" enctype='multipart/form-data'
                       action="#" style="height: 100%; background: mintcream">
-                    <input hidden name='did' type="number" value='${d.did}'>
+                    <input hidden name='id' type="number" value='${d.id}'>
                     <fieldset>
 
-                        <div class="pure-control-group">
-                            <label for="photo">Profile Photo</label>
-                            <input id="input_photo" name="photo" type="file" accept="image/*" onchange="">
-                        </div>
-                        <div class="pure-control-group">
-                            <label for="preview">Photo Preview</label>
-                            <img id="photo_preview_${d.did}" name="preview" src="" height="200" with="200" alt="Image preview">
-                        </div>
 
                         <div class="pure-control-group">
                             <label for="name">user Name</label>
                             <input name="name" type="text" placeholder="Name"
-                                   value="${d.name}">
+                                   value="${d.username}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">user Type</label>
+                            <label for="type">Password</label>
                             <input name="type" type="text" placeholder="Type"
-                                   value="${d.type}">
+                                   value="${d.password}">
                         </div>
 
                         <div class="pure-control-group">
-                            <label for="pre">Preflight List</label>
-                            <select name="preflight_lid">
-                             ${list_options}
-                            </select>
+                            <label for="type">Display Name</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.displayName}">
                         </div>
 
                          <div class="pure-control-group">
-                            <label for="post_list">Postflight List</label>
-                            <select name="postflight_lid">
-                             ${list_options}
-                            </select>
+                            <label for="type">Role</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.role}">
                         </div>
 
                         <div class="pure-control-group">
-                           <div class="pure-control-group">
-                            <label for="disabled">Disable user</label>
-                        <label class="toggle" style='text-align: left;'>
-                            <input name='disabled' class="toggle-checkbox" type="checkbox" ${disabled}>
-                                <div class="toggle-switch"></div>
-                        </label>
+                            <label for="type">Email ID</label>
+                            <input name="type" type="text" placeholder="Type"
+                                   value="${d.email}">
                         </div>
 
                         <div class="pure-controls">
@@ -316,7 +303,7 @@
         item.classList.add('user_item')
         item.classList.add('pure-u-1')
 
-        item.id = `user_item_${d.did}`;
+        item.id = `user_item_${d.id}`;
 
 
 
@@ -328,32 +315,30 @@
         // data-toggle="modal" data-target="#deleteModal${d.did}"
         item.innerHTML = `
 
-                <div  id="e_info${d.did}" class="pure-g">
+                <div  id="e_info${d.id}" class="pure-g">
 
-                        <div class="pure-u-1 pure-u-sm-1-4 pure-u-md-1-8" id="e_image${d.did}" style="">
-
-                            <img src="/images/${d.image}" class="user_image">
+                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_name${d.id}" style="">
+                            ${d.username}:${d.password}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_displayname${d.id}">
+                            DisplayName: ${d.displayName}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_role${d.id}">
+                            Role: ${d.role}
+                        </div>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_email${d.id}">
+                            Role: ${d.email}
                         </div>
 
-                        <div class="pure-u-1 pure-u-sm-3-4 pure-u-md-3-8" id="e_name${d.did}" style="">
-                            ${d.name}:${d.type}
-                        </div>
-                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_lockedout${d.did}">
-                            lockedout: ${d.lockedout}
-                        </div>
-                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-8" id="e_disabled${d.did}">
-                            disabled: ${d.disabled}
-                        </div>
-
-                    <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.did}" style="float: right;">
-                         <button class="pure-button-primary" style="background: mintcream; color: #99121d" data-toggle="modal" data-target="#deleteModal${d.did}" >X</button>
-                         <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_user_${d.did}">Edit</button>
+                    <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.id}" style="float: right;">
+                         <button class="pure-button-primary" style="background: mintcream; color: #99121d" data-toggle="modal" data-target="#deleteModal${d.id}" >X</button>
+                         <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_user_${d.id}">Edit</button>
                     </div>
 
 
 
 
-                <div id="edit_user_${d.did}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
+                <div id="edit_user_${d.id}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
                     ${_form}
                 </div>
                 </div>
@@ -392,7 +377,7 @@
             users.users.forEach((d) => {
                 let item = gen_user_item(d, list_options);
                 dl.appendChild(item);
-                document.getElementById(`edit_form_${d.did}`).onsubmit = editSubmit
+                document.getElementById(`edit_form_${d.id}`).onsubmit = editSubmit
 
             });
 
@@ -400,9 +385,6 @@
     }
 
     let users = {};
-    let Ulistdb = {};
-    let Ulist_options = ``;
-    init_user_list();
 
 </script>
 
