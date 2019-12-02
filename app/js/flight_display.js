@@ -29,9 +29,17 @@ function displayRecentFlights(flights) {
 
     Array.prototype.forEach.call(flights.flights, flight => {
         // need a better way to crop out the time zone
+        try {
+            /*
         var startTime = flight.start_time.slice(4, 24);
         var endTime = flight.end_time.slice(4, 24);
-
+    */
+            var startTime = new Date(flight.start_time).toUTCString();
+            var endTime = new Date(flight.end_time).toUTCString();
+        }
+        catch (e) {
+            var endTime = "";
+        }
         var item2 = ` 
             <tr>
                 <td class="f_data">${flight.id}</td>
