@@ -779,8 +779,7 @@ app.get('/admin/users', async (req, res) => {
 });
 
 
-app.get('/dashboard/ManageUsers',
-    auth.checkAuthenticated,
+app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
     async (req, res) => {
 
         //uncoment later when imp job is done XD!
@@ -792,7 +791,27 @@ app.get('/dashboard/ManageUsers',
         r = {
             'user': req.user
         };
-        res.render('userMgmt.ejs', r)
+
+        req.session.save(() => {
+            console.log(req.user.role);
+            switch (req.user.role) {
+                case "guest":
+                    res.render('accessDenied.ejs', r);
+                    return;
+                case "user":
+                    res.render('accessDenied.ejs', r);
+                    return;
+                case 'admin':
+                case 'superadmin':
+                    res.render('userMgmt.ejs', r);
+                    return;
+                default:
+                    res.render('accessDenied.ejs', r);
+                    return;
+            }
+
+
+     /*   res.render('userMgmt.ejs', r)*/
         //res.sendFile(__dirname + '/add_checklist.ejs');
     });
 
@@ -825,21 +844,16 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
     // console.log(d);
     // console.log(req.body);
 
-    if (typeof req.body.name != "undefined") d.username = req.body.username;
-    if (typeof req.body.type != "undefined") d.password = req.body.password;
+    if (typeof req.body.username != "undefined") d.username = req.body.username;
+    if (typeof req.body.password != "undefined") d.password = req.body.password;
     
-    if (typeof req.body.pre_list != "undefined") d.displayName = req.body.displayName;
-    if (typeof req.body.post_list != "undefined") d.role = req.body.role;
-    if (typeof req.body.post_list != "undefined") d.email = req.body.email;
+    if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
+    if (typeof req.body.role != "undefined") d.role = req.body.role;
+    if (typeof req.body.email != "undefined") d.email = req.body.email;
     console.log(req.body.disabled);
     // if(typeof req.body.disabled != "undefined") {
     //if the disabled flag is not sent to the server the drone will be not disabled
-    if (req.body.disabled == 'on')
-        d.disabled = true;
-    else
-        d.disabled = false;
-    // }
-
+    
     if (d.id == -1) {
         newd = users.add(d)
     }

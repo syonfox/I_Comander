@@ -147,3 +147,47 @@ exports.findById = function(id, cb){
 //         cb(null, r);
 //     });
 // };
+
+app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
+
+    // console.log(req.file.path);
+    // console.log(req.file.encoding);
+    // console.log(req.file.mimetype);
+
+    console.log(req.body);
+    let d;
+    if (req.body.id == -1) {
+        d = add();
+    } else {
+        d = get_user_by_id(req.body.id);
+    }
+
+   
+    // console.log(d);
+    // console.log(req.body);
+
+    if (typeof req.body.username != "undefined") d.username = req.body.username;
+    if (typeof req.body.password != "undefined") d.password = req.body.password;
+    
+    if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
+    if (typeof req.body.role != "undefined") d.role = req.body.role;
+    if (typeof req.body.email != "undefined") d.email = req.body.email;
+    console.log(req.body.disabled);
+    // if(typeof req.body.disabled != "undefined") {
+    //if the disabled flag is not sent to the server the drone will be not disabled
+    
+    if (d.id == -1) {
+        newd = users.add(d)
+    }
+
+    update(d);
+
+    r = {
+            users: users,
+            updated_user: d
+        };
+
+    res.send(JSON.stringify(r));
+
+
+});
