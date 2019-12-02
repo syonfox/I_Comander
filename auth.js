@@ -46,10 +46,11 @@ function apiAuthenticatedRole(role) {
            if(roleRank[req.user.role] <= roleRank[role]){
                return next();
            }
-            console.log("WARNING USER IS AUTHENTICATED BUT NOT AUTHORIZED FOR THIS")
+            console.log("WARNING USER IS AUTHENTICATED BUT NOT AUTHORIZED FOR THIS" + role);
+            console.log(req.route);
         }
 
-        res.sendStatus(500);
+        res.sendStatus(401);
     }
 }
 
@@ -246,6 +247,8 @@ module.exports.register = register;
 module.exports.checkAuthenticated = checkAuthenticated;
 //cheacks if a user is authenticated if not it redirects to login page (also sets req.user)
 module.exports.apiAuthenticated = apiAuthenticated;
+module.exports.apiAuthenticatedRole = apiAuthenticatedRole;
+module.exports.checkAuthenticatedRole = checkAuthenticatedRole;
 
 //cheacks if usere is not authenticated if it is redirets to home page
 module.exports.checkNotAuthenticated = checkNotAuthenticated;

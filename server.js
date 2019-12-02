@@ -89,7 +89,7 @@ app.use(passport.session());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 app.get(['/', '/index.html'],
-    auth.checkAuthenticated,
+    auth.checkAuthenticatedRole('user'),
     (req, res) => {
         // res.sendFile(__dirname + '/app/index.html');
         r = {
@@ -117,13 +117,13 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard', r);
 });
 
-app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
+app.get('/dashboard/drones', auth.checkAuthenticatedRole('admin'), (req, res) => {
     r = {
         'user': req.user,
     };
     res.render('dashboard/drone_managment.ejs', r);
 });
-app.get('/dashboard/tickets', auth.checkAuthenticated, (req, res) => {
+app.get('/dashboard/tickets', auth.checkAuthenticatedRole('tech'), (req, res) => {
     r = {
         'user': req.user,
     };
@@ -155,7 +155,7 @@ app.get('/api/kier_secret', async (req, res) => {
 });
 
 
-app.get('/drones', auth.checkAuthenticated, (req, res) => {
+app.get('/drones', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -165,7 +165,7 @@ app.get('/drones', auth.checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/index_partial', auth.checkAuthenticated, (req, res) => {
+app.get('/index_partial', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -175,7 +175,7 @@ app.get('/index_partial', auth.checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res) => {
+app.get('/checklist/:droneid', auth.checkAuthenticatedRole('user'), (req, res) => {
     let droneId = req.params.droneid;
     let jsonFile = __dirname + '/server-data/drones.json';
     let drone;
@@ -207,7 +207,7 @@ app.get('/checklist/:droneid', auth.checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/checklist', auth.checkAuthenticated, (req, res) => {
+app.get('/checklist', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -226,7 +226,7 @@ app.get('/profile', auth.checkAuthenticated, (req, res) => {
     res.render('profile.ejs', r);
 
 });
-app.get('/postchecklist', auth.checkAuthenticated, (req, res) => {
+app.get('/postchecklist', auth.checkAuthenticatedRole('user'), (req, res) => {
 
     console.log(req.user.username);
     r = {
@@ -278,7 +278,7 @@ app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
     })
 });
 
-app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => {
+app.get('/api/get_recent_flights', auth.apiAuthenticatedRole('user'), (req, res) => {
     let options = {
         root: __dirname + '/server-data/'
     };
@@ -292,7 +292,7 @@ app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => {
     });
 });
 
-app.post('/api/edit_profile', auth.apiAuthenticated, (req, res) => {
+app.post('/api/edit_profile', auth.apiAuthenticatedRole('admin'), (req, res) => {
     // console.log(req.user);
     // console.log(req.body);
     console.log("EditUser");
@@ -388,7 +388,7 @@ app.get('/logout',
 
 
 app.get('/dashboard/checklist',
-    auth.checkAuthenticated,
+    auth.checkAuthenticatedRole('admin'),
     async (req, res) => {
         r = {
             'user': req.user
@@ -397,7 +397,7 @@ app.get('/dashboard/checklist',
 });
 
 
-app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticatedRole('admin'), (req, res) => {
     const path = __dirname + '/server-data/checklist.json';
     let checklistdb = {};
     fs.readFile(path, (err, data) => {
@@ -421,7 +421,7 @@ app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticated, (req, re
         });
     });
 });
-app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticatedRole('admin'), (req, res) => {
     const path = __dirname + '/server-data/checklist.json';
     let sublistdb = {};
     fs.readFile(path, (err, data) => {
@@ -470,7 +470,7 @@ app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticated, (req, res)
 // });
 
 
-app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
+app.get('/api/get_checklist', auth.apiAuthenticatedRole('user'), (req, res) => {
 
   let options = {
     root: __dirname + '/server-data/'
@@ -508,7 +508,7 @@ app.get('/api/getAll', (req, res) => {
 //in tickets.js now
 // app.get('/api/get_tickets', auth.apiAuthenticated, (req, res) => {
 
-app.get('/api/get_users', auth.apiAuthenticated, (req, res) => {
+app.get('/api/get_users', auth.apiAuthenticatedRole('user'), (req, res) => {
     let options = {
         root: __dirname + '/server-data/'
     };
@@ -524,7 +524,7 @@ app.get('/api/get_users', auth.apiAuthenticated, (req, res) => {
 
 //all drones api calls are in drones.js now
 
-app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
+app.get('/api/get_checklist', auth.apiAuthenticatedRole('user'), (req, res) => {
 
     let options = {
         root: __dirname + '/server-data/'
@@ -789,7 +789,7 @@ app.get('/admin/users', async (req, res) => {
 });
 
 
-app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
+app.get('/dashboard/ManageUsers', auth.checkAuthenticatedRole('admin'),
     async (req, res) => {
 
         //uncoment later when imp job is done XD!
@@ -823,7 +823,7 @@ app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
     });
 
 
-app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
+app.post('/api/delete_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
     console.log('delete_user');
     console.log(req.body);
 
@@ -833,7 +833,7 @@ app.post('/api/delete_user', auth.apiAuthenticated, (req, res) => {
     res.send(JSON.stringify(r));
 });
 
-app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
+app.post('/api/edit_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
 
     // console.log(req.file.path);
     // console.log(req.file.encoding);
@@ -873,7 +873,7 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
 });
 
 
-app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
+app.get('/inflight', auth.checkAuthenticatedRole('user'), (req,res)=>{
     r = {
         'user': req.user,
     };

@@ -148,7 +148,7 @@ exports.findById = function(id, cb){
 //     });
 // };
 exports.addRoutes = function(app,auth) {
-    app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
+    app.post('/api/edit_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
 
         // console.log(req.file.path);
         // console.log(req.file.encoding);
