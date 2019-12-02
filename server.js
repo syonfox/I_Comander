@@ -111,14 +111,23 @@ app.get('/demo-index.html', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-    res.render('dashboard');
+    r = {
+        'user': req.user,
+    };
+    res.render('dashboard', r);
 });
 
 app.get('/dashboard/drones', auth.checkAuthenticated, (req, res) => {
-    res.render('dashboard/drone_managment.ejs');
+    r = {
+        'user': req.user,
+    };
+    res.render('dashboard/drone_managment.ejs', r);
 });
 app.get('/dashboard/tickets', auth.checkAuthenticated, (req, res) => {
-    res.render('dashboard/ticket_managment.ejs');
+    r = {
+        'user': req.user,
+    };
+    res.render('dashboard/ticket_managment.ejs', r );
 });
 
 app.get('/api/kier_secret', async (req, res) => {
@@ -865,5 +874,8 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
 
 
 app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
-    res.render(__dirname + '/views/inflight.ejs');
+    r = {
+        'user': req.user,
+    };
+    res.render(__dirname + '/views/inflight.ejs', r);
 });

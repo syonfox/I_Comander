@@ -9,6 +9,7 @@
 
         <ul class="pure-menu-list">
             <li class="pure-menu-item"><a href="/" class="pure-menu-link">Fly</a></li>
+            <%if( user.role == 'admin' || user.role == 'superadmin') {%>
             <li class="pure-menu-item"><a href="/dashboard" class="pure-menu-link">Dashboard</a></li>
 
             <li class="pure-menu-item"><a href="/dashboard/ManageUsers" class="pure-menu-link">Manage Users</a></li>
@@ -16,10 +17,11 @@
             <li class="pure-menu-item"><a href="/dashboard/checklist" class="pure-menu-link">Manage Lists</a></li>
             <li class="pure-menu-item"><a href="/dashboard/tickets" class="pure-menu-link">Manage Tickets</a></li>
 
+            <%}%>
 
-            <!--          <li class="pure-menu-item menu-item-divided pure-menu-selected">-->
-            <!--            <a href="#" class="pure-menu-link">Services</a>-->
-            <!--          </li>-->
+            <%if( user.role == 'tech') {%>
+                <li class="pure-menu-item"><a href="/dashboard/tickets" class="pure-menu-link">Manage Tickets</a></li>
+            <%}%>
 
             <li class="pure-menu-item"><a href="/profile" class="pure-menu-link">Profile</a></li>
             <li class="pure-menu-item"><a href="/logout" class="pure-menu-link">Logout</a></li>

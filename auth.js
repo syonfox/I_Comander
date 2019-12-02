@@ -20,6 +20,39 @@ function apiAuthenticated(req, res, next) {
   res.sendStatus(401)
 }
 
+let roleRank = {'superadmin':0, 'admin':1, 'tech':3, 'user':4, 'guest':5};
+function checkAuthenticatedRole(role) {
+    return function (req,res,next) {
+
+        if (req.isAuthenticated()) {
+
+           if(roleRank[req.user.role] <= roleRank[role]){
+               return next();
+           } else {
+
+               res.render('accessDenied.ejs', r);
+               return;
+           }
+        }
+        res.redirect('/login')
+    }
+}
+
+function apiAuthenticatedRole(role) {
+    return function (req,res,next) {
+
+        if (req.isAuthenticated()) {
+
+           if(roleRank[req.user.role] <= roleRank[role]){
+               return next();
+           }
+            console.log("WARNING USER IS AUTHENTICATED BUT NOT AUTHORIZED FOR THIS")
+        }
+
+        res.sendStatus(500);
+    }
+}
+
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect('/')

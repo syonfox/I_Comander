@@ -83,7 +83,7 @@
       ]
     }
   ],
-  "next_sid": 15,
+  "next_sid": 17,
   "sublists": [
     {
       "sid": 9,
@@ -535,6 +535,26 @@
           "type": "CheckBox",
           "label": "asd",
           "action": "None"
+        }
+      ]
+    },
+    {
+      "sid": 16,
+      "label": "My Sublist",
+      "items": [
+        {
+          "type": "Sublist",
+          "sid": "0"
+        }
+      ]
+    },
+    {
+      "sid": 17,
+      "label": "sdf",
+      "items": [
+        {
+          "type": "Sublist",
+          "sid": "0"
         }
       ]
     }
