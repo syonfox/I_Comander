@@ -107,10 +107,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Apple not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Apple need check"
           }
         },
         {
@@ -118,10 +118,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Pilot License On-Hand will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Pilot License On-Hand"
           }
         },
         {
@@ -129,10 +129,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Drone Registraton Certifcate On-Hand - FAA / TC not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Drone Registraton Certifcate On-Hand - FAA / TC need check"
           }
         },
         {
@@ -140,10 +140,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Insurance On-Hand not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Insurance On-Hand need check"
           }
         },
         {
@@ -151,10 +151,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "FLHA and Tailgate Completed not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "FLHA and Tailgate Completed need check"
           }
         },
         {
@@ -162,10 +162,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "GPS Coordinates (Lat/Long) Visible for Reference not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "GPS Coordinates (Lat/Long) Visible for Reference need check"
           }
         },
         {
@@ -173,10 +173,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Emergency Services Contact Information Visible not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Emergency Services Contact Information Visible need check"
           }
         },
         {
@@ -184,10 +184,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Air Traffic Control and Aerodrome Contact Information Visible not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Air Traffic Control and Aerodrome Contact Information Visible need check"
           }
         }
       ]
@@ -221,10 +221,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Weather not Check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Weather need Check"
           }
         },
         {
@@ -232,10 +232,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Place Safety Cones Around Area not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Place Safety Cones Around Area need check"
           }
         },
         {
@@ -243,10 +243,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Operation Signage Appropriately Placed not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Operation Signage Appropriately Placed need check"
           }
         },
         {
@@ -254,10 +254,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Safe Landing Area Established not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Safe Landing Area Established need check"
           }
         },
         {
@@ -265,10 +265,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Clear Landing Area not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Clear Landing Area need check"
           }
         },
         {
@@ -276,10 +276,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Area Clear of Non-Participants not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Area Clear of Non-Participants need check"
           }
         },
         {
@@ -287,10 +287,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Fire Extinguisher On-Hand not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Fire Extinguisher On-Hand need check"
           }
         },
         {
@@ -298,10 +298,10 @@
           "type": "checkbox",
           "action": "LOCKOUT",
           "trigger": false,
-          "alert": "Not Loving Cat will lock this drone out of service",
+          "alert": "Wind and Temperature Within Operating Specs not check will lock this drone out of service",
           "ticket": {
             "title": "Teack USer to love cat",
-            "body": "all cats must be loved"
+            "body": "Wind and Temperature Within Operating Specs need check"
           }
         }
       ]
