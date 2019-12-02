@@ -40,6 +40,34 @@
           "result": "Green"
         }
       ]
+    },
+    {
+        "id": 1,
+        "drone_id": 1,
+        "start_time": "Sat Nov 09 2019 20:00:00 GMT-0800 (PST)",
+        "preflight_list": [
+            {
+                "label": "Required Documentation - Universal",
+                "items": [
+                    {
+                        "label": "Landowner/Flight Area Permission Forms On-Hand",
+                        "result": true
+                    },
+                    {
+                        "label": "Is Oven Off",
+                        "result": true
+                    },
+                    {
+                        "label": "is Cat Loved",
+                        "result": false
+                    },
+                    {
+                        "label": "Enter Your Licence Number",
+                        "result": "123456"
+                    }
+                ]
+            }
+        ]
     }
-  ]
+    ]
 }
