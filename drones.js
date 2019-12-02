@@ -14,7 +14,7 @@ function load() {
         // console.log(JSON.parse(data));
         console.log("DronesDB Loaded")
     });
-};
+}
 load();
 
 
@@ -35,19 +35,16 @@ async function save(){
             console.log("Saved DronesDB to file");
         }
     });
-};
+}
 exports.save = save;
-// exports.editDrone = (req,res,next)=>{
-//
-// };
 
 exports.get_dronedb = function() {
   return dronedb;
 };
 
-exports.add = function(){
+function add(){
     let d = {
-        "did": dronedb.next_did++,
+        "did": dronedb["next_did"]++,
         "name": "",
         "lockedout": false,
         "disabled": false,
@@ -63,13 +60,17 @@ exports.add = function(){
 
 
 }
-exports.del = function(did){
+exports.add = add;
+
+function del(did){
    dronedb.drones = dronedb.drones.filter(d=> d.did != did);
    save();
    console.log("Drone Removed: "+did);
 
 }
-exports.update = function(newdrone) {
+exports.del = del;
+
+function update(newdrone) {
     let i = dronedb.drones.findIndex(drone=>drone.did == newdrone.did);
 
     if(i < 0 ){
@@ -85,7 +86,8 @@ exports.update = function(newdrone) {
     console.log("Updated Drone(did):" + dronedb.drones[i].did);
 
     save();
-};
+}
+exports.update = update;
 
 exports.enable = function(did){
     let i = dronedb.drones.findIndex(drone=>drone.did == did);
@@ -103,8 +105,74 @@ exports.disable = function(did){
 exports.valid_did = function(did){
     return did >=0 || dronedb.drones.some(drone=>drone.did == did);
 };
-exports.get_drone_by_did = function(did){
+
+function get_drone_by_did(did){
     return dronedb.drones.find(drone=>drone.did == did);
+}
+exports.get_drone_by_did = get_drone_by_did;
+
+
+exports.addRoutes = function(app, auth, upload){
+
+    app.get('/api/get_drones', auth.apiAuthenticated, (req, res) => {
+        res.json(dronedb);
+    });
+
+    // todo: clean up uploaded imaged that are no longer used by drones.z
+    app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
+        // console.log('delete_drone');
+        // console.log(req.body);
+        del(req.body.did);
+
+        r = {
+            dronedb: dronedb,
+            deleted_did: req.body.did
+        };
+        res.send(JSON.stringify(r));
+    });
+
+//takes in body paramated for the drone as input and will update them in the drone specified by body.did
+//if did==-1 it will be added insted
+// https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
+    app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req, res) => {
+
+        // console.log(req.file.path);
+        // console.log(req.file.encoding);
+        // console.log(req.file.mimetype);
+
+        console.log(req.body);
+
+        let d = get_drone_by_did(req.body.did);
+        if (!d) d = add();
+        console.log(d)
+        if (req.file) {
+            d.image = 'upload/' + req.file.filename;
+            console.log('image set to: ' + d.image);
+        } else {
+            console.log("No Image");
+        }
+
+        if (typeof req.body.name != "undefined") d.name = req.body.name;
+        if (typeof req.body.type != "undefined") d.type = req.body.type;
+        //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
+        if (typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
+        if (typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
+
+        //if the disabled flag is not sent to the server the drone will be not disabled
+        d.disabled = (req.body.disabled == 'on');
+
+        if (d.did == -1) {
+            newd = add(d)
+        }
+        update(d);
+
+        r = {
+            dronedb: dronedb,
+            updated_drone: d
+        };
+        res.send(JSON.stringify(r));
+    });
+
 };
 
     

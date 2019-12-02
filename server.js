@@ -100,6 +100,8 @@ app.get(['/', '/index.html'],
 
 //this has to be called after app is fully initalized otherwise bodyparser wont work for auth
 tickets.addRoutes(app,auth, io, drones);
+drones.addRoutes(app,auth, upload);
+
 
 
 app.get('/demo-index.html', (req, res) => {
@@ -446,95 +448,7 @@ app.get('/api/get_users', auth.apiAuthenticated, (req, res) => {
     });
 });
 
-
-app.get('/api/get_drones', auth.apiAuthenticated, (req, res) => {
-
-    let options = {
-        root: __dirname + '/server-data/'
-    };
-
-    const fileName = 'drones.json';
-    res.sendFile(fileName, options, (err) => {
-        if (err) {
-            res.sendStatus(500);
-            return;
-        }
-    });
-});
-
-// todo: clean up uploaded imaged that are no longer used by drones.z
-app.post('/api/delete_drone', auth.apiAuthenticated, (req, res) => {
-    console.log('delete_drone');
-    console.log(req.body);
-
-    drones.del(req.body.did);
-    r = drones.get_dronedb();
-    r.deleted_did = req.body.did;
-    res.send(JSON.stringify(r));
-});
-
-//takes in body paramated for the drone as input and will update them in the drone specified by body.did
-//if did==-1 it will be added insted
-// https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
-
-
-app.post('/api/test_submit_body', auth.apiAuthenticated, (req, res) => {
-
-    console.log("test2");
-    console.log(req.body);
-});
-
-
-app.post('/api/edit_drone', auth.apiAuthenticated, upload.single('photo'), (req, res) => {
-
-    // console.log(req.file.path);
-    // console.log(req.file.encoding);
-    // console.log(req.file.mimetype);
-
-    console.log(req.body);
-    let d;
-    if (req.body.did == -1) {
-        d = drones.add();
-    } else {
-        d = drones.get_drone_by_did(req.body.did);
-    }
-
-    if (req.file) {
-        d.image = 'upload/' + req.file.filename;
-        console.log('image set to: ' + d.image);
-    } else {
-        console.log("No Image");
-    }
-
-    // console.log(d);
-    // console.log(req.body);
-
-    if (typeof req.body.name != "undefined") d.name = req.body.name;
-    if (typeof req.body.type != "undefined") d.type = req.body.type;
-    //todo: if nessasary add a test to validate lids ... i dont think its nessasary since our code sets lids
-    if (typeof req.body.pre_list != "undefined") d.preflight_lid = req.body.postflight_lid;
-    if (typeof req.body.post_list != "undefined") d.postflight_lid = req.body.postflight_lid;
-    console.log(req.body.disabled);
-    // if(typeof req.body.disabled != "undefined") {
-    //if the disabled flag is not sent to the server the drone will be not disabled
-    if (req.body.disabled == 'on')
-        d.disabled = true;
-    else
-        d.disabled = false;
-    // }
-
-    if (d.did == -1) {
-        newd = drones.add(d)
-    }
-    drones.update(d);
-    r = drones.get_dronedb();
-    r.updated_drone = d;
-    res.send(JSON.stringify(r));
-
-
-});
-
-
+//all drones api calls are in drones.js now
 
 app.get('/api/get_checklist', auth.apiAuthenticated, (req, res) => {
 
