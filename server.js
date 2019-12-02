@@ -256,6 +256,20 @@ app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
     })
 });
 
+app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => { 
+    let options = {
+        root: __dirname + '/server-data/'
+    };
+
+    const fileName = 'flights.json';
+    res.sendFile(fileName, options, (err) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+    });
+});
+
 app.post('/api/edit_profile', auth.apiAuthenticated, (req, res) => {
     // console.log(req.user);
     // console.log(req.body);
