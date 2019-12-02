@@ -679,7 +679,7 @@ app.post('/api/submit_flight', (req, res) => {
         let flights = JSON.parse(data);
         let newFlight = {
             id: flights.next_id,
-            start_time: new Date(),
+            start_time: formData.start_time,
             drone_id: formData.drone_id,
             user: formData.user,
             preflight_list: formData
@@ -694,6 +694,42 @@ app.post('/api/submit_flight', (req, res) => {
             }
             // You could also respond with the database json to save a round trip
             res.send({fid:flights.next_id-1});
+        });
+    });
+});
+
+app.post('/api/end_flight', (req, res) => {
+    let jsonFile = __dirname + '/server-data/flights.json';
+    let formData = req.body;
+    console.log(formData);
+    // let newEvent = req.body;
+    // TODO: get list and save it to flights.json
+
+    // console.log('Adding new event:', newEvent);
+    fs.readFile(jsonFile, (err, data) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        let flights = JSON.parse(data);
+        // let flight_filter = flights.flights.filter(function (item, index) {
+        //   // console.log(item.id);
+        //     return item.id == formData.fid;
+        // });
+        for (var i =0; i < flights.flights.length; i ++){
+          let f = flights.flights[i];
+          if(f.id == formData.fid){
+            f.end_time = formData.end_time;
+          }
+        }
+        let flightsJson = JSON.stringify(flights, null, 2);
+        fs.writeFile(jsonFile, flightsJson, err => {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            // You could also respond with the database json to save a round trip
+            res.sendStatus(200);
         });
     });
 });
@@ -842,20 +878,20 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
         d = users.get_user_by_id(req.body.id);
     }
 
-   
+
     // console.log(d);
     // console.log(req.body);
 
     if (typeof req.body.username != "undefined") d.username = req.body.username;
     if (typeof req.body.password != "undefined") d.password = req.body.password;
-    
+
     if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
     if (typeof req.body.role != "undefined") d.role = req.body.role;
     if (typeof req.body.email != "undefined") d.email = req.body.email;
     console.log(req.body.disabled);
     // if(typeof req.body.disabled != "undefined") {
     //if the disabled flag is not sent to the server the drone will be not disabled
-    
+
     if (d.id == -1) {
         newd = users.add(d)
     }
