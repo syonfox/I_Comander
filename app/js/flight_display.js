@@ -19,12 +19,12 @@ function getRecentFlights() {
 
 function displayRecentFlights(flights) {
     var item = `
-        <table id="flight_table" style="width:100%">
+        <table id="flight_table">
         <tr>
-            <th>Flight ID</th>
-            <th>Drone ID</th>
-            <th>Start Time</th>
-            <th>End Time</th>`;
+            <th class="f_header">Flight ID</th>
+            <th class="f_header">User</th>
+            <th class="f_header">Start Time</th>
+            <th class="f_header">End Time</th>`;
 
     Array.prototype.forEach.call(flights.flights, flight => {
         // need a better way to crop out the time zone
@@ -33,10 +33,10 @@ function displayRecentFlights(flights) {
 
         var item2 = ` 
             <tr>
-                <td>${flight.id}</td>
-                <td>${flight.user}</td>
-                <td>${startTime}</td>
-                <td>${endTime}</td> 
+                <td class="f_data">${flight.id}</td>
+                <td class="f_data">${flight.user}</td>
+                <td class="f_data">${startTime}</td>
+                <td class="f_data">${endTime}</td> 
             <tr>`;
 
         item = item.concat(item2);

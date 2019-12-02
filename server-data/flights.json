@@ -43,6 +43,7 @@
     },
     {
         "id": 1,
+        "user": "bob",
         "drone_id": 1,
         "start_time": "Sat Nov 09 2019 20:00:00 GMT-0800 (PST)",
         "end_time": "N/A",
