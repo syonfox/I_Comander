@@ -799,14 +799,14 @@ app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
                     res.render('accessDenied.ejs', r);
                     return;
                 case "user":
-                    res.render('accessDenied.ejs', r);
+                    res.redirect('accessDenied.ejs', r);
                     return;
                 case 'admin':
                 case 'superadmin':
-                    res.render('userMgmt.ejs', r);
+                    res.redirect('userMgmt.ejs', r);
                     return;
                 default:
-                    res.render('accessDenied.ejs', r);
+                    res.redirect('accessDenied.ejs', r);
                     return;
             }
 
