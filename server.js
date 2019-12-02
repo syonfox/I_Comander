@@ -793,28 +793,24 @@ app.get('/dashboard/ManageUsers', auth.checkAuthenticated,
             'user': req.user
         };
 
-        req.session.save(() => {
+        // req.session.save(() => {
             console.log(req.user.role);
             switch (req.user.role) {
-                case "guest":
-                    res.render('accessDenied.ejs', r);
-                    return;
-                case "user":
-                    res.redirect('accessDenied.ejs', r);
-                    return;
                 case 'admin':
                 case 'superadmin':
-                    res.redirect('userMgmt.ejs', r);
+                    res.render(__dirname + '/views/userMgmt.ejs', r);
                     return;
+                case "user":
+                case "guest":
                 default:
-                    res.redirect('accessDenied.ejs', r);
+                    res.render('accessDenied.ejs', r);
                     return;
             }
 
 
             /*   res.render('userMgmt.ejs', r)*/
             //res.sendFile(__dirname + '/add_checklist.ejs');
-        });
+        // });
     });
 
 
