@@ -817,7 +817,7 @@ app.post('/api/edit_user', auth.apiAuthenticated, (req, res) => {
     if (req.body.id == -1) {
         d = users.add();
     } else {
-        d = users.get_drone_by_id(req.body.id);
+        d = users.get_user_by_id(req.body.id);
     }
 
    

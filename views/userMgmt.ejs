@@ -85,7 +85,7 @@
 
         <div class="pure-g" style="padding: 2em">
             <div class="pure-u-1 ">
-                <h1>User Management TEST</h1>
+                <h1>User Management</h1>
             </div>
 
             <div id="list_header" class="pure-u-1 ">
@@ -242,17 +242,14 @@
             </div>`
     }
 
-    function gen_user_form(d, Ulist_options) {
+    function gen_user_form(d) {
         if(d == null) {
             d = {
                 id:-1,
                 name:'',
-                type:'',
+                password:'',
             }
         }
-
-        let disabled = '';
-        if(d.disabled) disabled = 'checked';
 
         return `<form id='edit_form_${d.id}' class="pure-form pure-form-aligned" enctype='multipart/form-data'
                       action="#" style="height: 100%; background: mintcream">
