@@ -266,7 +266,7 @@ app.get('/api/get_weather_geo', auth.checkAuthenticated, (req, res) => {
     })
 });
 
-app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => { 
+app.get('/api/get_recent_flights', auth.checkAuthenticated, (req, res) => {
     let options = {
         root: __dirname + '/server-data/'
     };
@@ -672,6 +672,7 @@ app.post('/api/submit_postflight', (req, res) => {
         for (var i =0; i < flights.flights.length; i ++){
           let f = flights.flights[i];
           if(f.id == formData.fid){
+            f.end_time = formData.end_time;
             f.postflight_list = formData;
           }
         }
@@ -753,4 +754,3 @@ app.get('/dashboard/ManageUsers',
 app.get('/inflight', auth.checkAuthenticated, (req,res)=>{
     res.render(__dirname + '/views/inflight.ejs');
 });
-

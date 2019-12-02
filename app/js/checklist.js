@@ -476,7 +476,8 @@ function saveToServer(formData){
   saveDataToServer(formData).then(dataFromNetwork => {
     console.log(dataFromNetwork);
     window.localStorage.setItem('fid', dataFromNetwork.fid);
-    loadIndex();
+    window.location.replace("/inflight");
+    //loadIndex();
   });
 }
 function saveDataToServer(formData){

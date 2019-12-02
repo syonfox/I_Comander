@@ -21,6 +21,7 @@ var container = document.getElementById('container');
 var lockouts = [];
 var tickets = [];
 let fid = window.localStorage.getItem('fid');
+let endFlight = window.localStorage.getItem('endFlight');
 
 function updateVars() {
     container = document.getElementById('container');
@@ -196,7 +197,7 @@ function bindOnSubmit(){
       lockouts.forEach(function(lock, idx){
         if(idx>0){
           message+='<br/>';
-          title = 'Invalid pre-flight checklist';
+          title = 'Invalid post-flight checklist';
           body+=',';
         }
         if(lock.alert){
@@ -209,7 +210,7 @@ function bindOnSubmit(){
       });
       tickets.forEach(function(lock, idx){
         if(idx>0){
-          title = 'Tickets in pre-flight checklist';
+          title = 'Tickets in post-flight checklist';
           body+=',';
         }
         body += lock.ticket.body;
@@ -233,7 +234,7 @@ function bindOnSubmit(){
 
               let response = fetch("/api/add_ticket", {method: "POST",
               headers: { 'Content-Type': 'application/json' },body: JSON.stringify(submitTickets), credentials: "same-origin"});
-              loadIndex();
+              window.location.replace("/");
             }
             else{
               return;
@@ -255,7 +256,7 @@ function checkTickets(e){
     let body = '';
     tickets.forEach(function(lock, idx){
       if(idx>0){
-        title = 'Tickets in pre-flight checklist';
+        title = 'Tickets in post-flight checklist';
         body+=',';
       }
       body += lock.ticket.body;
@@ -304,6 +305,7 @@ function submitForm(e){
   object['drone_id']= parseInt(document.getElementById('checklistForm').dataset["drone"]);
   object['user']= document.getElementById('checklistForm').dataset["user"];
   object['fid']=fid;
+  object['end_time']=endFlight;
   console.log(JSON.stringify(object));
   if(Object.keys(object).length>0){
     saveToDB(object);
