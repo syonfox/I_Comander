@@ -214,11 +214,10 @@
         // // const params = new URLSearchParams([...new FormData(e.target).entries()]);
         // const response = await fetch("/api/edit_user", {method: "POST", body: params, credentials: "same-origin"})
         r = await response.json();
-        // console.log(r);
         let users = r;
         let d = r.updated_user
 
-        let item = gen_user_item(d, list_options);
+        let item = gen_user_item(d);
         dl.appendChild(item);
 
         console.log("Successfully added user")
@@ -294,7 +293,7 @@
                 </form>`
     }
 
-    function gen_user_item(d, list_options) {
+    function gen_user_item(d) {
 
         let item = document.createElement('div')
         item.classList.add('user_item')
@@ -303,13 +302,8 @@
         item.id = `user_item_${d.id}`;
 
 
-
-
-        let disabled = '';
-        if(d.disabled) disabled = 'checked';
-
-        let _form = gen_user_form(d,list_options);
-        // data-toggle="modal" data-target="#deleteModal${d.did}"
+        let _form = gen_user_form(d);
+        // data-toggle="modal" data-target="#deleteModal${d.id}"
         item.innerHTML = `
 
                 <div  id="e_info${d.id}" class="pure-g">
@@ -333,11 +327,6 @@
                     </div>
 
 
-
-
-                <div id="edit_user_${d.id}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
-                    ${_form}
-                </div>
                 </div>
 
                 ${gen_delete_confirm(d)}
@@ -354,25 +343,25 @@
 
         let responses = []
         responses.push(userdb_p);
-        responses.push(Ulistdb_p);
+        /*responses.push(Ulistdb_p);*/
         // console.log(responses)
         Promise.all(responses).then(value => {
 
             console.log(value)
-            userdb = value[0];
-            listdb = value[1];
+            users = value[0];
+            /*listdb = value[1];*/
 
-            Ulist_options = ``;
+            /*Ulist_options = ``;
             Ulistdb.lists.forEach(l => {
                 list_options += `<option value='${l.lid}'>${l.label}</option>`;
-            })
+            })*/
 
             let adddiv = document.getElementById('add_user');
-            adddiv.innerHTML = gen_user_form(null, list_options)
+            adddiv.innerHTML = gen_user_form(null)
             document.getElementById(`edit_form_-1`).onsubmit = addSubmit
             // console.log(userdb);
             users.users.forEach((d) => {
-                let item = gen_user_item(d, list_options);
+                let item = gen_user_item(d);
                 dl.appendChild(item);
                 document.getElementById(`edit_form_${d.id}`).onsubmit = editSubmit
 
@@ -382,6 +371,7 @@
     }
 
     let users = {};
+    init_user_list();
 
 </script>
 
