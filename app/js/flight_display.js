@@ -19,7 +19,8 @@ function getRecentFlights() {
 
 function displayRecentFlights(flights) {
     var item = `
-        <table id="flight_table">
+        <h2 style="margin-top: 40px">Recent Flights</h3>
+        <table id="flight_table" class="pure_g">
         <tr>
             <th class="f_header">Flight ID</th>
             <th class="f_header">User</th>
