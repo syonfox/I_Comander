@@ -18,27 +18,32 @@ function getRecentFlights() {
 
 
 function displayRecentFlights(flights) {
-    const item = `
+    var item = `
         <table id="flight_table" style="width:100%">
         <tr>
             <th>Flight ID</th>
             <th>Drone ID</th>
             <th>Start Time</th>
-            <th>End Time</th>
-            <th>Status</th>
-    `
+            <th>End Time</th>`;
 
-    /* working on dynamically adding flights
-    const item = 
-        `<table id="flighttable">
-         <tr>
-            <td>${flights.flights[0].id}</td>
-            <td>${flights.flights[0].user}</td>
-         <tr>
-         <table>`;
-    */
+    Array.prototype.forEach.call(flights.flights, flight => {
+        var startTime = flight.start_time.slice(4, 24);
+        var endTime = flight.end_time.slice(4, 24);
+
+        var item2 = ` 
+            <tr>
+                <td>${flight.id}</td>
+                <td>${flight.user}</td>
+                <td>${startTime}</td>
+                <td>${endTime}</td> 
+            <tr>`;
+
+        item = item.concat(item2);
+
+    });
+    item = item.concat("</table>");
+
     contain2.insertAdjacentHTML('beforeend', item);
-
 }
 
 function loadFlights() {
