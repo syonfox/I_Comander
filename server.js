@@ -362,9 +362,53 @@ app.get('/admin/add_drone/add_check_list',
 });
 
 
-app.post('/api/add_check_list', (req, res) => {
-    console.log("hehhehee")
+app.post('/api/add_new_checklist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+    const path = __dirname + '/server-data/checklist.json';
+    let checklistdb = {};
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        checklistdb = JSON.parse(data);
+        ++checklistdb.next_lid
+        checklistdb.lists.push(req.body);
 
+        let checklistJson = JSON.stringify(checklistdb, null, 2);
+        fs.writeFile(path, checklistJson, err => {
+            if (err) {
+                console.error(err);
+                // return false;
+            } else {
+                console.log("Saved checklistDB to file");
+                res.send(checklistJson);
+            }
+        });
+    });
+});
+app.post('/api/add_new_sublist_checklist_tab', auth.apiAuthenticated, (req, res) => {
+    const path = __dirname + '/server-data/checklist.json';
+    let sublistdb = {};
+    fs.readFile(path, (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        sublistdb = JSON.parse(data);
+        ++sublistdb.next_sid
+        sublistdb.sublists.push(req.body);
+
+        let checklistJson = JSON.stringify(sublistdb, null, 2);
+        fs.writeFile(path, checklistJson, err => {
+            if (err) {
+                console.error(err);
+                // return false;
+            } else {
+                console.log("Saved sublistdb to file");
+                res.send(checklistJson);
+            }
+        });
+    });
 });
 // app.post('/pre_checklist_admin', (req, res) => {
 //     console.log("hahhahhahhahahahhahahahhhah");

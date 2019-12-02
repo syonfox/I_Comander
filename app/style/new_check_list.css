@@ -81,3 +81,7 @@ body {
 .createElementsSublist input, .createElementsSublist div {
     margin-right: 1%;
 }
+
+#accordion .sortable0 button, #accordion2 .sortable0 button{
+    margin-bottom: 1%;
+}
