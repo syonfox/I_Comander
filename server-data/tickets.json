@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
+  "next_tid": 47,
+  "open": 2,
+=======
   "next_tid": 49,
   "open": 4,
+>>>>>>> 308644be439feec094320c3c0641ac320acaa776
   "tickets": [
     {
       "tid": 0,
@@ -120,12 +125,21 @@
       "resolved": false
     },
     {
+<<<<<<< HEAD
+      "tid": 46,
+      "did": "9",
+      "title": "asc",
+      "body": "asc",
+      "created_by": "root",
+      "created_at": 1575261864724,
+=======
       "tid": 48,
       "did": 2,
       "title": "Invalid pre-flight checklist",
       "body": "all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved,all cats must be loved",
       "created_by": "starfox",
       "created_at": 1575262502533,
+>>>>>>> 308644be439feec094320c3c0641ac320acaa776
       "comments": [],
       "tags": [],
       "lockout": false,

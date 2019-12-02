@@ -1,6 +1,10 @@
 {
+<<<<<<< HEAD
+  "next_did": 34,
+=======
   "next_did": 36,
   "next_did": 32,
+>>>>>>> 308644be439feec094320c3c0641ac320acaa776
   "drones": [
     {
       "did": 1,
@@ -49,6 +53,22 @@
       "disabled": true,
       "type": "Quad Wings1",
       "image": "upload/b7ef601393f0f4671167f40fcbaf9d1a"
+    },
+    {
+      "did": 32,
+      "name": "",
+      "lockedout": false,
+      "disabled": false,
+      "type": "",
+      "image": "deafultDrone.jpeg"
+    },
+    {
+      "did": 33,
+      "name": "asd",
+      "lockedout": false,
+      "disabled": false,
+      "type": "asd",
+      "image": "deafultDrone.jpeg"
     }
   ],
   "updated_drone": {

@@ -81,7 +81,7 @@ function addChecklistTab(){
     ${createTrigger?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createTrigger}</button>`:''}
     ${createAlert?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createAlert}</button>`:''}
     ${createTicket?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${createTicket}</button>`:''}
-    <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>`
+    <button type="button" class="btn btn-outline-danger btn-sm float-right deleteForSubsChecklist">Delete</button></li>`
 
     $('.sortable0ForAddInChecklistTab').append(itemsForOneList)
 
@@ -171,7 +171,6 @@ function addChecklistTab(){
         }
     }
     checklistSubs.push(oneItem)
-    console.log(checklistSubs)
 }
 
 function addSublistTab(){
@@ -199,34 +198,148 @@ function addSublistTab(){
 
     $('.sortable0ForAddInSublistTab').append(itemsForOneList)
 
-    $('#createSid').val('')     //reset inputs to prevent conflicts
-    $('#createLabel').val('')
-    $('#createList').val('')
-    $('#createTrigger').val('')
-    $('#createAlert').val('')
-    $('#createTicket').val('')
+    $('#createSidSublist').val('')     //reset inputs to prevent conflicts
+    $('#createLabelSublist').val('')
+    $('#createListSublist').val('')
+    $('#createTriggerSublist').val('')
+    $('#createAlertSublist').val('')
+    $('#createTicketSublist').val('')
+
+    oneItem = {}
+    if(dropdownMenuButtonAddNewItem == 'Sublist'){
+        oneItem = {
+            "type": dropdownMenuButtonAddNewItem,
+            "sid": createSid
+        }
+    }else if((dropdownMenuButtonAddNewItem == 'CheckBox') || (dropdownMenuButtonAddNewItem == 'Input')){
+        if(dropdownMenuButtonAction == 'LockOut'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "alert": createAlert,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        }else if(dropdownMenuButtonAction == 'Ticket'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        } else{       //none is selected
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "action": "None"
+              }
+        }
+    }else if(dropdownMenuButtonAddNewItem == 'DropDown'){
+        if(dropdownMenuButtonAction == 'LockOut'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "options": [
+                    createList
+                  ],
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "alert": createAlert,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        }else if(dropdownMenuButtonAction == 'Ticket'){
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "options": [
+                    createList
+                  ],
+                "action": dropdownMenuButtonAction,
+                "trigger": createTrigger,
+                "ticket": {
+                  "title": createTicket,
+                  "body": createTicket
+                }
+              }
+        }else{
+            oneItem = {
+                "type": dropdownMenuButtonAddNewItem,
+                "label": createLabel,
+                "options": [
+                    createList
+                  ],
+                "action": "None"
+              }
+        }
+    }
+    sublistSubs.push(oneItem)
 }
 
 async function addAllChecklistWithSubsToDB(){
     if($('#nameOfChecklist').val() == '') return;
-    //if(checklistSubs.length == 0) return;
+    if(checklistSubs.length == 0) return;
     nameOfChecklist = $('#nameOfChecklist').val()
     checklist = {
-        "lid": 0,
+        "lid": ++(checklistdb.next_lid),
         "label": nameOfChecklist,
         "items": checklistSubs
     }
-    console.log(checklist)
-    const response = await fetch("/api/add_check_list", {method: "POST", body: checklist, credentials: "same-origin"})
-    // r = await response.json();
-    // // console.log(r);
-    // let drones = r;
-    // let d = r.updated_drone
+    const response = await fetch("/api/add_new_checklist_checklist_tab", {method: "POST", body: JSON.stringify(checklist), headers: { "Content-Type": "application/json" }, credentials: "same-origin"})
+    r = await response.json();
+    checklistdb_p = r
+    $('#nameOfChecklist').val('')
+    $('#sortable').html('');
+    $('#accordion h3, #accordion div').not(':first').remove(); //except the first child which is the adding checklists one
+    $('.sortable0ForAddInSublistTab').html('');
+    $('#accordion2 h3, #accordion2 div').not(':first').remove();
+    init_drone_list();
+}
+
+
+async function addAllSublistWithSubsToDB(){
+    if($('#nameOfSublist').val() == '') return;
+    if(sublistSubs.length == 0) return;
+    nameOfSublist = $('#nameOfSublist').val()
+    checklist = {
+        "sid": ++(checklistdb.next_sid),
+        "label": nameOfSublist,
+        "items": sublistSubs
+    }
+    const response = await fetch("/api/add_new_sublist_checklist_tab", {method: "POST", body: JSON.stringify(checklist), headers: { "Content-Type": "application/json" }, credentials: "same-origin"})
+    r = await response.json();
+    checklistdb_p = r
+    $('#nameOfSublist').val('')
+    $('.sortable0ForAddInSublistTab').html('');
+    //$('#accordion2 h3, #accordion2 div').not(':first').remove();
+    $('#accordion2 h3, #accordion2 div').slice(1).remove();
+    //$('#accordion h3, #accordion div').not(':first').remove();
+    $('#accordion h3, #accordion div').slice(1).remove();
+    $('#sortable').html('');
+    init_drone_list();
+}
+
+function removeSubButtons(){
+    $('.deleteForSubsChecklist').click(function(){
+        $('body').hide()
+        //this.hidden()
+    })
 }
 
 
 let checklistdb = {};
 let checklistSubs = []
+let sublistSubs = []
 init_drone_list();
 $('#saveChecklistSubs').click(function(){
     addChecklistTab()
@@ -237,5 +350,9 @@ $('.saveItemBtnSublist').click(function(){
 $('#saveTheChecklist').click(function(){
     addAllChecklistWithSubsToDB()
 })
+$('#saveTheSublist').click(function(){
+    addAllSublistWithSubsToDB()
+})
+removeSubButtons();
 
 
