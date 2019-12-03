@@ -35,7 +35,7 @@ function getServerData() {
 function updateUI(drones) {
 
   Array.prototype.forEach.call(drones.drones, drone => {
-    if(!drone.lockedout) {
+    if(!drone.lockedout && !drone.disabled) {
       const item = `<a class="card" value="${drone.did}" onclick="loadChecklist(${drone.did});">
          <div class="card_text">
 		   <img src="/images/${drone.image}" class="card_image"></img>

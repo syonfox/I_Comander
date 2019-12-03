@@ -22,6 +22,26 @@
       "image": "drone2.jpg"
     },
     {
+        "did": 3,
+        "name": "Gripen",
+        "lockedout": false,
+        "disabled": false,
+        "preflight_lid": 22,
+        "postflight_lid": 22,
+        "type": "Fighter",
+        "image": "sweden.jpg"
+    },
+    {
+        "did": 4,
+        "name": "F18",
+        "lockedout": false,
+        "disabled": false,
+        "preflight_lid": 0,
+        "postflight_lid": 0,
+        "type": "Jet",
+        "image": "deafultDrone.jpeg"
+    },
+    {
       "did": 8,
       "name": "test",
       "lockedout": false,
