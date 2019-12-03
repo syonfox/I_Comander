@@ -55,7 +55,7 @@ socket.on('new_ticket', function (data) {
     ticketdb_p.then(tdb => update_ticket_list(tdb.tickets));
 
 
-    // var myNotification = new Notification("A New Ticket Was Added", {body: data.title});
+    var myNotification = new Notification("A New Ticket Was Added", {body: data.title});
 });
 
 function parse_promises(v) {
