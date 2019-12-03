@@ -914,9 +914,9 @@ app.post('/api/delete_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
     console.log('delete_user');
     console.log(req.body);
 
-    users.del(req.body.did);
+    users.del(req.body.id);
     r = users.get_users();
-    r.deleted_did = req.body.did;
+    r.deleted_id = req.body.id;
     res.send(JSON.stringify(r));
 });
 
