@@ -1,13 +1,13 @@
 {
-  "next_did": 10,
+  "next_did": 11,
   "drones": [
     {
       "did": 1,
       "name": "Mavic_test",
       "lockedout": true,
       "disabled": false,
-      "preflight_lid": 0,
-      "postflight_lid": 0,
+      "preflight_lid": 38,
+      "postflight_lid": 38,
       "type": "Quad Wings1",
       "image": "upload/885cfed3ef3969f06c74e398919c94ac"
     },
@@ -40,6 +40,16 @@
       "disabled": false,
       "type": "Quad Wing",
       "image": "upload/58c2664c9b9e0ed2783658b82939ef5e"
+    },
+    {
+      "did": 10,
+      "name": "test with a checklist",
+      "lockedout": false,
+      "disabled": false,
+      "preflight_lid": 22,
+      "postflight_lid": 34,
+      "type": "no type",
+      "image": "deafultDrone.jpeg"
     }
   ]
 }

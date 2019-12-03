@@ -1,20 +1,22 @@
+<style>
+body {
+    background: #457B9D;
+}
+</style>
 <button class="pure-button-primary pure-button" style="width: 10%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; float: left;" onclick="loadDrones();">Back</button>
 <button class="pure-button-primary pure-button" style="width: 90%; height: 50px; border-radius: 0px 0px 0px 0px; padding: 0px; margin: 0px; background-color: black">Preflight Checklist</button>
-<form id="checklistForm" data-checklist="<%=checklistid%>" data-drone="<%=droneid%>" data-user="<%=user.username%>">
-   <div id="container" class="container">
-
-
+<form id="checklistForm" data-checklist="<%=checklistid%>" data-drone="<%=droneid%>" data-user="<%=user.username%>" >
+   <div id="container" class="container" style="background: #457B9D;">
 
   </div>
   <div class="row">
   <div class="submitContainer">
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-outline-dark">Submit</button>
 
   </div>
   </div>
 </form>
-
 <script>
 function init_menu(window, document) {
 

@@ -1,87 +1,6 @@
 {
-  "next_lid": 37,
+  "next_lid": 41,
   "lists": [
-    {
-      "lid": 0,
-      "label": "Preflight Checklist",
-      "items": [
-        {
-          "type": "sublist",
-          "sid": 0
-        },
-        {
-          "type": "checkbox",
-          "label": "My cool Cheack box",
-          "action": "none"
-        },
-        {
-          "type": "sublist",
-          "sid": 1
-        },
-        {
-          "type": "sublist",
-          "sid": 2
-        },
-        {
-          "type": "sublist",
-          "sid": 3
-        },
-        {
-          "type": "sublist",
-          "sid": 4
-        },
-        {
-          "type": "sublist",
-          "sid": 5
-        },
-        {
-          "type": "sublist",
-          "sid": 6
-        },
-        {
-          "type": "sublist",
-          "sid": 7
-        }
-      ]
-    },
-    {
-      "lid": 2,
-      "label": "Test List",
-      "items": [
-        {
-          "type": "Input",
-          "label": "enter ur name user!",
-          "action": "LockOut",
-          "trigger": "angry",
-          "alert": "danger",
-          "ticket": {
-            "title": "asdczxc asd",
-            "body": "asdczxc asd"
-          }
-        },
-        {
-          "type": "CheckBox",
-          "label": "human?",
-          "action": "None"
-        },
-        {
-          "type": "DropDown",
-          "label": "drink",
-          "options": [
-            "cofee,beer,water"
-          ],
-          "action": "ticket",
-          "trigger": [
-            "Black",
-            "Blue"
-          ],
-          "ticket": {
-            "title": "Bad Fav Color",
-            "body": "We all know green is the best color time to change some minds"
-          }
-        }
-      ]
-    },
     {
       "lid": 22,
       "label": "uselessChecklist",
@@ -121,18 +40,50 @@
       ]
     },
     {
-      "lid": 34,
-      "label": "testList",
+      "lid": 38,
+      "label": "cas",
       "items": [
         {
-          "type": "Sublist",
-          "sid": "18"
-        },
+          "type": "DropDown",
+          "label": "asd",
+          "options": [
+            ""
+          ],
+          "action": "None"
+        }
+      ]
+    },
+    {
+      "lid": 39,
+      "label": "as,djhaskjd",
+      "items": [
+        {
+          "type": "CheckBox",
+          "label": "asjd",
+          "action": "None"
+        }
+      ]
+    },
+    {
+      "lid": 40,
+      "label": "test",
+      "items": [
+        {
+          "type": "CheckBox",
+          "label": "asd",
+          "action": "None"
+        }
+      ]
+    },
+    {
+      "lid": 41,
+      "label": "asdzxcz",
+      "items": [
         {
           "type": "DropDown",
-          "label": "testDrop",
+          "label": "asd",
           "options": [
-            "[a,b,c]"
+            ""
           ],
           "action": "None"
         }

@@ -91,7 +91,7 @@ function UpdateFormUI(checklist) {
           <div class="card-header" id="${'heading'+idx}">
             <h5 class="mb-0">
               <button type="button" class="btn btn-link" data-toggle="collapse" data-target="${'#collapse'+idx}" aria-expanded="true" aria-controls="${'collapse'+idx}">
-                <li class="list-group-item activeSelectChecklist ">${checklistItem.label}</li>
+                <li class="list-group-item activeSelectChecklist" style="border: none; color: #000">${checklistItem.label}</li>
               </button>
             </h5>
           </div>
