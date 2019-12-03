@@ -334,7 +334,8 @@
                     <div class="pure-u-1 pure-u-md-1-4" id="e_btns${d.id}" style="float: right;">
                          <button class="pure-button-primary" style="background: mintcream; color: #99121d" data-toggle="modal" data-target="#deleteModal${d.id}" >X</button>
 
-                         <button class="pure-button-primary" data-toggle="collapse" data-target="#edit_user_${d.id}">Edit</button>
+                         
+
                     </div>
 
                     <div id="edit_drone_${d.id}" class="pure-u-1 collapse" style="border-width: 2px 0 0 0; border-style: solid">
@@ -350,6 +351,8 @@
         return item;
 
     }
+
+/*<button class="pure-button-primary" data-toggle="collapse" data-target="#edit_user_${d.id}">Edit</button>*/
 
     async function init_user_list() {
         dl = document.getElementById('user_list');

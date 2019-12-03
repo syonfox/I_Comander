@@ -255,8 +255,10 @@ function bindOnSubmit(){
       let message = '';
       let title = lockouts[0].ticket.title;
       let body = '';
+      let isLockout = '';
       lockouts.forEach(function(lock, idx){
         if(idx>0){
+            isLockout = true;
           message+='<br/>';
           title = 'Invalid pre-flight checklist';
           body+=',';
@@ -291,7 +293,12 @@ function bindOnSubmit(){
         callback: function (result) {
 
             if(result){
-              let submitTickets = {title: title, body: body, did: parseInt(document.getElementById('checklistForm').dataset["drone"])};
+              let submitTickets = {
+                  title: title,
+                  body: body,
+                  did: parseInt(document.getElementById('checklistForm').dataset["drone"]),
+                  lockout: isLockout
+              };
 
               let response = fetch("/api/add_ticket", {method: "POST",
               headers: { 'Content-Type': 'application/json' },body: JSON.stringify(submitTickets), credentials: "same-origin"});

@@ -149,7 +149,7 @@ exports.addRoutes = function (app, auth, io, drones) {
         t.title = req.body.title;
         if(drones.valid_did(req.body.did))
             t.did = req.body.did;
-        t.lockout = req.body.lockout == 'on';
+        t.lockout = req.body.lockout == 'on' || req.body.lockout == true;
 
         if(t.lockout && t.did != undefined) drones.disable(t.did);
         // console.log(t);
