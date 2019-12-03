@@ -11,7 +11,7 @@ function load() {
             console.error(err);
             return;
         }
-        userdb =  JSON.parse(data);
+        userdb = JSON.parse(data);
         // console.log(JSON.parse(data));
         console.log("Users Loaded")
     });
@@ -20,12 +20,11 @@ function load() {
 load();
 
 
+async function save() {
 
-async function save(){
-
-    if(userdb == undefined) {
+    if (userdb == undefined) {
         console.log("Userdb undefined");
-        return ;
+        return;
     }
     let usersJson = JSON.stringify(userdb, null, 2);
 
@@ -40,31 +39,31 @@ async function save(){
 };
 exports.save = save;
 
-  /**
-   * Updates the user in the database and saves it to file.  IF the password is changes
-   * it will compute the new password hash and updated the db. You cannot change the username or user id
-   *
-   * @param {number} id The id of the usere you want to update
-   * @param {user} newuser The updated user object
-   */
-exports.update = function(id, newuser) {
-    let i = userdb.users.findIndex(user=>user.id == id);
+/**
+ * Updates the user in the database and saves it to file.  IF the password is changes
+ * it will compute the new password hash and updated the db. You cannot change the username or user id
+ *
+ * @param {number} id The id of the usere you want to update
+ * @param {user} newuser The updated user object
+ */
+exports.update = function (id, newuser) {
+    let i = userdb.users.findIndex(user => user.id == id);
 
-    if(userdb.users[i].username != newuser.username) throw "You Cant Change Userenames";
-    if(userdb.users[i].id != newuser.id) throw "You Cant Change User Id";
-    if(userdb.users[i].password != newuser.password) throw "User changePasswor(id, oldpw, newpw) to Change password";
+    if (userdb.users[i].username != newuser.username) throw "You Cant Change Userenames";
+    if (userdb.users[i].id != newuser.id) throw "You Cant Change User Id";
+    if (userdb.users[i].password != newuser.password) throw "User changePasswor(id, oldpw, newpw) to Change password";
     userdb.users[i] = newuser;
     console.log("Updated" + userdb.users[i].username);
     save();
 };
 
-function changePassword(id, oldpw, newpw){
-    let i = userdb.users.findIndex(user=>user.id == id);
+function changePassword(id, oldpw, newpw) {
+    let i = userdb.users.findIndex(user => user.id == id);
 
     let same = bcrypt.compareSync(oldpw, userdb.users[i].password);
     console.log(same);
-    if(!same) return "Current Password Incorrect";
-    if(oldpw == newpw) return true;
+    if (!same) return "Current Password Incorrect";
+    if (oldpw == newpw) return true;
 
     let hashedPassword = bcrypt.hashSync(newpw, 10);
     userdb.users[i].password = hashedPassword;
@@ -73,12 +72,24 @@ function changePassword(id, oldpw, newpw){
     save();
     return true
 }
+
 exports.changePassword = changePassword;
+
+function set_password(id, newpw) {
+    let i = userdb.users.findIndex(user => user.id == id);
+    let hashedPassword = bcrypt.hashSync(newpw, 10);
+    userdb.users[i].password = hashedPassword;
+    // console.log(hashedPassword);
+    // console.log(userdb.users[i].password);
+    save();
+    return true
+
+}
 
 
 function addUser(req) {
 
-    if(userdb.users.some(u=>u.username == req.body.username)) {
+    if (userdb.users.some(u => u.username == req.body.username)) {
         throw "Username Already Exists";
     }
 
@@ -97,57 +108,38 @@ function addUser(req) {
     save();
     return newUser
 }
+
 exports.addUser = addUser;
 
-exports.findByUsername = function(username, cb) {
+exports.findByUsername = function (username, cb) {
 
-    let u = userdb.users.find(user=>user.username == username);
+    let u = userdb.users.find(user => user.username == username);
     // console.log(userdb.users);
     // console.log(u);
     if (u == undefined) u = null;
     cb(null, u);
 };
 
-exports.findById = function(id, cb){
-    let u = userdb.users.find(user=>user.id == id);
+exports.get_user_by_id = function (id) {
+    return userdb.users.find(user => user.id == id);
+};
+
+exports.get_user_by_username = function (username) {
+    return userdb.users.find(user => user.username == username);
+};
+exports.findById = function (id, cb) {
+    let u = userdb.users.find(user => user.id == id);
     if (u == undefined) u = null;
     cb(null, u);
 };
 
+exports.addRoutes = function (app, auth) {
 
 
-// exports.findByUsername = function(username, cb) {
-//     let jsonFile = __dirname + '/server-data/users.json';
-//     fs.readFile(jsonFile, (err, data) => {
-//         if (err) {
-//             cb(err, null);
-//             return;
-//         }
-//         let userdb = JSON.parse(data);
-//         r = userdb.users.find(user => user.username == username);
-//         console.log(r);
-//         if (r == undefined) r = null;
-//         cb(null, r);
-//     });
-// };
-//
-// exports.findById = function(id, cb){
-//     let jsonFile = __dirname + '/server-data/users.json';
-//     // console.log(jsonFile);
-//     fs.readFile(jsonFile, (err, data) => {
-//         // console.log(data)
-//         if (err) {
-//             cb(err, null);
-//             return;
-//         }
-//         let userdb = JSON.parse(data);
-//         r = userdb.users.find(user => user.id == id);
-//         // console.log(r);
-//         if (r == undefined) r = null;
-//         cb(null, r);
-//     });
-// };
-exports.addRoutes = function(app,auth) {
+    app.get('/api/get_users', auth.apiAuthenticatedRole('user'), (req, res) => {
+        res.json(userdb);
+    });
+
     app.post('/api/edit_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
 
         // console.log(req.file.path);
@@ -155,40 +147,43 @@ exports.addRoutes = function(app,auth) {
         // console.log(req.file.mimetype);
 
         console.log(req.body);
-        let d;
+        let u;
         if (req.body.id == -1) {
-            d = add();
+            u = addUser(req);
+            u.role = req.body.role || 'guest';
+            u.displayName = req.body.displayName || req.body.username;
+
+            r = {
+                users: userdb,
+                updated_user: u
+            };
+
+            res.send(JSON.stringify(r));
+            return;
+
         } else {
-            d = get_user_by_id(req.body.id);
+            u = get_user_by_id(req.body.id);
         }
 
+        u.username = req.body.username || u.username;
+        u.displayName = req.body.displayName || u.displayName;
+        u.email = req.body.password || u.password;
+        u.role = req.body.role || u.role;
 
-        // console.log(d);
-        // console.log(req.body);
+        update(u.id, u);
 
-        if (typeof req.body.username != "undefined") d.username = req.body.username;
-        if (typeof req.body.password != "undefined") d.password = req.body.password;
-
-        if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
-        if (typeof req.body.role != "undefined") d.role = req.body.role;
-        if (typeof req.body.email != "undefined") d.email = req.body.email;
-        console.log(req.body.disabled);
+        if (req.body.password) {
+            set_password(u.id, req.body.password)
+        }
         // if(typeof req.body.disabled != "undefined") {
         //if the disabled flag is not sent to the server the drone will be not disabled
 
-        if (d.id == -1) {
-            newd = users.add(d)
-        }
-
-        update(d);
-
         r = {
-            users: users,
-            updated_user: d
+            users: userdb,
+            updated_user: u
         };
 
         res.send(JSON.stringify(r));
-
 
     });
 }

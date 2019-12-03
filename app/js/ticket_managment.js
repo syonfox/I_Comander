@@ -55,7 +55,7 @@ socket.on('new_ticket', function (data) {
     ticketdb_p.then(tdb => update_ticket_list(tdb.tickets));
 
 
-    // var myNotification = new Notification("A New Ticket Was Added", {body: data.title});
+    var myNotification = new Notification("A New Ticket Was Added", {body: data.title});
 });
 
 function parse_promises(v) {
@@ -274,12 +274,12 @@ function update_ticket_list(tickets) {
 
     // console.log(sm);
     switch (sm) {
-        case 'new':
+        case 'old':
             tickets.sort((a, b) => {
                 return a.created_at - b.created_at;
             });
             break;
-        case 'old':
+        case 'new':
             tickets.sort((a, b) => {
                 return b.created_at - a.created_at;
             });

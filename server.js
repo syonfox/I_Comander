@@ -110,7 +110,7 @@ app.get('/demo-index.html', (req, res) => {
     res.sendFile(__dirname + '/app/demo-index.html');
 });
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard',auth.checkAuthenticatedRole('admin'), (req, res) => {
     r = {
         'user': req.user,
     };
@@ -292,9 +292,10 @@ app.get('/api/get_recent_flights', auth.apiAuthenticatedRole('user'), (req, res)
     });
 });
 
-app.post('/api/edit_profile', auth.apiAuthenticatedRole('admin'), (req, res) => {
+app.post('/api/edit_profile', auth.apiAuthenticated, (req, res) => {
     // console.log(req.user);
     // console.log(req.body);
+
     console.log("EditUser");
     console.log(req.user.username);
 
@@ -556,19 +557,19 @@ app.get('/api/getAll', (req, res) => {
 //in tickets.js now
 // app.get('/api/get_tickets', auth.apiAuthenticated, (req, res) => {
 
-app.get('/api/get_users', auth.apiAuthenticatedRole('user'), (req, res) => {
-    let options = {
-        root: __dirname + '/server-data/'
-    };
-
-    const fileName = 'users.json';
-    res.sendFile(fileName, options, (err) => {
-        if (err) {
-            res.sendStatus(500);
-            return;
-        }
-    });
-});
+// app.get('/api/get_users', auth.apiAuthenticatedRole('user'), (req, res) => {
+//     let options = {
+//         root: __dirname + '/server-data/'
+//     };
+//
+//     const fileName = 'users.json';
+//     res.sendFile(fileName, options, (err) => {
+//         if (err) {
+//             res.sendStatus(500);
+//             return;
+//         }
+//     });
+// });
 
 //all drones api calls are in drones.js now
 
@@ -812,7 +813,9 @@ app.post('/api/submit_postflight', (req, res) => {
         for (var i =0; i < flights.flights.length; i ++){
           let f = flights.flights[i];
           if(f.id == formData.fid){
-            // f.end_time = formData.end_time;
+
+
+              
             f.postflight_list = formData;
           }
         }
@@ -917,44 +920,45 @@ app.post('/api/delete_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
     res.send(JSON.stringify(r));
 });
 
-app.post('/api/edit_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
-
-    // console.log(req.file.path);
-    // console.log(req.file.encoding);
-    // console.log(req.file.mimetype);
-
-    console.log(req.body);
-    let d;
-    if (req.body.id == -1) {
-        d = users.add();
-    } else {
-        d = users.get_user_by_id(req.body.id);
-    }
-
-
-    // console.log(d);
-    // console.log(req.body);
-
-    if (typeof req.body.username != "undefined") d.username = req.body.username;
-    if (typeof req.body.password != "undefined") d.password = req.body.password;
-
-    if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
-    if (typeof req.body.role != "undefined") d.role = req.body.role;
-    if (typeof req.body.email != "undefined") d.email = req.body.email;
-    console.log(req.body.disabled);
-    // if(typeof req.body.disabled != "undefined") {
-    //if the disabled flag is not sent to the server the drone will be not disabled
-
-    if (d.id == -1) {
-        newd = users.add(d)
-    }
-    users.update(d);
-    r = users.get_users();
-    r.updated_user = d;
-    res.send(JSON.stringify(r));
-
-
-});
+// app.post('/api/edit_user', auth.apiAuthenticatedRole('admin'), (req, res) => {
+//
+//     // console.log(req.file.path);
+//     // console.log(req.file.encoding);
+//     // console.log(req.file.mimetype);
+//
+//
+//     console.log(req.body);
+//     let d;
+//     if (req.body.id == -1) {
+//         d = users.add();
+//     } else {
+//         d = users.get_user_by_id(req.body.id);
+//     }
+//
+//
+//     // console.log(d);
+//     // console.log(req.body);
+//
+//     if (typeof req.body.username != "undefined") d.username = req.body.username;
+//     if (typeof req.body.password != "undefined") d.password = req.body.password;
+//
+//     if (typeof req.body.displayName != "undefined") d.displayName = req.body.displayName;
+//     if (typeof req.body.role != "undefined") d.role = req.body.role;
+//     if (typeof req.body.email != "undefined") d.email = req.body.email;
+//     console.log(req.body.disabled);
+//     // if(typeof req.body.disabled != "undefined") {
+//     //if the disabled flag is not sent to the server the drone will be not disabled
+//
+//     if (d.id == -1) {
+//         newd = users.add(d)
+//     }
+//     users.update(d);
+//     r = users.get_users();
+//     r.updated_user = d;
+//     res.send(JSON.stringify(r));
+//
+//
+// });
 
 
 app.get('/inflight', auth.checkAuthenticatedRole('user'), (req,res)=>{
