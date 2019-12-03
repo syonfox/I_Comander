@@ -274,12 +274,12 @@ function update_ticket_list(tickets) {
 
     // console.log(sm);
     switch (sm) {
-        case 'new':
+        case 'old':
             tickets.sort((a, b) => {
                 return a.created_at - b.created_at;
             });
             break;
-        case 'old':
+        case 'new':
             tickets.sort((a, b) => {
                 return b.created_at - a.created_at;
             });
