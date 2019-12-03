@@ -812,7 +812,9 @@ app.post('/api/submit_postflight', (req, res) => {
         for (var i =0; i < flights.flights.length; i ++){
           let f = flights.flights[i];
           if(f.id == formData.fid){
-            // f.end_time = formData.end_time;
+
+
+              
             f.postflight_list = formData;
           }
         }

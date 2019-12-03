@@ -11,9 +11,9 @@ function createSubHeaders(index, l){
         ${value.action?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.action}</button>`:''}
         ${value.trigger?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.trigger}</button>`:''}
         ${value.alert?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.alert}</button>`:''}
-        ${value.ticket?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.ticket.body}</button>`:''}
-        <button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li>`
+        ${value.ticket?`<button type="button" class="btn btn-secondary" style="cursor: context-menu;">${value.ticket.body}</button>`:''} `
     });
+    //<button type="button" class="btn btn-outline-danger btn-sm float-right">Delete</button></li> ability to delete already stored subs
     return itemsForOneList;
 }
 
@@ -28,11 +28,11 @@ async function init_drone_list() {
         for (let [index, l] of checklistdb.lists.entries()) {
             //<button type="button" class="btn btn-outline-dark btn-sm float-right">Edit</button>
             list_of_checklists_tab += `
-            <h3 class="row " style="overflow: hidden;" uniqueId="checklistWithSubs${l.lid}">
+            <h3 class="row checklistsWithSubs" style="overflow: hidden;" uniqueId="checklistWithSubs${l.lid}">
                     ${l.label}
                     <button type="button" class="btn btn-outline-danger btn-sm float-right deleteChecklistBtn">Delete</button>
             </h3>
-            <div class="" uniqueId="checklistWithSubs${l.lid}">
+            <div class="checklistsWithSubs" uniqueId="checklistWithSubs${l.lid}">
                     <ul id="sortable" class="sortable0">
                             ${createSubHeaders(index, l.items)}
                     </ul>
@@ -44,12 +44,12 @@ async function init_drone_list() {
         //------- sublists tab
         for (let [index, l] of checklistdb.sublists.entries()) {
             list_of_sublists_tab += `
-            <h3 class="row" style="overflow: hidden;" uniqueId="sublistWithSubs${l.sid}">
+            <h3 class="row checklistsWithSubs" style="overflow: hidden;" uniqueId="sublistWithSubs${l.sid}">
                     ${l.label}
                     <span class="badge badge-dark">${l.sid}</span>
                     <button type="button" class="btn btn-outline-danger btn-sm float-right deleteSublistBtn">Delete</button>
             </h3>
-            <div class="" uniqueId="sublistWithSubs${l.sid}">
+            <div class="checklistsWithSubs" uniqueId="sublistWithSubs${l.sid}">
                     <ul id="sortable" class="sortable0">
                             ${createSubHeaders(index, l.items)}
                     </ul>
@@ -300,9 +300,10 @@ async function addAllChecklistWithSubsToDB(){
     checklistdb_p = r
     $('#nameOfChecklist').val('')
     $('#sortable').html('');
-    $('#accordion h3, #accordion div').not(':first').remove(); //except the first child which is the adding checklists one
+    //$('#accordion h3, #accordion div').not(':first').remove(); //except the first child which is the adding checklists one
     $('.sortable0ForAddInSublistTab').html('');
-    $('#accordion2 h3, #accordion2 div').not(':first').remove();
+    //$('#accordion2 h3, #accordion2 div').not(':first').remove();
+    $('.checklistsWithSubs').remove()
     init_drone_list();
 }
 
@@ -321,10 +322,7 @@ async function addAllSublistWithSubsToDB(){
     checklistdb_p = r
     $('#nameOfSublist').val('')
     $('.sortable0ForAddInSublistTab').html('');
-    //$('#accordion2 h3, #accordion2 div').not(':first').remove();
-    $('#accordion2 h3, #accordion2 div').slice(1).remove();
-    //$('#accordion h3, #accordion div').not(':first').remove();
-    $('#accordion h3, #accordion div').slice(1).remove();
+    $('.checklistsWithSubs').remove()
     $('#sortable').html('');
     init_drone_list();
 }
