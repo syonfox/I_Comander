@@ -1,5 +1,5 @@
 {
-  "next_did": 11,
+  "next_did": 12,
   "drones": [
     {
       "did": 1,
@@ -22,24 +22,24 @@
       "image": "drone2.jpg"
     },
     {
-        "did": 3,
-        "name": "Gripen",
-        "lockedout": false,
-        "disabled": false,
-        "preflight_lid": 22,
-        "postflight_lid": 22,
-        "type": "Fighter",
-        "image": "sweden.jpg"
+      "did": 3,
+      "name": "Gripen",
+      "lockedout": false,
+      "disabled": false,
+      "preflight_lid": 22,
+      "postflight_lid": 22,
+      "type": "Fighter",
+      "image": "sweden.jpg"
     },
     {
-        "did": 4,
-        "name": "F18",
-        "lockedout": false,
-        "disabled": false,
-        "preflight_lid": 0,
-        "postflight_lid": 0,
-        "type": "Jet",
-        "image": "deafultDrone.jpeg"
+      "did": 4,
+      "name": "F18",
+      "lockedout": false,
+      "disabled": false,
+      "preflight_lid": 0,
+      "postflight_lid": 0,
+      "type": "Jet",
+      "image": "deafultDrone.jpeg"
     },
     {
       "did": 8,
@@ -69,6 +69,16 @@
       "preflight_lid": 22,
       "postflight_lid": 34,
       "type": "no type",
+      "image": "deafultDrone.jpeg"
+    },
+    {
+      "did": 11,
+      "name": "ha",
+      "lockedout": false,
+      "disabled": false,
+      "preflight_lid": 43,
+      "postflight_lid": 43,
+      "type": "ha",
       "image": "deafultDrone.jpeg"
     }
   ]

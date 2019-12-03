@@ -1,5 +1,5 @@
 {
-  "next_lid": 41,
+  "next_lid": 43,
   "lists": [
     {
       "lid": 22,
@@ -86,6 +86,82 @@
             ""
           ],
           "action": "None"
+        }
+      ]
+    },
+    {
+      "lid": 42,
+      "label": "new new",
+      "items": [
+        {
+          "type": "dropdown",
+          "label": "asdzc",
+          "options": [
+            "zxcz"
+          ],
+          "action": "LockOut",
+          "trigger": "asd",
+          "alert": "asd",
+          "ticket": {
+            "title": "",
+            "body": ""
+          }
+        },
+        {
+          "type": "Input",
+          "label": "zxczdadad",
+          "action": "ticket",
+          "trigger": "zczds",
+          "ticket": {
+            "title": "asdzc",
+            "body": "asdzc"
+          }
+        },
+        {},
+        {},
+        {
+          "type": "Input",
+          "label": "aszcc",
+          "action": "ticket",
+          "trigger": "",
+          "ticket": {
+            "title": "",
+            "body": ""
+          }
+        }
+      ]
+    },
+    {
+      "lid": 43,
+      "label": "haha",
+      "items": [
+        {
+          "type": "sublist",
+          "sid": "9"
+        },
+        {
+          "type": "dropdown",
+          "label": "asasd",
+          "options": [
+            "aasdcasc"
+          ],
+          "action": "LockOut",
+          "trigger": "asc",
+          "alert": "asc",
+          "ticket": {
+            "title": "asc",
+            "body": "asc"
+          }
+        },
+        {
+          "type": "CheckBox",
+          "label": "ac",
+          "action": "ticket",
+          "trigger": "asd",
+          "ticket": {
+            "title": "asd",
+            "body": "asd"
+          }
         }
       ]
     }

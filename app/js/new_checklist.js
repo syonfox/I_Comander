@@ -93,15 +93,15 @@ function addChecklistTab(){
     $('#createTicket').val('')
 
     oneItem = {}
-    if(dropdownMenuButtonAddNewItem == 'Sublist'){
+    if(dropdownMenuButtonAddNewItem.toLowerCase() == 'sublist'){
         oneItem = {
-            "type": dropdownMenuButtonAddNewItem,
+            "type": dropdownMenuButtonAddNewItem.toLowerCase(),
             "sid": createSid
         }
-    }else if((dropdownMenuButtonAddNewItem == 'CheckBox') || (dropdownMenuButtonAddNewItem == 'Input')){
+    }else if((dropdownMenuButtonAddNewItem.toLowerCase() == 'checkbox') || (dropdownMenuButtonAddNewItem.toLowerCase() == 'input')){
         if(dropdownMenuButtonAction == 'LockOut'){
             oneItem = {
-                "type": dropdownMenuButtonAddNewItem,
+                "type": dropdownMenuButtonAddNewItem.toLowerCase(),
                 "label": createLabel,
                 "action": dropdownMenuButtonAction,
                 "trigger": createTrigger,
@@ -111,11 +111,11 @@ function addChecklistTab(){
                   "body": createTicket
                 }
               }
-        }else if(dropdownMenuButtonAction == 'Ticket'){
+        }else if(dropdownMenuButtonAction.toLowerCase() == 'ticket'){
             oneItem = {
                 "type": dropdownMenuButtonAddNewItem,
                 "label": createLabel,
-                "action": dropdownMenuButtonAction,
+                "action": dropdownMenuButtonAction.toLowerCase(),
                 "trigger": createTrigger,
                 "ticket": {
                   "title": createTicket,
@@ -129,10 +129,10 @@ function addChecklistTab(){
                 "action": "None"
               }
         }
-    }else if(dropdownMenuButtonAddNewItem == 'DropDown'){
+    }else if(dropdownMenuButtonAddNewItem.toLowerCase() == 'dropdown'){
         if(dropdownMenuButtonAction == 'LockOut'){
             oneItem = {
-                "type": dropdownMenuButtonAddNewItem,
+                "type": dropdownMenuButtonAddNewItem.toLowerCase(),
                 "label": createLabel,
                 "options": [
                     createList
@@ -145,14 +145,14 @@ function addChecklistTab(){
                   "body": createTicket
                 }
               }
-        }else if(dropdownMenuButtonAction == 'Ticket'){
+        }else if(dropdownMenuButtonAction.toLowerCase() == 'ticket'){
             oneItem = {
                 "type": dropdownMenuButtonAddNewItem,
                 "label": createLabel,
                 "options": [
                     createList
                   ],
-                "action": dropdownMenuButtonAction,
+                "action": dropdownMenuButtonAction.toLowerCase(),
                 "trigger": createTrigger,
                 "ticket": {
                   "title": createTicket,
@@ -206,15 +206,15 @@ function addSublistTab(){
     $('#createTicketSublist').val('')
 
     oneItem = {}
-    if(dropdownMenuButtonAddNewItem == 'Sublist'){
+    if(dropdownMenuButtonAddNewItem.toLowerCase() == 'sublist'){
         oneItem = {
-            "type": dropdownMenuButtonAddNewItem,
+            "type": dropdownMenuButtonAddNewItem.toLowerCase(),
             "sid": createSid
         }
-    }else if((dropdownMenuButtonAddNewItem == 'CheckBox') || (dropdownMenuButtonAddNewItem == 'Input')){
+    }else if((dropdownMenuButtonAddNewItem.toLowerCase() == 'checkbox') || (dropdownMenuButtonAddNewItem.toLowerCase() == 'input')){
         if(dropdownMenuButtonAction == 'LockOut'){
             oneItem = {
-                "type": dropdownMenuButtonAddNewItem,
+                "type": dropdownMenuButtonAddNewItem.toLowerCase(),
                 "label": createLabel,
                 "action": dropdownMenuButtonAction,
                 "trigger": createTrigger,
@@ -224,11 +224,11 @@ function addSublistTab(){
                   "body": createTicket
                 }
               }
-        }else if(dropdownMenuButtonAction == 'Ticket'){
+        }else if(dropdownMenuButtonAction.toLowerCase() == 'ticket'){
             oneItem = {
                 "type": dropdownMenuButtonAddNewItem,
                 "label": createLabel,
-                "action": dropdownMenuButtonAction,
+                "action": dropdownMenuButtonAction.toLowerCase(),
                 "trigger": createTrigger,
                 "ticket": {
                   "title": createTicket,
@@ -242,10 +242,10 @@ function addSublistTab(){
                 "action": "None"
               }
         }
-    }else if(dropdownMenuButtonAddNewItem == 'DropDown'){
+    }else if(dropdownMenuButtonAddNewItem.toLowerCase() == 'dropdown'){
         if(dropdownMenuButtonAction == 'LockOut'){
             oneItem = {
-                "type": dropdownMenuButtonAddNewItem,
+                "type": dropdownMenuButtonAddNewItem.toLowerCase(),
                 "label": createLabel,
                 "options": [
                     createList
@@ -258,14 +258,14 @@ function addSublistTab(){
                   "body": createTicket
                 }
               }
-        }else if(dropdownMenuButtonAction == 'Ticket'){
+        }else if(dropdownMenuButtonAction.toLowerCase() == 'ticket'){
             oneItem = {
                 "type": dropdownMenuButtonAddNewItem,
                 "label": createLabel,
                 "options": [
                     createList
                   ],
-                "action": dropdownMenuButtonAction,
+                "action": dropdownMenuButtonAction.toLowerCase(),
                 "trigger": createTrigger,
                 "ticket": {
                   "title": createTicket,
